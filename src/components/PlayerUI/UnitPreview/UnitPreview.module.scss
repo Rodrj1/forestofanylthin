@@ -1,0 +1,122 @@
+.unitPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 500px;
+  width: 500px;
+  color: rgb(133, 104, 104);
+  background: linear-gradient(to left, #1b1a1a, #252121);
+  border: 5px double #a01c99;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  img {
+    margin: 10px 0px;
+    height: 130px;
+    width: 120px;
+    object-fit: cover;
+  }
+
+  .face {
+    border: 3px double #a01c99;
+  }
+
+  button {
+    margin: 10px 0px;
+    border-radius: 0px;
+    color: #fff;
+    background: #a01c99;
+
+    &:hover {
+      border: 1px solid #fff;
+    }
+  }
+
+  .skillPrev{
+    font-size: 1.3rem;
+    text-align: center;
+    width: 90%;
+    font-weight: bold;
+  }
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  div {
+    display: flex;
+    justify-content: center;
+    width: 45%;
+  }
+
+  img {
+    height: 40px;
+    width: 40px;
+  }
+
+  p{
+    font-size: 1.27rem;
+  }
+}
+
+.skillContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0px 10px;
+  padding: 10px 0px;
+  border-top: 5px dotted #a01c99;
+  border-bottom: 5px dotted #a01c99;
+
+  .skill {
+    margin: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    height: 160px;
+    text-align: center;
+
+    p {
+      font-weight: bold;
+      font-size: 1.1rem;
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+
+    img {
+      height: 60px;
+      width: 60px;
+      margin: 0px 5px;
+      border-radius: 100px;
+      cursor: pointer;
+    }
+  }
+}
+
+.dialogue {
+  p {
+    height: 120px;
+    word-spacing: 1.4px;
+    line-height: 1.4;
+    font-size: 1.1rem;
+    width: 90%;
+    color: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgb(133, 104, 104);
+    border: 8px dotted rgb(158, 81, 81);
+  }
+}
+
+@media screen and (max-width: 822px) {
+  .unitPreview{
+    width: 90%;
+  }
+}

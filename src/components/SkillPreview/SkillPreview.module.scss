@@ -1,0 +1,58 @@
+.skillPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 500px;
+  width: 500px;
+  color: rgb(133, 104, 104);
+  background: linear-gradient(to left, #1b1a1a, #252121);
+  border: 5px double #a01c99;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  p {
+    white-space: pre-wrap;
+  }
+
+  img {
+    border-radius: 100px;
+    margin: 10px 0px;
+    height: 130px;
+    width: 120px;
+    object-fit: cover;
+  }
+
+  .darkMagic {
+    border: 7px double rgb(172, 1, 129);
+  }
+
+  .combat {
+    border: 7px double rgb(255, 0, 0);
+  }
+
+  button {
+    margin: 10px 0px;
+    border-radius: 0px;
+    color: #fff;
+    background: #a01c99;
+
+    &:hover {
+      border: 1px solid #fff;
+    }
+  }
+
+  .skillDesc {
+    font-size: 1.3rem;
+    text-align: center;
+    width: 90%;
+    font-weight: bold;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .skillPreview{
+    width: 90%;
+  }
+}

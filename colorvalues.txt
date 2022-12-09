@@ -1,0 +1,6 @@
+{\rtf1}
+
+Dark Magic: 6D0A95
+Dark Magic red: 7D0000
+Combat: FF0000
+

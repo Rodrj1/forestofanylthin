@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 400px;
+  width: 350px;
+  color: #dd1d1d;
+  border: 6px double #a01c99;
+  background: linear-gradient(to left, #1b1a1a, #252121);
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  h2 {
+    font-size: 1.65rem;
+  }
+  img {
+    border: 5px double #524551;
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+  }
+}

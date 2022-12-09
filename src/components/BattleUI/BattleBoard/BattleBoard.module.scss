@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 4px double #a01c99;
+  width: 500px;
+  margin: 10px auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px;
+  min-height: 100px;
+
+  img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  .player {
+    border: 3px solid #0d832b;
+  }
+
+  .enemy {
+    border: 3px solid #b31717;
+  }
+
+  .playing {
+    border: 3px solid #fff;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .container {
+    width: 90%;
+  }
+}

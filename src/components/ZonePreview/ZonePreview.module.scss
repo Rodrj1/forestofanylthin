@@ -1,0 +1,66 @@
+.level {
+  background: linear-gradient(to left, #1b1a1a, #252121);
+  border: 5px solid #a01c99;
+  min-height: 500px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  color: rgb(133, 104, 104);
+
+  h2,
+  button {
+    align-self: center;
+  }
+
+  button {
+    margin: 40px 0px;
+    border-radius: 0px;
+    color: #fff;
+    background: #a01c99;
+
+    &:hover {
+      border: 1px solid #fff;
+    }
+  }
+
+  .levelUnits {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0px 10px;
+    border-top: 5px dotted #a01c99;
+    border-bottom: 5px dotted #a01c99;
+
+    .unit {
+      width: 100px;
+      height: auto;
+      margin: 20px;
+      h3,
+      p {
+        margin: 0;
+        text-align: center;
+      }
+      img {
+        height: 100px;
+        width: 100px;
+        border: 3px double #a01c99;
+        object-fit: cover;
+        cursor: pointer;
+      }
+      p {
+        font-size: 1.2rem;
+        font-weight: bold;
+        background: rgb(147, 76, 161);
+        width: 40px;
+        margin: auto;
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 558px) {
+  .level {
+    width: 80%;
+  }
+}

@@ -1,0 +1,60 @@
+.unitCard {
+  height: 250px;
+  width: 180px;
+  margin: 5px 10px;
+  border: 2px double #000;
+  transition: 0.152s ease-in-out;
+  position: relative;
+  display: flex;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px double #646cff;
+  }
+
+  img {
+    height: 250px;
+    width: 180px;
+    object-fit: cover;
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 250px;
+    width: 180px;
+    background: hsla(43, 47%, 6%, 0.5);
+    text-align: center;
+
+    span {
+      font-size: 1.2rem;
+      margin: 5px 0px;
+      &:first-child {
+        font-size: 1.4rem;
+        color: rgb(154, 160, 104);
+      }
+    }
+  }
+
+  .unitBars {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.stack {
+  position: absolute;
+  border: 1px solid white;
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+  background-color: #a8338b;
+  text-align: center;
+}
+
+.isPlaying {
+  border: 2px solid red;
+}
