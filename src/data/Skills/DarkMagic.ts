@@ -1,14 +1,13 @@
 import dmcurse from "../../assets/images/skills/dmcurse.png";
 import dmweakness from "../../assets/images/skills/dmweakness.png";
 import dmshatterarmor from "../../assets/images/skills/dmshatterarmor.png";
-import dmreanimate from "../../assets/images/skills/dmreanimate.png";
 
 export const curse = {
   name: "Dark Magic: Curse",
   formattedName: "Curse",
   description:
     "Curses a unit which reduces all damage from that unit for one turn to 0." +
-    "\n\nCost: 2 spiritual power.",
+    "\n\nCost: 4 spiritual power.",
   image: dmcurse,
   type: "Dark Magic",
 };

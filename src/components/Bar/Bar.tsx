@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Bar = ({ value, maxValue, type }: Props) => {
-  const storeValue = Math.ceil(value);
+
   return (
     <div className={BarCSS.barContainer}>
       {maxValue > 0 ? (

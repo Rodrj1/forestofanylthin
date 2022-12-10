@@ -118,9 +118,9 @@ export const useBattleHandler = () => {
               })
             );
           }
-          restoreArmyAfterFightIsEnded();
           setAddedSkeletons(true);
         }
+        restoreArmyAfterFightIsEnded();
         setIsInCemetery(false);
       }
       if (isInGloomyForest) {

@@ -41,55 +41,102 @@ export const useBattle = () => {
     castVampiricLust,
   } = useSpells();
 
-  const selectUnit = async (selectedUnit: UnitStats, type?: string) => {
+  const selectUnit = async (selectedUnit: UnitStats) => {
     const playingUnit = unitsInBoard[unitPosition];
-    const findUnitInEnemyArmy = enemyArmy.find(
-      (unit) => unit.id == playingUnit.id
-    );
-    if (playingUnit.belongsTo == "player") playerAction(action, selectedUnit);
-    else {
-      playingUnit.soundAttack();
-      selectedUnit.soundHitted();
-
-      let attackMessage = "";
-      if (unitsInBoard[unitPosition].cursed) {
-        attackMessage = `${unitsInBoard[unitPosition].name}
-            attacks ${selectedUnit.name} but the CURSE nullifies all damage.`;
-      } else {
-        attackMessage = `${unitsInBoard[unitPosition].name}
-          attacks ${selectedUnit.name}`;
-      }
-
-      setPlayingUnit(unitsInBoard[unitPosition]);
-      setTargetUnit(selectedUnit);
-      setActionImage(attack);
-      setBattleMessageText(attackMessage);
-      setShowBattleMessage(true);
-
-      await waitTimer(1000);
-
-      if(findUnitInEnemyArmy) attackUnit(findUnitInEnemyArmy, selectedUnit).then(async (newSelectedUnit) => {
-        if (newSelectedUnit.updatedHealth < 0) {
-          newSelectedUnit.soundDeath();
-
-          setDeadUnit(newSelectedUnit);
-
-          setShowBattleMessage(false);
-
-          await waitTimer(1000);
-
-          setDeadUnit({} as UnitStats);
-
-          removeFromBattle(newSelectedUnit, playerArmy, setPlayerArmy).then(
-            (updatedBoard) => {
-              checkNextTurn(updatedBoard);
-            }
-          );
-        } else {
-          checkNextTurn();
-          setShowBattleMessage(false);
+    if (playingUnit.belongsTo == "player") {
+      getAction(action, selectedUnit, playerArmy);
+    } else {
+      let enemyAction = Math.floor(Math.random() * playingUnit.skills.length);
+      if (enemyAction == 0) enemyAction = 1;
+      if (playingUnit.skills[enemyAction].name == "Dark Magic: Curse") {
+        if (playingUnit.magic < 4) {
+          enemyAction = 1;
         }
-      });
+      }
+      if (playingUnit.skills[enemyAction].name == "Dark Magic: Weakness") {
+        if (playingUnit.magic < 2) {
+          enemyAction = 1;
+        }
+      }
+      getAction(playingUnit.skills[enemyAction].name, selectedUnit, enemyArmy);
+    }
+  };
+
+  const getAction = (
+    action: string,
+    selectedUnit: UnitStats,
+    playingUnitArmy: UnitStats[]
+  ) => {
+    switch (action) {
+      case "Combat: Attack":
+        handleAction(
+          "attack",
+          attack,
+          selectedUnit,
+          attackUnit,
+          playingUnitArmy
+        );
+        break;
+      case "Dark Magic: Weakness":
+        handleAction(
+          "weakness",
+          weakness,
+          selectedUnit,
+          castWeakness,
+          playingUnitArmy,
+          spellSounds.weakness
+        );
+        break;
+      case "Dark Magic: Shatter Armor":
+        handleAction(
+          "shatter armor",
+          shatterArmor,
+          selectedUnit,
+          castShatterArmor,
+          playingUnitArmy,
+          spellSounds.shatterArmor
+        );
+        break;
+      case "Dark Magic: Curse":
+        handleAction(
+          "curse",
+          curse,
+          selectedUnit,
+          castCurse,
+          playingUnitArmy,
+          spellSounds.curse
+        );
+        break;
+      case "Necromancy: Reanimate":
+        handleAction(
+          "reanimate",
+          reanimate,
+          selectedUnit,
+          castReanimate,
+          playingUnitArmy,
+          spellSounds.reanimate
+        );
+        break;
+      case "Necromancy: Vampiric Lust":
+        handleAction(
+          "reanimate",
+          vampiricLust,
+          selectedUnit,
+          castVampiricLust,
+          playingUnitArmy,
+          spellSounds.vampiricLust
+        );
+        break;
+      case "Destruction: Rain of Fire":
+        handleAction(
+          "rain of fire",
+          rainOfFire,
+          selectedUnit,
+          castRainOfFire,
+          playingUnitArmy,
+          spellSounds.rainOfFire
+        );
+        break;
     }
   };
 
@@ -101,11 +148,12 @@ export const useBattle = () => {
       attackingUnit: UnitStats,
       attackedUnit: UnitStats
     ) => Promise<UnitStats>,
+    playingUnitArmy: UnitStats[],
     actionSound?: () => void
   ) => {
     handleMessage(action, targetUnit).then(async (message) => {
       const playingUnit = unitsInBoard[unitPosition];
-      const findUnitInPlayerArmy = playerArmy.find(
+      const findUnitInArmy = playingUnitArmy.find(
         (unit) => unit.id == playingUnit.id
       );
 
@@ -122,134 +170,43 @@ export const useBattle = () => {
       setBattleMessageText(message);
       setShowBattleMessage(true);
 
-      await waitTimer(1000);
+      await waitTimer(1900);
 
-      if(findUnitInPlayerArmy) fn(findUnitInPlayerArmy, targetUnit).then(async (updatedTargetUnit) => {
-        if (updatedTargetUnit.updatedHealth < 0) {
-          updatedTargetUnit.soundDeath();
+      if (findUnitInArmy) {
+        fn(findUnitInArmy, targetUnit).then(async (updatedTargetUnit) => {
+          if (updatedTargetUnit.updatedHealth < 0) {
+            updatedTargetUnit.soundDeath();
 
-          setDeadUnit(updatedTargetUnit);
+            setDeadUnit(updatedTargetUnit);
 
-          setShowBattleMessage(false);
+            setShowBattleMessage(false);
 
-          await waitTimer(1000);
+            await waitTimer(1300);
 
-          setDeadUnit({} as UnitStats);
+            setDeadUnit({} as UnitStats);
 
-          removeFromBattle(updatedTargetUnit, enemyArmy, setEnemyArmy).then(
-            (updatedBoard) => {
-              checkNextTurn(updatedBoard);
+            if (findUnitInArmy.belongsTo == "player") {
+              removeFromBattle(updatedTargetUnit, enemyArmy, setEnemyArmy).then(
+                (updatedBoard) => {
+                  checkNextTurn(updatedBoard);
+                }
+              );
+            } else {
+              removeFromBattle(
+                updatedTargetUnit,
+                playerArmy,
+                setPlayerArmy
+              ).then((updatedBoard) => {
+                checkNextTurn(updatedBoard);
+              });
             }
-          );
-        } else {
-          checkNextTurn();
-          setShowBattleMessage(false);
-        }
-      });
+          } else {
+            checkNextTurn();
+            setShowBattleMessage(false);
+          }
+        });
+      }
     });
-  };
-
-  const removeFromBattle = async (
-    targetUnit: UnitStats,
-    targetArmy: UnitStats[],
-    setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
-  ) =>
-    new Promise<UnitStats[]>((resolve) => {
-      const removeUnitFromArmy = targetArmy.filter(
-        (units) => units.id != targetUnit.id
-      );
-      setTargetArmy(removeUnitFromArmy);
-
-      const removeUnitFromBoard = unitsInBoard.filter(
-        (units) => units.id != targetUnit.id
-      );
-      setUnitsInBoard(removeUnitFromBoard);
-      resolve(removeUnitFromBoard);
-    });
-
-  const checkNextTurn = (updatedBoard?: UnitStats[]) => {
-    setUnitPosition((pos) => pos + 1);
-    let nextTurn = "";
-    if (updatedBoard) {
-      setUnitPosition((pos) => pos - 1);
-      nextTurn =
-        updatedBoard[unitPosition]?.belongsTo == "player" ? "player" : "enemy";
-    } else {
-      nextTurn =
-        unitsInBoard[unitPosition + 1]?.belongsTo == "player"
-          ? "player"
-          : "enemy";
-    }
-    setTurn(nextTurn);
-    if (unitPosition == unitsInBoard.length - 1) {
-      setUnitPosition(0);
-      const initialTurn =
-        unitsInBoard[0]?.belongsTo == "player" ? "player" : "enemy";
-      setTurn(initialTurn);
-    }
-  };
-
-  const playerAction = (action: string, selectedUnit: UnitStats) => {
-    switch (action) {
-      case "Combat: Attack":
-        handleAction("attack", attack, selectedUnit, attackUnit);
-        break;
-      case "Dark Magic: Weakness":
-        handleAction(
-          "weakness",
-          weakness,
-          selectedUnit,
-          castWeakness,
-          spellSounds.weakness
-        );
-        break;
-      case "Dark Magic: Shatter Armor":
-        handleAction(
-          "shatter armor",
-          shatterArmor,
-          selectedUnit,
-          castShatterArmor,
-          spellSounds.shatterArmor
-        );
-        break;
-      case "Dark Magic: Curse":
-        handleAction(
-          "curse",
-          curse,
-          selectedUnit,
-          castCurse,
-          spellSounds.curse
-        );
-        break;
-      case "Necromancy: Reanimate":
-        handleAction(
-          "reanimate",
-          reanimate,
-          selectedUnit,
-          castReanimate,
-          spellSounds.reanimate
-        );
-        break;
-      case "Necromancy: Vampiric Lust":
-        handleAction(
-          "reanimate",
-          vampiricLust,
-          selectedUnit,
-          castVampiricLust,
-          spellSounds.vampiricLust
-        );
-        break;
-      case "Destruction: Rain of Fire":
-        handleAction(
-          "rain of fire",
-          rainOfFire,
-          selectedUnit,
-          castRainOfFire,
-          spellSounds.rainOfFire
-        );
-
-        break;
-    }
   };
 
   const handleMessage = (action: string, targetUnit: UnitStats) =>
@@ -291,6 +248,49 @@ export const useBattle = () => {
           break;
       }
     });
+
+  const removeFromBattle = async (
+    targetUnit: UnitStats,
+    targetArmy: UnitStats[],
+    setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
+  ) =>
+    new Promise<UnitStats[]>((resolve) => {
+      const removeUnitFromArmy = targetArmy.filter(
+        (units) => units.id != targetUnit.id
+      );
+      setTargetArmy(removeUnitFromArmy);
+
+      const removeUnitFromBoard = unitsInBoard.filter(
+        (units) => units.id != targetUnit.id
+      );
+      setUnitsInBoard(removeUnitFromBoard);
+      resolve(removeUnitFromBoard);
+    });
+
+  const checkNextTurn = (updatedBoard?: UnitStats[]) => {
+    setUnitPosition((pos) => pos + 1);
+    let nextTurn = "";
+    if (updatedBoard) {
+      setUnitPosition((pos) => pos - 1);
+      nextTurn =
+        updatedBoard[unitPosition]?.belongsTo == "player"
+          ? "player"
+          : `enemy${Math.floor(Math.random() * 5888891055)}`;
+    } else {
+      nextTurn =
+        unitsInBoard[unitPosition + 1]?.belongsTo == "player"
+          ? "player"
+          : `enemy${Math.floor(Math.random() * 5888891055)}`;
+    }
+    if (unitPosition == unitsInBoard.length - 1) {
+      setUnitPosition(0);
+      const initialTurn =
+        unitsInBoard[0]?.belongsTo == "player"
+          ? "player"
+          : `enemy${Math.floor(Math.random() * 5888891055)}`;
+      setTurn(initialTurn);
+    } else setTurn(nextTurn);
+  };
 
   return {
     selectUnit,

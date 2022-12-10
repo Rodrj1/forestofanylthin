@@ -1,33 +1,32 @@
 .container {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  border: 4px double #a01c99;
-  width: 500px;
-  margin: 10px auto;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: 3px double #a01c99;
+  width: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   min-height: 100px;
 
   img {
-    height: 100px;
-    width: 100px;
+    height: 45px;
+    width: 45px;
     object-fit: cover;
-    margin: 5px;
+    margin: 2px;
     cursor: pointer;
   }
 
   .player {
-    border: 3px solid #0d832b;
+    border: 2px solid #0d832b;
   }
 
   .enemy {
-    border: 3px solid #b31717;
+    border: 2px solid #b31717;
   }
 
   .playing {
-    border: 3px solid #fff;
+    border: 2px solid #fff;
   }
 }
 

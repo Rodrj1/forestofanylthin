@@ -5,8 +5,6 @@ import { UnitStats } from "../../types";
 
 export const useSpells = () => {
   const {
-    isInFight,
-    playerArmy,
     setEnemyArmy,
     setPlayerArmy,
     setAction,
@@ -112,6 +110,7 @@ export const useSpells = () => {
         ...targetUnit,
         armor: targetUnit.armor - targetUnit.armor * power,
       };
+
       updateUnitsInvolvedInSpell(castingUnit, updateVulneredUnit, 3);
 
       await waitTimer(100);
@@ -303,13 +302,12 @@ export const useSpells = () => {
     magicCost?: number
   ) =>
     new Promise<UnitStats>(async (resolve) => {
-      if (castingUnit.belongsTo == "enemy") {
-        if (magicCost) updateUnitInArmy(castingUnit, setEnemyArmy, magicCost);
-        updateUnitInArmy(updatedTargetUnit, setPlayerArmy, 0);
-      }
       if (castingUnit.belongsTo == "player") {
         if (magicCost) updateUnitInArmy(castingUnit, setPlayerArmy, magicCost);
         updateUnitInArmy(updatedTargetUnit, setEnemyArmy, 0);
+      } else {
+        if (magicCost) updateUnitInArmy(castingUnit, setEnemyArmy, magicCost);
+        updateUnitInArmy(updatedTargetUnit, setPlayerArmy, 0);
       }
       resolve(updatedTargetUnit);
     });

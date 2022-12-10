@@ -1,12 +1,12 @@
 .barContainer {
-  width: 180px;
-  height: 18px;
+  width: 150px;
+  height: 17px;
   background:#fff;
   text-align: center;
   border: 1px solid #373937;
   position: relative;
   z-index: 50;
-  margin: auto;
+  margin: 2px auto;
 
   span {
     color: #000;
@@ -16,7 +16,7 @@
 }
 
 .barStyle {
-  height: 18px;
+  height: 17px;
   background-color: rgb(255, 0, 0);
   text-align: center;
   position: absolute;

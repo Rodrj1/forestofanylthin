@@ -4,10 +4,10 @@ import { useBattle } from "../../features/BattleBoard/useBattle";
 import BattleBoard from "./BattleBoard/BattleBoard";
 import PlayerStack from "./PlayerStack/PlayerStack";
 import UnitStack from "./EnemyStack/UnitStack";
-import BattleCSS from "./BattleUI.module.scss";
 import BattleMessage from "./BattleMessage/BattleMessage";
 import DarkBackgroundWrapper from "../DarkWrapper/DarkWrapper";
 import DeadUnit from "./DeadUnit/DeadUnit";
+import BattleCSS from "./BattleUI.module.scss";
 
 const BattleUI = () => {
   const {
@@ -20,8 +20,7 @@ const BattleUI = () => {
     showBattleMessage,
     turn,
     deadUnit,
-    setPlayerArmy,
-    setEnemyArmy,
+    setTurn,
   } = useContext(BattleContext);
 
   const { selectUnit } = useBattle();
@@ -40,11 +39,9 @@ const BattleUI = () => {
 
   useEffect(() => {
     const playingUnit = unitsInBoard[unitPosition];
-    if (
-      playingUnit?.belongsTo == "enemy" &&
-      turn == "enemy" &&
-      deadUnit.name == undefined
-    ) {
+    const getUnitOwnership = playingUnit?.belongsTo.split(" ");
+    const isEnemy = getUnitOwnership?.includes("enemy");
+    if (isEnemy && deadUnit.name == undefined) {
       let unitToSelect = Math.floor(Math.random() * playerArmy.length);
       const findUnitInArmy = playerArmy.find(
         (u) => u.id == playerArmy[unitToSelect].id
@@ -53,7 +50,7 @@ const BattleUI = () => {
         selectUnit(findUnitInArmy);
       }
     }
-  }, [unitPosition, enemyArmy, playerArmy]);
+  }, [turn]);
 
   return (
     <>

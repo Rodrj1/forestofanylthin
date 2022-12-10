@@ -53,7 +53,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
         action == "Necromancy: Vampiric Lust"
       )
         if (unitsInBoard[unitPosition].magic >= 6) {
-          selectUnit(unit, "isSelf");
+          selectUnit(unit);
         }
     }
     if (
