@@ -35,6 +35,7 @@
         color: rgb(154, 160, 104);
       }
     }
+
   }
 
   .unitBars {
@@ -57,4 +58,10 @@
 
 .isPlaying {
   border: 2px solid red;
+}
+
+.cursed {
+  color: red;
+  text-align: center;
+  font-size: 0.7rem;
 }

@@ -7,6 +7,7 @@ interface Props {
 }
 
 const Bar = ({ value, maxValue, type }: Props) => {
+  const storeValue = Math.ceil(value);
   return (
     <div className={BarCSS.barContainer}>
       {maxValue > 0 ? (
@@ -22,7 +23,7 @@ const Bar = ({ value, maxValue, type }: Props) => {
             }}
           ></div>
           <span>
-            {(Math.round(value))} / {maxValue}
+            {value.toFixed(1)} / {maxValue.toFixed(1)}
           </span>
         </>
       ) : (

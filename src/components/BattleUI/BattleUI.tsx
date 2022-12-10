@@ -20,6 +20,8 @@ const BattleUI = () => {
     showBattleMessage,
     turn,
     deadUnit,
+    setPlayerArmy,
+    setEnemyArmy,
   } = useContext(BattleContext);
 
   const { selectUnit } = useBattle();

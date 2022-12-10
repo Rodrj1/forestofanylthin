@@ -69,7 +69,7 @@ export const elisith = {
   name: "Elisith",
   id: "Elisith",
   type: "Hero",
-  damage: 35,
+  damage: 56,
   armor: 5,
   health: 145,
   maxHealth: 145,

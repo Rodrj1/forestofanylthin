@@ -73,7 +73,7 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
         <DarkBackgroundWrapper>
           <div className={PlayerUICSS.dialogue}>
             <img src={dryexarangerFace} />
-            <h3>You gained ten dryexa rangers.</h3>
+            <h3>You gained 14 dryexa rangers.</h3>
             <button onClick={() => setAddedDryexaRanger(false)}>CLOSE</button>
           </div>
         </DarkBackgroundWrapper>
@@ -83,7 +83,7 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
         <DarkBackgroundWrapper>
           <div className={PlayerUICSS.dialogue}>
             <img src={skeletonFace} />
-            <h3>You gained twenty skeletons.</h3>
+            <h3>You gained 40 skeletons.</h3>
             <button onClick={() => setAddedSkeletons(false)}>CLOSE</button>
           </div>
         </DarkBackgroundWrapper>

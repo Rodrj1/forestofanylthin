@@ -85,7 +85,6 @@ export const useBattleHandler = () => {
       setUnitsInBoard([]);
       setUnitPosition(0);
       if (isInCemetery) {
-        restoreArmyAfterFightIsEnded();
         setLevelsCompleted((current) => current + 1);
         if (playerRace == "undead") {
           const areSkeletonsInArmy = playerArmy.find(
@@ -119,12 +118,12 @@ export const useBattleHandler = () => {
               })
             );
           }
+          restoreArmyAfterFightIsEnded();
           setAddedSkeletons(true);
         }
         setIsInCemetery(false);
       }
       if (isInGloomyForest) {
-        restoreArmyAfterFightIsEnded();
         setLevelsCompleted((current) => current + 1);
         setPlayerArmy(
           playerArmy.concat({
@@ -137,6 +136,7 @@ export const useBattleHandler = () => {
             belongsTo: "player",
           })
         );
+        restoreArmyAfterFightIsEnded();
         setAddedDryexaRanger(true);
         setIsInGloomyForest(false);
       }

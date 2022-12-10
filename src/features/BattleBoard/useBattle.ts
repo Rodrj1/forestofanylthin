@@ -43,23 +43,32 @@ export const useBattle = () => {
 
   const selectUnit = async (selectedUnit: UnitStats, type?: string) => {
     const playingUnit = unitsInBoard[unitPosition];
+    const findUnitInEnemyArmy = enemyArmy.find(
+      (unit) => unit.id == playingUnit.id
+    );
     if (playingUnit.belongsTo == "player") playerAction(action, selectedUnit);
     else {
       playingUnit.soundAttack();
       selectedUnit.soundHitted();
 
-      const message = `${unitsInBoard[unitPosition].name}
-      attacks ${selectedUnit.name}`;
+      let attackMessage = "";
+      if (unitsInBoard[unitPosition].cursed) {
+        attackMessage = `${unitsInBoard[unitPosition].name}
+            attacks ${selectedUnit.name} but the CURSE nullifies all damage.`;
+      } else {
+        attackMessage = `${unitsInBoard[unitPosition].name}
+          attacks ${selectedUnit.name}`;
+      }
 
       setPlayingUnit(unitsInBoard[unitPosition]);
       setTargetUnit(selectedUnit);
       setActionImage(attack);
-      setBattleMessageText(message);
+      setBattleMessageText(attackMessage);
       setShowBattleMessage(true);
 
       await waitTimer(1000);
 
-      attackUnit(playingUnit, selectedUnit).then(async (newSelectedUnit) => {
+      if(findUnitInEnemyArmy) attackUnit(findUnitInEnemyArmy, selectedUnit).then(async (newSelectedUnit) => {
         if (newSelectedUnit.updatedHealth < 0) {
           newSelectedUnit.soundDeath();
 
@@ -73,17 +82,12 @@ export const useBattle = () => {
 
           removeFromBattle(newSelectedUnit, playerArmy, setPlayerArmy).then(
             (updatedBoard) => {
-              setUnitPosition(pos => pos -  1);
-              checkNextTurnPlayer(updatedBoard).then(() => {
-                checkPositionInBoard();
-              });
+              checkNextTurn(updatedBoard);
             }
           );
         } else {
-          checkNextTurnPlayer().then(() => {
-            setShowBattleMessage(false);
-            checkPositionInBoard();
-          });
+          checkNextTurn();
+          setShowBattleMessage(false);
         }
       });
     }
@@ -101,6 +105,9 @@ export const useBattle = () => {
   ) => {
     handleMessage(action, targetUnit).then(async (message) => {
       const playingUnit = unitsInBoard[unitPosition];
+      const findUnitInPlayerArmy = playerArmy.find(
+        (unit) => unit.id == playingUnit.id
+      );
 
       if (action == "attack") {
         playingUnit.soundAttack();
@@ -117,7 +124,7 @@ export const useBattle = () => {
 
       await waitTimer(1000);
 
-      fn(playingUnit, targetUnit).then(async (updatedTargetUnit) => {
+      if(findUnitInPlayerArmy) fn(findUnitInPlayerArmy, targetUnit).then(async (updatedTargetUnit) => {
         if (updatedTargetUnit.updatedHealth < 0) {
           updatedTargetUnit.soundDeath();
 
@@ -131,17 +138,12 @@ export const useBattle = () => {
 
           removeFromBattle(updatedTargetUnit, enemyArmy, setEnemyArmy).then(
             (updatedBoard) => {
-              setUnitPosition(pos => pos -  1);
-              checkNextTurnPlayer(updatedBoard).then(() => {
-                checkPositionInBoard();
-              });
+              checkNextTurn(updatedBoard);
             }
           );
         } else {
-          checkNextTurnPlayer().then(() => {
-            setShowBattleMessage(false);
-            checkPositionInBoard();
-          });
+          checkNextTurn();
+          setShowBattleMessage(false);
         }
       });
     });
@@ -165,31 +167,25 @@ export const useBattle = () => {
       resolve(removeUnitFromBoard);
     });
 
-  const checkNextTurnPlayer = (updatedBoard?: UnitStats[]) =>
-    new Promise<void>((resolve) => {
-      let nextTurn = "";
-      if (updatedBoard) {
-        nextTurn =
-          updatedBoard[unitPosition]?.belongsTo == "player"
-            ? "player"
-            : "enemy";
-      } else {
-        nextTurn =
-          unitsInBoard[unitPosition + 1]?.belongsTo == "player"
-            ? "player"
-            : "enemy";
-      }
-      resolve(setTurn(nextTurn));
-    });
-
-  const checkPositionInBoard = () => {
+  const checkNextTurn = (updatedBoard?: UnitStats[]) => {
+    setUnitPosition((pos) => pos + 1);
+    let nextTurn = "";
+    if (updatedBoard) {
+      setUnitPosition((pos) => pos - 1);
+      nextTurn =
+        updatedBoard[unitPosition]?.belongsTo == "player" ? "player" : "enemy";
+    } else {
+      nextTurn =
+        unitsInBoard[unitPosition + 1]?.belongsTo == "player"
+          ? "player"
+          : "enemy";
+    }
+    setTurn(nextTurn);
     if (unitPosition == unitsInBoard.length - 1) {
       setUnitPosition(0);
       const initialTurn =
         unitsInBoard[0]?.belongsTo == "player" ? "player" : "enemy";
       setTurn(initialTurn);
-    } else {
-      setUnitPosition((pos) => pos + 1);
     }
   };
 
@@ -260,8 +256,15 @@ export const useBattle = () => {
     new Promise<string>((resolve) => {
       switch (action) {
         case "attack":
-          resolve(`${unitsInBoard[unitPosition].name}
-          attacks ${targetUnit.name}`);
+          let attackMessage = "";
+          if (unitsInBoard[unitPosition].cursed) {
+            attackMessage = `${unitsInBoard[unitPosition].name}
+            attacks ${targetUnit.name} but the CURSE nullifies all damage.`;
+          } else {
+            attackMessage = `${unitsInBoard[unitPosition].name}
+          attacks ${targetUnit.name}`;
+          }
+          resolve(attackMessage);
           break;
         case "weakness":
           resolve(`${unitsInBoard[unitPosition].name}

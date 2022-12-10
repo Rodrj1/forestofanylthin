@@ -75,7 +75,10 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
         {isVisible && (
           <div className="stats">
             <span>{unit.name}</span>
-            <span>Health: {(Math.round(Math.ceil(unit.updatedHealth) * 10) / 10).toFixed(1)}</span>
+            <span>
+              Health:{" "}
+              {(Math.round(Math.ceil(unit.updatedHealth) * 10) / 10).toFixed(1)}
+            </span>
             <span>Magic: {unit.magic}</span>
             <span>Damage: {Math.ceil(unit.updatedDamage)}</span>
             <span>Armor: {unit.armor}</span>
@@ -94,6 +97,9 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           type="health"
         />
         <Bar value={unit.magic} maxValue={unit.maxMagic} type="mana" />
+        <div className="cursed">
+          {unit.cursed && "CURSED"} {unit.vampiricHeal && "VAMPIRIC"}
+        </div>
       </div>
     </div>
   );
