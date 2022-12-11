@@ -43,7 +43,7 @@ With an ability or attack selected you can now choose between the enemy stack, o
 
 ![Sin título](https://user-images.githubusercontent.com/97490087/206882041-b444d297-9083-4efc-9836-6b0680c71f5e.png)
 
-The ability "Clear Action" is available to all units. This is to clear the selected action allowing you to preview the cards of the enemy stack which can contain useful information of the stack such as total damage.
+The ability "Clear Action" is available to all units. This is to clear the selected action allowing you to preview the cards of the enemy stack which can contain useful information of the stack such as total damage. You CAN'T do this if you have any other action active, you will launch that action instead.
 
 ![Sin título](https://user-images.githubusercontent.com/97490087/206882113-e6e6d3ed-e102-4460-80e2-f3224700eb90.png)
 
