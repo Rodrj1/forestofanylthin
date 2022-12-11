@@ -55,24 +55,26 @@ export const useBattleHandler = () => {
     setUnitPosition(0);
   };
 
-  const restoreArmyAfterFightIsEnded = () => {
-    const updateArmy = playerArmy.map((unit) => {
-      return {
-        ...unit,
-        stack: Math.ceil(unit.stack),
-        maxStack: Math.ceil(unit.stack),
-        updatedHealth: unit.health * Math.ceil(unit.stack),
-        maxHealth: unit.health * Math.ceil(unit.stack),
-        updatedDamage: unit.damage * Math.ceil(unit.stack),
-        magic: unit.maxMagic,
-        maxMagic: unit.maxMagic,
-        cursed: false,
-        vampiricHeal: false,
-        weaknessDamage: 1,
-      };
+  const restoreArmyAfterFightIsEnded = () =>
+    new Promise<UnitStats[]>((resolve) => {
+      const updateArmy = playerArmy.map((unit) => {
+        return {
+          ...unit,
+          stack: Math.ceil(unit.stack),
+          maxStack: Math.ceil(unit.stack),
+          updatedHealth: unit.health * Math.ceil(unit.stack),
+          maxHealth: unit.health * Math.ceil(unit.stack),
+          updatedDamage: unit.damage * Math.ceil(unit.stack),
+          magic: unit.maxMagic,
+          maxMagic: unit.maxMagic,
+          cursed: false,
+          vampiricHeal: false,
+          weaknessDamage: 1,
+        };
+      });
+      setPlayerArmy(updateArmy);
+      resolve(updateArmy);
     });
-    setPlayerArmy(updateArmy);
-  };
 
   useEffect(() => {
     if (playerArmy.length == 0) {
@@ -125,18 +127,19 @@ export const useBattleHandler = () => {
       }
       if (isInGloomyForest) {
         setLevelsCompleted((current) => current + 1);
-        setPlayerArmy(
-          playerArmy.concat({
-            ...dryexaRanger,
-            stack: 14,
-            maxStack: 14,
-            maxHealth: dryexaRanger.health * (dryexaRanger.stack + 14),
-            updatedDamage: dryexaRanger.damage * 14,
-            updatedHealth: dryexaRanger.health * 14,
-            belongsTo: "player",
-          })
-        );
-        restoreArmyAfterFightIsEnded();
+        restoreArmyAfterFightIsEnded().then((healedArmy) => {
+          setPlayerArmy(
+            healedArmy.concat({
+              ...dryexaRanger,
+              stack: 14,
+              maxStack: 14,
+              maxHealth: dryexaRanger.health * (dryexaRanger.stack + 14),
+              updatedDamage: dryexaRanger.damage * 14,
+              updatedHealth: dryexaRanger.health * 14,
+              belongsTo: "player",
+            })
+          );
+        });
         setAddedDryexaRanger(true);
         setIsInGloomyForest(false);
       }
