@@ -5,24 +5,27 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  border: 6px double #a01c99;
-  background: linear-gradient(to left, #1b1a1a, #252121);
+  border: 6px double #343b58;
+  background: #1a1b26;
   padding: 10px;
 
   img {
     height: 180px;
     width: 180px;
     object-fit: cover;
-    border: 5px double #524551;
+    border: 2px solid #343b58;
   }
 
   .text {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    text-align: center;
     align-items: center;
     margin: 0px 25px;
-    color: #646cff;
+    color: #bb9af7;
     font-weight: bold;
+    font-size: 0.9rem;
     span {
       min-height: 30px;
     }

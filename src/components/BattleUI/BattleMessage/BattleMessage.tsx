@@ -13,7 +13,6 @@ const BattleMessage = () => {
 
   return (
     <>
-      <br />
         <div className={BattleMessageCSS.message}>
           <div className={BattleMessageCSS.playingUnit}>
             <img src={playingUnit?.face} />
@@ -26,7 +25,6 @@ const BattleMessage = () => {
             <img src={targetUnit?.face} />
           </div>
         </div>
-      <br />
     </>
   );
 };

@@ -1,6 +1,6 @@
 .level {
-  background: linear-gradient(to left, #1b1a1a, #252121);
-  border: 5px solid #a01c99;
+  background: #1a1b26;
+  border: 2px solid #343b58;
   min-height: 500px;
   width: 500px;
   display: flex;
@@ -15,12 +15,6 @@
   button {
     margin: 40px 0px;
     border-radius: 0px;
-    color: #fff;
-    background: #a01c99;
-
-    &:hover {
-      border: 1px solid #fff;
-    }
   }
 
   .levelUnits {
@@ -28,8 +22,8 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 0px 10px;
-    border-top: 5px dotted #a01c99;
-    border-bottom: 5px dotted #a01c99;
+    border-top: 5px dotted #343b58;
+    border-bottom: 5px dotted #343b58;
 
     .unit {
       width: 100px;
@@ -43,7 +37,7 @@
       img {
         height: 100px;
         width: 100px;
-        border: 3px double #a01c99;
+        border: 2px solid #343b58;
         object-fit: cover;
         cursor: pointer;
       }

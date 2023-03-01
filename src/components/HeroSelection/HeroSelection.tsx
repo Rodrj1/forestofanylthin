@@ -1,12 +1,12 @@
-import { playerUndead } from "../../data/playerInitialStack/undeadStart";
-import { playerDryeldar } from "../../data/playerInitialStack/dryeldarStart";
-import { Unit } from "../Unit/Unit";
-import { useContext } from "react";
-import { BattleContext } from "../../context/BattleContext";
-import { UnitStats } from "../../types";
-import { useUnitPreview } from "../../features/UnitPreview/useUnitPreview";
-import { DarkBackgroundWrapper } from "../DarkBackgroundWrapper";
-import { UnitPreview } from "../PlayerUI/UnitPreview";
+import { playerUndead } from '../../data/playerInitialStack/undeadStart';
+import { playerDryeldar } from '../../data/playerInitialStack/dryeldarStart';
+import { Unit } from '../Unit/Unit';
+import { useContext } from 'react';
+import { BattleContext } from '../../context/BattleContext';
+import { UnitStats } from '../../types';
+import { useUnitPreview } from '../../features/UnitPreview/useUnitPreview';
+import { DarkBackgroundWrapper } from '../DarkBackgroundWrapper';
+import { UnitPreview } from '../PlayerUI/UnitPreview';
 
 interface Props {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,18 +26,7 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
   return (
     <>
       <h1>Hero Selection</h1>
-      <div className="heroStack">
-        {playerUndead?.map((undead) => (
-          <div key={undead.id} onClick={() => handleUnitPreview(undead)}>
-            <Unit isInHeroSelection={true} unit={undead} />
-          </div>
-        ))}
-      </div>
-      <br />
-      <button onClick={() => setPlayerInitialArmy(playerUndead, "undead")}>
-        Start as undead
-      </button>
-      <br /> <br />
+
       <div className="heroStack">
         {playerDryeldar?.map((dryeldar) => (
           <div key={dryeldar.id} onClick={() => handleUnitPreview(dryeldar)}>
@@ -45,10 +34,29 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
           </div>
         ))}
       </div>
+
       <br />
-      <button onClick={() => setPlayerInitialArmy(playerDryeldar, "dryeldar")}>
+
+      <button onClick={() => setPlayerInitialArmy(playerDryeldar, 'dryeldar')}>
         Start as dryeldar
       </button>
+
+      <br />
+
+      <div className="heroStack">
+        {playerUndead?.map((undead) => (
+          <div key={undead.id} onClick={() => handleUnitPreview(undead)}>
+            <Unit isInHeroSelection={true} unit={undead} />
+          </div>
+        ))}
+      </div>
+
+      <br />
+
+      <button onClick={() => setPlayerInitialArmy(playerUndead, 'undead')}>
+        Start as undead
+      </button>
+
       {previewUnit != undefined && (
         <DarkBackgroundWrapper>
           <UnitPreview

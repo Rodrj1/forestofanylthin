@@ -48,7 +48,7 @@ const Map = ({
           </div>
         )}
 
-        {!isGloomyForestCompleted && (
+        {!isLostGladeCompleted && (
           <div className="level">
             <div
               className="levelBtn"
@@ -65,7 +65,7 @@ const Map = ({
           </div>
         )}
 
-        {!isLostGladeCompleted && (
+        {!isGloomyForestCompleted && (
           <div className="level">
             <div
               className="levelBtn"

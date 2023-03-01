@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { BattleContext } from "../../../context/BattleContext";
-import { dryexaRanger } from "../../../data/unitstats/dryexa/dryexa";
-import { skeleton } from "../../../data/unitstats/undead/undead";
-import { UnitStats } from "../../../types";
+import { useContext, useEffect, useState } from 'react';
+import { BattleContext } from '../../../context/BattleContext';
+import { dryexaRanger } from '../../../data/unitstats/dryexa/dryexa';
+import { skeleton } from '../../../data/unitstats/undead/undead';
+import { UnitStats } from '../../../types';
 
 export const useBattleHandler = () => {
   const {
@@ -33,19 +33,19 @@ export const useBattleHandler = () => {
 
   const handleInFight = async (enemiesToAdd: UnitStats[], level?: string) => {
     switch (level) {
-      case "cemetery":
+      case 'cemetery':
         setIsInCemetery(true);
         setIsCemeteryCompleted(true);
         break;
-      case "gloomyForest":
+      case 'gloomyForest':
         setIsInGloomyForest(true);
         setIsGloomyForestCompleted(true);
         break;
-      case "lostGlade":
+      case 'lostGlade':
         setIsInLostGlade(true);
         setIsLostGladeCompleted(true);
         break;
-      case "sacre":
+      case 'sacre':
         setIsInSacre(true);
         setIsSacreCompleted(true);
         break;
@@ -88,41 +88,42 @@ export const useBattleHandler = () => {
       setUnitPosition(0);
       if (isInCemetery) {
         setLevelsCompleted((current) => current + 1);
-        if (playerRace == "undead") {
-          const areSkeletonsInArmy = playerArmy.find(
-            (unit) => unit.id == "Skeleton"
-          );
-          if (areSkeletonsInArmy) {
-            const addToArmy = playerArmy.map((unit) => {
-              if (unit.id == "Skeleton") {
-                return {
-                  ...unit,
-                  stack: unit.stack + 50,
-                  updatedHealth: unit.updatedHealth + unit.health * 50,
-                  updatedDamage: unit.updatedDamage + unit.damage * 50,
-                  maxStack: unit.maxStack + 50,
-                  maxHealth: unit.health * (unit.stack + 50),
-                };
-              }
-              return unit;
-            });
-            setPlayerArmy(addToArmy);
-          } else {
-            setPlayerArmy(
-              playerArmy.concat({
-                ...skeleton,
-                stack: 50,
-                maxStack: 50,
-                maxHealth: skeleton.health * (skeleton.stack + 50),
-                updatedDamage: skeleton.damage * 50,
-                updatedHealth: skeleton.health * 50,
-                belongsTo: "player",
-              })
+        if (playerRace == 'undead') {
+          restoreArmyAfterFightIsEnded().then((healedArmy) => {
+            const areSkeletonsInArmy = healedArmy.find(
+              (unit) => unit.id == 'Skeleton'
             );
-          }
-          setAddedSkeletons(true);
+            if (areSkeletonsInArmy) {
+              const addToArmy = healedArmy.map((unit) => {
+                if (unit.id == 'Skeleton') {
+                  return {
+                    ...unit,
+                    stack: unit.stack + 50,
+                    updatedHealth: unit.updatedHealth + unit.health * 50,
+                    updatedDamage: unit.updatedDamage + unit.damage * 50,
+                    maxStack: unit.maxStack + 50,
+                    maxHealth: unit.health * (unit.stack + 50),
+                  };
+                }
+                return unit;
+              });
+              setPlayerArmy(addToArmy);
+            } else {
+              setPlayerArmy(
+                healedArmy.concat({
+                  ...skeleton,
+                  stack: 50,
+                  maxStack: 50,
+                  maxHealth: skeleton.health * (skeleton.stack + 50),
+                  updatedDamage: skeleton.damage * 50,
+                  updatedHealth: skeleton.health * 50,
+                  belongsTo: 'player',
+                })
+              );
+            }
+            setAddedSkeletons(true);
+          });
         }
-        restoreArmyAfterFightIsEnded();
         setIsInCemetery(false);
       }
       if (isInGloomyForest) {
@@ -136,7 +137,7 @@ export const useBattleHandler = () => {
               maxHealth: dryexaRanger.health * (dryexaRanger.stack + 14),
               updatedDamage: dryexaRanger.damage * 14,
               updatedHealth: dryexaRanger.health * 14,
-              belongsTo: "player",
+              belongsTo: 'player',
             })
           );
         });

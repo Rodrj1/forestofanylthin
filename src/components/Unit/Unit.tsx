@@ -105,7 +105,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
         />
 
         <div className="affected">
-          <span>{unit.cursed && 'CURSED: Will miss next turn'}</span>
+          <span>{unit.cursed && 'CURSED: Will miss next attack'}</span>
           <span className="benefical">
             {unit.vampiricHeal && 'VAMPIRIC: This unit heals with every hit'}
           </span>
