@@ -17,7 +17,7 @@ const EnemyStack = ({ enemyKey, setEnemyKey, BattleCSS }: Props) => {
     setKey: setEnemyKey,
   });
 
-  return <div className={BattleCSS.tempered}>{showArmy}</div>;
+  return <div className={BattleCSS.army}>{showArmy}</div>;
 };
 
 export default EnemyStack;

@@ -28,7 +28,7 @@ const UnitPreview = ({ previewUnit, handleExitUnitPreview }: Props) => {
 
       <h2>
         {previewUnit.name}
-        {previewUnit.type != "Hero" && `- Level ${previewUnit.level}`}
+        {previewUnit.type != "Hero" && ` - Level ${previewUnit.level}`}
       </h2>
 
       <div className={UnitPreviewCSS.stats}>

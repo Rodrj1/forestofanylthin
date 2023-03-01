@@ -3,30 +3,31 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  border: 3px double #a01c99;
+  border: 2px solid #414868;
+  border-radius: 5px;
   width: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  min-height: 100px;
+  min-height: 70px;
 
   img {
-    height: 45px;
-    width: 45px;
+    height: 70px;
+    width: 70px;
     object-fit: cover;
     margin: 2px;
     cursor: pointer;
   }
 
   .player {
-    border: 2px solid #0d832b;
+    border: 2px solid #e0af68;
   }
 
   .enemy {
-    border: 2px solid #b31717;
+    border: 2px solid #8b1d33;
   }
 
   .playing {
-    border: 2px solid #fff;
+    border: 4px solid #d5d6db;
   }
 }
 

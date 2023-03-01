@@ -103,16 +103,16 @@ export const useSpells = () => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
-        power = 0.7 - 0.07 * castingUnit.spellpower;
+        power = 1 + 1 * castingUnit.spellpower;
       } else if (castingUnit.type != 'Hero' && castingUnit.level) {
-        power = 0.8 - 0.05 * castingUnit.stack - castingUnit.level * 0.05;
+        power = 1 + 0.7 * castingUnit.stack + castingUnit.level / 2;
       }
 
       setAction('');
 
       const updateVulneredUnit = {
         ...targetUnit,
-        armor: targetUnit.armor - targetUnit.armor * power,
+        armor: targetUnit.armor - power,
       };
 
       updateUnitsInvolvedInSpell(castingUnit, updateVulneredUnit, 3);
@@ -206,7 +206,7 @@ export const useSpells = () => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
-        power = 60 + 5 * castingUnit.spellpower;
+        power = 30 + 5 * castingUnit.spellpower;
       } else if (castingUnit.type != 'Hero' && castingUnit.level) {
         power = 10 + 3 * castingUnit.stack + castingUnit.level * 3;
       }
@@ -259,9 +259,7 @@ export const useSpells = () => {
 
     setUnitPosition((pos) => {
       if (unitsInBoard[unitPosition + unitsKilled + 1] == undefined) {
-        console.log(unitsInBoard[0]);
         if (unitsInBoard[0].belongsTo == 'player') setTurn('player');
-        console.log(turn);
         return 0;
       }
       if (unitsKilled > 1) return pos - 1;

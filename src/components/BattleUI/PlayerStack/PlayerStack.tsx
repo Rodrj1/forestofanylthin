@@ -45,7 +45,7 @@ const PlayerStack = ({ playerKey, setPlayerKey, BattleCSS }: Props) => {
 
   return (
     <>
-      <div className={BattleCSS.tempered}>{showArmy}</div>
+      <div className={BattleCSS.army}>{showArmy}</div>
 
       <div className={BattleCSS.playerSkills}>
         {actionImage != '' && (

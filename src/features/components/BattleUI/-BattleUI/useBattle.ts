@@ -17,6 +17,7 @@ export const useBattle = () => {
   const {
     setTurn,
     action,
+    setAction,
     unitsInBoard,
     unitPosition,
     setUnitPosition,
@@ -207,6 +208,7 @@ export const useBattle = () => {
         }
       });
     });
+    setAction('');
   };
 
   const handleMessage = (action: string, targetUnit: UnitStats) =>
@@ -221,27 +223,20 @@ export const useBattle = () => {
             attackMessage = `${unitsInBoard[unitPosition].name}
           attacks ${targetUnit.name}`;
           }
-          console.log(attackMessage);
           resolve(attackMessage);
           break;
         case 'weakness':
           resolve(`${unitsInBoard[unitPosition].name}
           casts Weakness on ${targetUnit.name}`);
-          console.log(`${unitsInBoard[unitPosition].name}
-          casts Weakness on ${targetUnit.name}`);
           break;
         case 'shatter armor':
           resolve(`${unitsInBoard[unitPosition].name}
-          casts Shatter Armor on ${targetUnit.name}`);
-          console.log(`${unitsInBoard[unitPosition].name}
           casts Shatter Armor on ${targetUnit.name}`);
           break;
 
         case 'curse':
           resolve(`${unitsInBoard[unitPosition].name}
           casts Curse on ${targetUnit.name}`);
-          console.log(`${unitsInBoard[unitPosition].name}
-              casts Curse on ${targetUnit.name}`);
           break;
 
         case 'reanimate':

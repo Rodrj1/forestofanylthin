@@ -5,8 +5,8 @@
   min-height: 500px;
   width: 500px;
   color: rgb(133, 104, 104);
-  background: linear-gradient(to left, #1b1a1a, #252121);
-  border: 5px double #a01c99;
+  background:#1a1b26;
+  border: 2px solid #414868;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -19,17 +19,17 @@
   }
 
   .face {
-    border: 3px double #a01c99;
+    border: 2px solid #414868;
   }
 
   button {
     margin: 10px 0px;
     border-radius: 0px;
     color: #fff;
-    background: #a01c99;
+    background: #414868;
 
     &:hover {
-      border: 1px solid #fff;
+      border: 1px solid #d5d6db;
     }
   }
 
@@ -71,8 +71,8 @@
   flex-wrap: wrap;
   margin: 0px 10px;
   padding: 10px 0px;
-  border-top: 5px dotted #a01c99;
-  border-bottom: 5px dotted #a01c99;
+  border-top: 5px dotted #414868;
+  border-bottom: 5px dotted #414868;
 
   .skill {
     margin: 0px 5px;

@@ -23,6 +23,7 @@ export const dryexaRanger = {
   type: "Dryexa",
   level: 4,
   damage: 12,
+  initialArmor: 0,
   armor: 0,
   health: 13,
   maxHealth: 13,

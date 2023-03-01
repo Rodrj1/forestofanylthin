@@ -17,6 +17,7 @@ export interface UnitStats {
   updatedHealth: number;
   updatedDamage: number;
   damage: number;
+  initialArmor: number;
   armor: number;
   magic: number;
   maxMagic: number;

@@ -1,12 +1,25 @@
-import BarCSS from "./Bar.module.scss";
+import BarCSS from './Bar.module.scss';
 
 interface Props {
   value: number;
   maxValue: number;
   type: string;
+  race: string;
 }
 
-const Bar = ({ value, maxValue, type }: Props) => {
+const Bar = ({ value, maxValue, type, race }: Props) => {
+  let barColor = '';
+  switch (race) {
+    case 'Dryeldar':
+      barColor = '#ff9e64';
+      break;
+    case 'Undead':
+      barColor = '#9ece6a';
+      break;
+    case 'Hero':
+      barColor = '#bb9af7';
+      break;
+  }
 
   return (
     <div className={BarCSS.container}>
@@ -16,14 +29,12 @@ const Bar = ({ value, maxValue, type }: Props) => {
             className={BarCSS.barStyle}
             style={{
               width: `${(value / maxValue) * 100}%`,
-              background:
-                type == "mana"
-                  ? "linear-gradient(to left, #8769f5, #401fb6)"
-                  : "linear-gradient(to left, #ec1505, #e95b56)",
+              background: type == 'mana' ? '#7dcfff' : `${barColor}`,
             }}
           ></div>
           <span>
-            {value.toFixed(1)} / {maxValue.toFixed(1)}
+            {value.toFixed(1)} / {maxValue.toFixed(1)}{' '}
+            {type == 'mana' ? 'SP' : 'HP'}
           </span>
         </>
       ) : (
