@@ -1,15 +1,15 @@
 import { UnitStats } from "../../types";
-import { useChangeVisibility } from "../../hooks/useVisibility";
-import { useUnitPreview } from "../../features/UnitPreview/useUnitPreview";
+import { useChangeVisibility } from "../../hooks";
+import { useUnitPreview } from "../../features/UnitPreview";
 import { useContext } from "react";
 import { BattleContext } from "../../context/BattleContext";
-import DialogueBox from "./DialogueBox/DialogueBox";
-import DarkBackgroundWrapper from "../DarkWrapper/DarkWrapper";
-import UnitPreview from "./UnitPreview/UnitPreview";
+import { DarkBackgroundWrapper } from "../DarkBackgroundWrapper";
+import { UnitPreview } from "./UnitPreview";
+import { DialogueBox } from "./DialogueBox";
 import ydris from "../../assets/images/portraits/dryexa/ydris.jpg";
 import dryexarangerFace from "../../assets/images/portraits/dryexa/dryexarangerface.jpg";
 import skeletonFace from "../../assets/images/portraits/undead/skeletonface.jpg";
-import PlayerUICSS from "./PlayerUI.module.scss";
+import PlayerUICSS from "./css.module.scss";
 
 interface Props {
   playerArmy: UnitStats[];

@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
-import { BattleContext } from "../../context/BattleContext";
-import { waitTimer } from "../../helpers/functions/waitTimer";
-import { UnitStats } from "../../types";
+import { useContext } from 'react';
+import { BattleContext } from '../../../../context/BattleContext';
+import { waitTimer } from '../../../../helpers/functions';
+import { UnitStats } from '../../../../types';
 
 export const useSpells = () => {
   const {
@@ -12,6 +12,8 @@ export const useSpells = () => {
     unitPosition,
     setUnitPosition,
     unitsInBoard,
+    turn,
+    setTurn,
   } = useContext(BattleContext);
 
   // * Combat Skills
@@ -26,12 +28,12 @@ export const useSpells = () => {
       const damage = isCursed == true ? 0 : calculatedDamage;
 
       if (isCursed) {
-        if (attackingUnit.belongsTo == "player")
+        if (attackingUnit.belongsTo == 'player')
           removeCurse(attackingUnit, setPlayerArmy);
         else removeCurse(attackingUnit, setEnemyArmy);
       }
 
-      setAction("");
+      setAction('');
 
       attackDamage(attackedUnit, attackingUnit, damage).then(async (unit) => {
         resolve(unit);
@@ -47,7 +49,7 @@ export const useSpells = () => {
       const isVampiric = attackingUnit.vampiricHeal;
 
       if (isVampiric) {
-        if (attackingUnit.belongsTo == "player") {
+        if (attackingUnit.belongsTo == 'player') {
           vampiricHeal(attackingUnit, damage * 0.6, setPlayerArmy);
         } else vampiricHeal(attackingUnit, damage * 0.6, setEnemyArmy);
       }
@@ -80,7 +82,9 @@ export const useSpells = () => {
     setUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
   ) => {
     let newUnitHealth = unit.updatedHealth + vampiricHeal;
+
     if (newUnitHealth > unit.maxHealth) newUnitHealth = unit.maxHealth;
+
     const updateUnit = { ...unit, updatedHealth: newUnitHealth };
     setUnitArmy((prev) =>
       prev.map((unit) => {
@@ -98,13 +102,13 @@ export const useSpells = () => {
     new Promise<UnitStats>(async (resolve) => {
       let power = 0;
 
-      if (castingUnit.type == "Hero" && castingUnit.spellpower) {
+      if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
         power = 0.7 - 0.07 * castingUnit.spellpower;
-      } else if (castingUnit.type != "Hero" && castingUnit.level) {
+      } else if (castingUnit.type != 'Hero' && castingUnit.level) {
         power = 0.8 - 0.05 * castingUnit.stack - castingUnit.level * 0.05;
       }
 
-      setAction("");
+      setAction('');
 
       const updateVulneredUnit = {
         ...targetUnit,
@@ -122,25 +126,25 @@ export const useSpells = () => {
     new Promise<UnitStats>(async (resolve) => {
       let power = 0;
 
-      if (castingUnit.type == "Hero" && castingUnit.spellpower) {
+      if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
         power = 0.7 - 0.07 * castingUnit.spellpower;
-      } else if (castingUnit.type != "Hero" && castingUnit.level) {
+      } else if (castingUnit.type != 'Hero' && castingUnit.level) {
         power = 0.8 - 0.05 * castingUnit.stack - castingUnit.level * 0.05;
       }
 
-      setAction("");
+      setAction('');
 
-      const updateWeakenedUnit = {
+      const updateTargetUnit = {
         ...targetUnit,
         weaknessDamage: power,
         updatedDamage: targetUnit.updatedDamage * power,
       };
 
-      updateUnitsInvolvedInSpell(castingUnit, updateWeakenedUnit, 2);
+      updateUnitsInvolvedInSpell(castingUnit, updateTargetUnit, 2);
 
       await waitTimer(100);
 
-      resolve(updateWeakenedUnit);
+      resolve(updateTargetUnit);
     });
 
   const castCurse = (castingUnit: UnitStats, targetUnit: UnitStats) =>
@@ -158,41 +162,41 @@ export const useSpells = () => {
 
   const castReanimate = (castingUnit: UnitStats, targetUnit: UnitStats) =>
     new Promise<UnitStats>(async (resolve) => {
-      setAction("");
+      setAction('');
 
       const getMaxHealth = targetUnit.maxHealth - targetUnit.updatedHealth;
       const getNewDamage = Math.ceil(getMaxHealth / targetUnit.damage);
 
-      const updateReanimatedUnit = {
+      const updateTargetUnit = {
         ...targetUnit,
         updatedHealth: targetUnit.updatedHealth + getMaxHealth,
         updatedDamage: targetUnit.updatedDamage + getNewDamage,
         stack: targetUnit.maxStack,
       };
 
-      updateUnitBenefical(castingUnit, updateReanimatedUnit, setPlayerArmy, 6);
+      updateUnitBenefical(castingUnit, updateTargetUnit, setPlayerArmy, 6);
 
       await waitTimer(100);
 
-      resolve(updateReanimatedUnit);
+      resolve(updateTargetUnit);
     });
 
   const castVampiricLust = (castingUnit: UnitStats, targetUnit: UnitStats) =>
     new Promise<UnitStats>(async (resolve) => {
-      setAction("");
+      setAction('');
 
-      const updateVampiricUnit = {
+      const updateTargetUnit = {
         ...targetUnit,
         vampiricHeal: true,
       };
 
-      if (updateVampiricUnit.belongsTo == "player")
-        updateUnitInArmy(updateVampiricUnit, setPlayerArmy, 6);
-      else updateUnitInArmy(updateVampiricUnit, setEnemyArmy, 6);
+      if (updateTargetUnit.belongsTo == 'player')
+        updateUnitInArmy(updateTargetUnit, setPlayerArmy, 6);
+      else updateUnitInArmy(updateTargetUnit, setEnemyArmy, 6);
 
       await waitTimer(100);
 
-      resolve(updateVampiricUnit);
+      resolve(updateTargetUnit);
     });
 
   // * Destruction Skills
@@ -201,15 +205,15 @@ export const useSpells = () => {
     new Promise<UnitStats>(async (resolve) => {
       let power = 0;
 
-      if (castingUnit.type == "Hero" && castingUnit.spellpower) {
-        power = 20 + 5 * castingUnit.spellpower;
-      } else if (castingUnit.type != "Hero" && castingUnit.level) {
+      if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
+        power = 60 + 5 * castingUnit.spellpower;
+      } else if (castingUnit.type != 'Hero' && castingUnit.level) {
         power = 10 + 3 * castingUnit.stack + castingUnit.level * 3;
       }
 
-      setAction("");
+      setAction('');
 
-      if (castingUnit.belongsTo == "player") {
+      if (castingUnit.belongsTo == 'player') {
         updateUnitInArmy(castingUnit, setPlayerArmy, 10);
         updateArmy(enemyArmy, setEnemyArmy, power);
       }
@@ -224,27 +228,29 @@ export const useSpells = () => {
     setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>,
     power: number
   ) => {
-    const updateUnitssInArmy = targetArmy.map((unit) => {
-      const stackLost = Math.floor(power / unit.health);
+    const updateUnitsInArmy = targetArmy.map((unit) => {
+      const unitStackInitialDamage = unit.updatedDamage;
+      const unitStackLost = Math.floor(power / unit.health);
+      const unitBaseDamage = unit.damage;
+      const unitDamageReduced = unit.weaknessDamage;
+      const unitDamageLost = unitStackLost * unitBaseDamage * unitDamageReduced;
 
-      let attackedUnitNewDamage =
-        unit.updatedDamage - unit.damage * stackLost * unit.weaknessDamage;
-      if (attackedUnitNewDamage < 1) attackedUnitNewDamage = 1;
+      let unitUpdatedDamage = unitStackInitialDamage - unitDamageLost;
+
+      if (unitUpdatedDamage < 1) unitUpdatedDamage = 1;
 
       return {
         ...unit,
         updatedHealth: unit.updatedHealth - power,
-        updatedDamage: attackedUnitNewDamage,
+        updatedDamage: unitUpdatedDamage,
         stack: unit.stack - power / unit.health,
       };
     });
 
-    setTargetArmy(
-      updateUnitssInArmy.filter((units) => units.updatedHealth > 0)
-    );
+    setTargetArmy(updateUnitsInArmy.filter((units) => units.updatedHealth > 0));
 
     let unitsKilled = 0;
-    updateUnitssInArmy.reduce((acc, unit) => {
+    updateUnitsInArmy.reduce((acc, unit) => {
       if (unit.updatedHealth < 0) {
         unitsKilled++;
       }
@@ -252,18 +258,15 @@ export const useSpells = () => {
     });
 
     setUnitPosition((pos) => {
-      const NewPosition = pos - unitsKilled;
       if (unitsInBoard[unitPosition + unitsKilled + 1] == undefined) {
-        return pos / pos - 2;
+        console.log(unitsInBoard[0]);
+        if (unitsInBoard[0].belongsTo == 'player') setTurn('player');
+        console.log(turn);
+        return 0;
       }
-      if (NewPosition < 0) {
-        return NewPosition + unitsKilled - 1;
-      }
-      if (pos == pos - unitsKilled) {
-        return pos;
-      } else {
-        return pos - 1;
-      }
+      if (unitsKilled > 1) return pos - 1;
+      if(unitsKilled == 0 || unitsKilled == 1) return pos + 1;
+      return pos;
     });
   };
 
@@ -302,7 +305,7 @@ export const useSpells = () => {
     magicCost?: number
   ) =>
     new Promise<UnitStats>(async (resolve) => {
-      if (castingUnit.belongsTo == "player") {
+      if (castingUnit.belongsTo == 'player') {
         if (magicCost) updateUnitInArmy(castingUnit, setPlayerArmy, magicCost);
         updateUnitInArmy(updatedTargetUnit, setEnemyArmy, 0);
       } else {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useActionSound } from "../../../hooks/useSound";
+import { useActionSound } from "../../../hooks";
 import { skill } from "../../../types";
-import SkillIconCSS from "./SkillIcon.module.scss";
+import SkillIconCSS from "./style.module.scss";
 
 interface Props {
   skill: skill;

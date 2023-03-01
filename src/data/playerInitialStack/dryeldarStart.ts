@@ -3,12 +3,12 @@ import {
   elisith,
   enslavedRoynis,
   twistedJin,
-} from "../unitstats/dryeldar/dryeldar";
+} from '../unitstats/dryeldar';
 
 export const playerDryeldar = [
   {
     ...elisith,
-    belongsTo: "player",
+    belongsTo: 'player',
     updatedHealth: elisith.health,
     updatedDamage: elisith.damage,
     maxStack: 1,
@@ -16,7 +16,7 @@ export const playerDryeldar = [
   {
     ...enslavedRoynis,
     stack: 13,
-    belongsTo: "player",
+    belongsTo: 'player',
     updatedHealth: enslavedRoynis.health * 13,
     updatedDamage: enslavedRoynis.damage * 13,
     maxStack: 13,
@@ -25,7 +25,7 @@ export const playerDryeldar = [
   {
     ...twistedJin,
     stack: 6,
-    belongsTo: "player",
+    belongsTo: 'player',
     updatedHealth: twistedJin.health * 6,
     updatedDamage: twistedJin.damage * 6,
     maxStack: 6,
@@ -34,7 +34,7 @@ export const playerDryeldar = [
   {
     ...darkMatron,
     stack: 3,
-    belongsTo: "player",
+    belongsTo: 'player',
     updatedHealth: darkMatron.health * 3,
     updatedDamage: darkMatron.damage * 3,
     maxHealth: darkMatron.health * 3,

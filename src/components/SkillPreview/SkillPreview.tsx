@@ -1,6 +1,6 @@
 import { skill } from "../../types";
 import SkillIcon from "./SkillIcon/SkillIcon";
-import SkillPreviewCSS from "./SkillPreview.module.scss";
+import SkillPreviewCSS from "./style.module.scss";
 
 interface Props {
   previewSkill: skill;

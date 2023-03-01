@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { BattleContext } from "../../../context/BattleContext";
-import SkillIcon from "../../SkillPreview/SkillIcon/SkillIcon";
-import BattleMessageCSS from "./BattleMessage.module.scss";
+import { SkillIcon } from "../../SkillPreview/SkillIcon";
+import BattleMessageCSS from "./style.module.scss";
 
 const BattleMessage = () => {
   const {

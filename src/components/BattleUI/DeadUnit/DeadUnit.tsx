@@ -1,5 +1,5 @@
 import { UnitStats } from "../../../types";
-import deadUnitCSS from "./DeadUnit.module.scss";
+import deadUnitCSS from "./style.module.scss";
 
 interface Props {
   deadUnit: UnitStats;

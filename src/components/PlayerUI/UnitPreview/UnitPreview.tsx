@@ -1,13 +1,13 @@
+import { DarkBackgroundWrapper } from "../../DarkBackgroundWrapper";
+import { UnitStats } from "../../../types";
+import { useSkillPreview } from "../../../features/SkillPreview";
+import { SkillPreview } from "../../SkillPreview";
 import damage from "../../../assets/images/stats/damage.png";
 import armor from "../../../assets/images/stats/armor.png";
 import hourglass from "../../../assets/images/stats/hourglass.png";
 import health from "../../../assets/images/stats/health.png";
-import DarkBackgroundWrapper from "../../DarkWrapper/DarkWrapper";
-import { UnitStats } from "../../../types";
-import SkillPreview from "../../SkillPreview/SkillPreview";
-import { useSkillPreview } from "../../../features/SkillPreview/useSkillPreview";
 import SkillIcon from "../../SkillPreview/SkillIcon/SkillIcon";
-import UnitPreviewCSS from "./UnitPreview.module.scss";
+import UnitPreviewCSS from "./style.module.scss";
 
 interface Props {
   previewUnit: UnitStats;
@@ -76,45 +76,3 @@ const UnitPreview = ({ previewUnit, handleExitUnitPreview }: Props) => {
   );
 };
 export default UnitPreview;
-
-/*
-
-{previewUnit.skills.map((skill) => {
-          switch (skill.name) {
-            case "Clear":
-              break;
-            case "Attack":
-              return (
-                <div className={`${PlayerUICSS.skill} ${PlayerUICSS.combat}`}>
-                  <img src={cbattack} alt={skill.name} />
-                  <p>Combat: Attack</p>
-                </div>
-              );
-            case "Curse":
-              return (
-                <div className={`${PlayerUICSS.skill} ${PlayerUICSS.dark}`}>
-                  <img
-                    src={skill.image}
-                    alt={skill.name}
-                    onClick={() => handleSkillPreview(curse)}
-                  />
-                  <p>Dark Magic: Curse</p>
-                </div>
-              );
-            case "Weakness":
-              return (
-                <div className={`${PlayerUICSS.skill} ${PlayerUICSS.dark}`}>
-                  <img src={weakness} alt={skill.name} />
-                  <p>Dark Magic: Weakness</p>
-                </div>
-              );
-            case "Shatter Armor":
-              return (
-                <div className={`${PlayerUICSS.skill} ${PlayerUICSS.dark}`}>
-                  <img src={shatterarmor} alt={skill.name} />
-                  <p>Dark Magic: Shatter Armor</p>
-                </div>
-              );
-          }
-        })}
-        */

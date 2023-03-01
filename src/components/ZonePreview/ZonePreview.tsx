@@ -1,8 +1,8 @@
 import { UnitStats } from "../../types";
 import { useUnitPreview } from "../../features/UnitPreview/useUnitPreview";
-import DarkBackgroundWrapper from "../DarkWrapper/DarkWrapper";
+import { DarkBackgroundWrapper } from "../DarkBackgroundWrapper";
 import UnitPreview from "../PlayerUI/UnitPreview/UnitPreview";
-import zonePreviewCSS from "./ZonePreview.module.scss";
+import zonePreviewCSS from "./style.module.scss";
 
 interface Props {
   previewLevel: UnitStats[];

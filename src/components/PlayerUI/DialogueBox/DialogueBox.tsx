@@ -1,8 +1,4 @@
-import { useState } from "react";
-import { undeadDialog } from "../../../data/DialogData/DialogData";
-import { dryeldarDialog } from "../../../data/DialogData/DialogData";
-
-const dialogOptions = ["On the quest", "Velish", "Reinforcements"];
+import { useDialogHandler } from '../../../features/components/PlayerUI/DialogueBox';
 
 interface Props {
   handleVisibility: () => void;
@@ -11,31 +7,8 @@ interface Props {
 }
 
 const DialogueBox = ({ handleVisibility, image, race }: Props) => {
-  const [dialogText, setDialogText] = useState("");
-  const handleDialogOptions = (dialog: string) => {
-    switch (dialog) {
-      case "On the quest":
-        race == "undead"
-          ? setDialogText(undeadDialog.quest)
-          : setDialogText(dryeldarDialog.quest);
-        break;
-      case "Velish":
-        race == "undead"
-          ? setDialogText(undeadDialog.velish)
-          : setDialogText(dryeldarDialog.velish);
-        break;
-      case "Reinforcements":
-        race == "undead"
-          ? setDialogText(undeadDialog.reinforcements)
-          : setDialogText(dryeldarDialog.reinforcements);
-        break;
-    }
-  };
-  const showDialogOptions = dialogOptions.map((dialogue) => (
-    <button key={dialogue} onClick={() => handleDialogOptions(dialogue)}>
-      {dialogue}
-    </button>
-  ));
+  const { showDialogOptions, dialogText } = useDialogHandler({ race });
+
   return (
     <>
       <h2>Ydris</h2>

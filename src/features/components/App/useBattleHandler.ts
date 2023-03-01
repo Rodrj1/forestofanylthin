@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { BattleContext } from "../../context/BattleContext";
-import { dryexaRanger } from "../../data/unitstats/dryexa/dryexa";
-import { skeleton } from "../../data/unitstats/undead/undead";
-import { UnitStats } from "../../types";
+import { BattleContext } from "../../../context/BattleContext";
+import { dryexaRanger } from "../../../data/unitstats/dryexa/dryexa";
+import { skeleton } from "../../../data/unitstats/undead/undead";
+import { UnitStats } from "../../../types";
 
 export const useBattleHandler = () => {
   const {
@@ -26,28 +26,28 @@ export const useBattleHandler = () => {
   const [isInLostGlade, setIsInLostGlade] = useState(false);
   const [isInSacre, setIsInSacre] = useState(false);
 
-  const [removeCemetery, setRemoveCemetery] = useState(false);
-  const [removeGloomyForest, setRemoveGloomyForest] = useState(false);
-  const [removeLostGlade, setRemoveLostGlade] = useState(false);
-  const [removeSacre, setRemoveSacre] = useState(false);
+  const [isCemeteryCompleted, setIsCemeteryCompleted] = useState(false);
+  const [isGloomyForestCompleted, setIsGloomyForestCompleted] = useState(false);
+  const [isLostGladeCompleted, setIsLostGladeCompleted] = useState(false);
+  const [isSacreCompleted, setIsSacreCompleted] = useState(false);
 
   const handleInFight = async (enemiesToAdd: UnitStats[], level?: string) => {
     switch (level) {
       case "cemetery":
         setIsInCemetery(true);
-        setRemoveCemetery(true);
+        setIsCemeteryCompleted(true);
         break;
       case "gloomyForest":
         setIsInGloomyForest(true);
-        setRemoveGloomyForest(true);
+        setIsGloomyForestCompleted(true);
         break;
       case "lostGlade":
         setIsInLostGlade(true);
-        setRemoveLostGlade(true);
+        setIsLostGladeCompleted(true);
         break;
       case "sacre":
         setIsInSacre(true);
-        setRemoveSacre(true);
+        setIsSacreCompleted(true);
         break;
     }
     setIsInFight(true);
@@ -161,10 +161,10 @@ export const useBattleHandler = () => {
     isInGloomyForest,
     isInLostGlade,
     isInSacre,
-    removeCemetery,
-    removeGloomyForest,
-    removeLostGlade,
-    removeSacre,
+    isCemeteryCompleted,
+    isGloomyForestCompleted,
+    isLostGladeCompleted,
+    isSacreCompleted,
     isPlaying,
     setIsPlaying,
     levelsCompleted,

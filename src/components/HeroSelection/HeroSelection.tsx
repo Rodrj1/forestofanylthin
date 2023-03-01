@@ -5,8 +5,8 @@ import { useContext } from "react";
 import { BattleContext } from "../../context/BattleContext";
 import { UnitStats } from "../../types";
 import { useUnitPreview } from "../../features/UnitPreview/useUnitPreview";
-import DarkBackgroundWrapper from "../DarkWrapper/DarkWrapper";
-import UnitPreview from "../PlayerUI/UnitPreview/UnitPreview";
+import { DarkBackgroundWrapper } from "../DarkBackgroundWrapper";
+import { UnitPreview } from "../PlayerUI/UnitPreview";
 
 interface Props {
   setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;

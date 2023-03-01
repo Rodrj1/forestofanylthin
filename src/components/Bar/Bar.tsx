@@ -9,7 +9,7 @@ interface Props {
 const Bar = ({ value, maxValue, type }: Props) => {
 
   return (
-    <div className={BarCSS.barContainer}>
+    <div className={BarCSS.container}>
       {maxValue > 0 ? (
         <>
           <div

@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { useChangeVisibility } from "../../hooks/useVisibility";
+import { useChangeVisibility } from "../../hooks";
 import { UnitStats } from "../../types";
 import { BattleContext } from "../../context/BattleContext";
-import { useBattle } from "../../features/BattleBoard/useBattle";
+import { useBattle } from "../../features/components/BattleUI";
 import Bar from "../Bar/Bar";
-import "./Units.scss";
+import "./style.scss";
 
 interface Props {
   unit: UnitStats;

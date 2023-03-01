@@ -13,24 +13,25 @@ import {
 interface Props {
   handleInFight: (enemiesToAdd: UnitStats[], level?: string) => Promise<void>;
   handlePreviewLevel: (enemies: UnitStats[]) => void;
-  removeCemetery: boolean;
-  removeGloomyForest: boolean;
-  removeLostGlade: boolean;
-  removeSacre: boolean;
+  isCemeteryCompleted: boolean;
+  isGloomyForestCompleted: boolean;
+  isLostGladeCompleted: boolean;
+  isSacreCompleted: boolean;
 }
 
 const Map = ({
   handleInFight,
   handlePreviewLevel,
-  removeCemetery,
-  removeGloomyForest,
-  removeLostGlade,
-  removeSacre,
+  isCemeteryCompleted,
+  isGloomyForestCompleted,
+  isLostGladeCompleted,
+  isSacreCompleted,
 }: Props) => {
+
   return (
     <div className="map">
       <div className="levelsContainer">
-        {!removeCemetery && (
+        {!isCemeteryCompleted && (
           <div className="level">
             <div
               className="levelBtn"
@@ -47,7 +48,7 @@ const Map = ({
           </div>
         )}
 
-        {!removeLostGlade && (
+        {!isGloomyForestCompleted && (
           <div className="level">
             <div
               className="levelBtn"
@@ -64,7 +65,7 @@ const Map = ({
           </div>
         )}
 
-        {!removeGloomyForest && (
+        {!isLostGladeCompleted && (
           <div className="level">
             <div
               className="levelBtn"
@@ -81,7 +82,7 @@ const Map = ({
           </div>
         )}
 
-        {!removeSacre && (
+        {!isSacreCompleted && (
           <div className="level">
             <div
               className="levelBtn"

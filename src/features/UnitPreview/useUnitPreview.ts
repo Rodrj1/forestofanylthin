@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { UnitStats } from "../../types";
-import { useActionSound } from "../../hooks/useSound";
+import { useActionSound } from "../../hooks/useActionSound";
 
 export const useUnitPreview = () => {
   const [previewUnit, setPreviewUnit] = useState<UnitStats | undefined>();

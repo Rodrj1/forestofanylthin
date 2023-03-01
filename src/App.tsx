@@ -1,24 +1,23 @@
-import { useContext } from "react";
-import { BattleContext } from "./context/BattleContext";
-import { useBattleHandler } from "./features/App/useBattleHandler";
-import { useZonePreview } from "./features/App/useZonePreview";
-import DarkWrapper from "./components/DarkWrapper/DarkWrapper";
-import BattleUI from "./components/BattleUI/BattleUI";
-import HeroSelection from "./components/HeroSelection/HeroSelection";
-import ZonePreview from "./components/ZonePreview/ZonePreview";
-import PlayerUI from "./components/PlayerUI/PlayerUI";
-import Map from "./components/Map/Map";
-import WinOrDefeat from "./components/WinOrDefeat/WinOrDefeat";
-import "./App.scss";
+import { useContext } from 'react';
+import { BattleContext } from './context/BattleContext';
+import { useBattleHandler, useZonePreview } from './features/components/App';
+import { BattleUI } from './components/BattleUI/-BattleUI';
+import { PlayerUI } from './components/PlayerUI';
+import { DarkBackgroundWrapper } from './components/DarkBackgroundWrapper';
+import { HeroSelection } from './components/HeroSelection';
+import { WinOrDefeat } from './components/WinOrDefeat';
+import { ZonePreview } from './components/ZonePreview';
+import { Map } from './components/Map';
+import './App.scss';
 
 function App() {
   const { playerRace, isInFight, playerArmy } = useContext(BattleContext);
 
   const {
-    removeCemetery,
-    removeGloomyForest,
-    removeLostGlade,
-    removeSacre,
+    isCemeteryCompleted,
+    isGloomyForestCompleted,
+    isLostGladeCompleted,
+    isSacreCompleted,
     handleInFight,
     levelsCompleted,
     isPlaying,
@@ -37,15 +36,15 @@ function App() {
       )}
 
       {playerArmy.length == 0 && isPlaying && (
-        <DarkWrapper opacity={1}>
-          <WinOrDefeat text={"YOU HAVE LOST!"} />
-        </DarkWrapper>
+        <DarkBackgroundWrapper opacity={1}>
+          <WinOrDefeat text={'YOU HAVE LOST!'} />
+        </DarkBackgroundWrapper>
       )}
 
       {levelsCompleted == 4 && (
-        <DarkWrapper opacity={1}>
-          <WinOrDefeat text={"YOU HAVE WON!"} />
-        </DarkWrapper>
+        <DarkBackgroundWrapper opacity={1}>
+          <WinOrDefeat text={'YOU HAVE WON!'} />
+        </DarkBackgroundWrapper>
       )}
 
       {isVisible && previewLevelInfo && (
@@ -55,16 +54,16 @@ function App() {
         />
       )}
 
-      {!isInFight && playerRace != "" && playerArmy.length > 0 && (
+      {!isInFight && playerRace != '' && playerArmy.length > 0 && (
         <PlayerUI race={playerRace} playerArmy={playerArmy} />
       )}
 
       {!isInFight && playerArmy.length > 0 && (
         <Map
-          removeCemetery={removeCemetery}
-          removeGloomyForest={removeGloomyForest}
-          removeLostGlade={removeLostGlade}
-          removeSacre={removeSacre}
+          isCemeteryCompleted={isCemeteryCompleted}
+          isGloomyForestCompleted={isGloomyForestCompleted}
+          isLostGladeCompleted={isLostGladeCompleted}
+          isSacreCompleted={isSacreCompleted}
           handleInFight={handleInFight}
           handlePreviewLevel={handlePreviewLevel}
         />
