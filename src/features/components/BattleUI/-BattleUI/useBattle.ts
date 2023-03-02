@@ -118,7 +118,7 @@ export const useBattle = () => {
         break;
       case 'Necromancy: Vampiric Lust':
         handleAction(
-          'reanimate',
+          'vampiric lust',
           vampiricLust,
           selectedUnit,
           castVampiricLust,
@@ -218,17 +218,19 @@ export const useBattle = () => {
           let attackMessage = '';
           if (unitsInBoard[unitPosition].cursed) {
             attackMessage = `${unitsInBoard[unitPosition].name}
-            attacks ${targetUnit.name} but the CURSE nullifies all damage.`;
+            attacks ${targetUnit.name} but MISSES.`;
           } else {
             attackMessage = `${unitsInBoard[unitPosition].name}
           attacks ${targetUnit.name}`;
           }
           resolve(attackMessage);
           break;
+
         case 'weakness':
           resolve(`${unitsInBoard[unitPosition].name}
           casts Weakness on ${targetUnit.name}`);
           break;
+
         case 'shatter armor':
           resolve(`${unitsInBoard[unitPosition].name}
           casts Shatter Armor on ${targetUnit.name}`);
@@ -242,6 +244,11 @@ export const useBattle = () => {
         case 'reanimate':
           resolve(`${unitsInBoard[unitPosition].name}
             casts Reanimate on ${targetUnit.name}`);
+          break;
+
+        case 'vampiric lust':
+          resolve(`${unitsInBoard[unitPosition].name}
+            casts Vampiric Lust on ${targetUnit.name}`);
           break;
 
         case 'rain of fire':
@@ -285,18 +292,11 @@ export const useBattle = () => {
     targetPosition?: number,
     isAOE?: boolean
   ) => {
-    let nextTurnBelongsTo = '';
-
     const isAtBoardEnd = unitPosition == unitsInBoard.length - 1;
 
     if (!isAOE) {
       if (isAtBoardEnd) {
-        nextTurnBelongsTo =
-          unitsInBoard[0]?.belongsTo == 'player'
-            ? 'player'
-            : `enemy${Math.floor(Math.random() * 5888891055)}`;
-        setTurn(nextTurnBelongsTo);
-        setUnitPosition(0);
+        resetBoardPositionToZero();
       } else {
         const someUnitDied =
           updatedBoard != undefined &&
@@ -305,29 +305,51 @@ export const useBattle = () => {
 
         if (someUnitDied) {
           if (attackerPosition < targetPosition) {
-            nextTurnBelongsTo =
-              updatedBoard[unitPosition + 1]?.belongsTo == 'player'
-                ? 'player'
-                : `enemy${Math.floor(Math.random() * 5888891055)}`;
-            setUnitPosition((pos) => pos + 1);
+            handleNextTurn(updatedBoard, true);
           } else if (attackerPosition > targetPosition) {
-            setUnitPosition((pos) => pos);
-            nextTurnBelongsTo =
-              updatedBoard[unitPosition]?.belongsTo == 'player'
-                ? 'player'
-                : `enemy${Math.floor(Math.random() * 5888891055)}`;
+            handleNextTurn(updatedBoard, false);
           }
-          setTurn(nextTurnBelongsTo);
+
+          const nextUnitIsNotUndefined =
+            updatedBoard[unitPosition + 1] == undefined;
+          const currentUnitBelongsToPlayer =
+            updatedBoard[unitPosition].belongsTo == 'player';
+
+          if (nextUnitIsNotUndefined && currentUnitBelongsToPlayer) {
+            resetBoardPositionToZero();
+          }
         } else if (someUnitDied == false) {
-          setUnitPosition((pos) => pos + 1);
-          nextTurnBelongsTo =
-            unitsInBoard[unitPosition + 1]?.belongsTo == 'player'
-              ? 'player'
-              : `enemy${Math.floor(Math.random() * 5888891055)}`;
-          setTurn(nextTurnBelongsTo);
+          handleNextTurn(unitsInBoard, true);
         }
       }
     }
+  };
+
+  const resetBoardPositionToZero = () => {
+    if (unitsInBoard[0].belongsTo == 'player') setTurn('player');
+    else setTurn('enemy');
+    setUnitPosition(0);
+  };
+
+  const handleNextTurn = (board: UnitStats[], checkNextPos: boolean) => {
+    // Why 'enemyTurn' variable? AI acts whenever the global variable 'Turn' (string) stored in BattleContext changes to 'enemy'. If two enemy units play in a row, 'Turn' will only change its value once, making the AI get stuck at the second unit. 'enemyTurn' variable fixes this by always giving a different value for 'Turn' containing the word enemy so the AI can play in a row as many times needed.
+    const enemyTurn = `enemy${Math.floor(Math.random() * 5888891055)}`;
+
+    let nextTurnBelongsTo = '';
+
+    if (checkNextPos == true) {
+      nextTurnBelongsTo =
+        board[unitPosition + 1]?.belongsTo == 'player' ? 'player' : enemyTurn;
+
+      setUnitPosition((pos) => pos + 1);
+    } else {
+      nextTurnBelongsTo =
+        board[unitPosition]?.belongsTo == 'player' ? 'player' : enemyTurn;
+
+      setUnitPosition((pos) => pos);
+    }
+
+    setTurn(nextTurnBelongsTo);
   };
 
   return {

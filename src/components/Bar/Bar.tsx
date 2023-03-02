@@ -19,6 +19,9 @@ const Bar = ({ value, maxValue, type, race }: Props) => {
     case 'Hero':
       barColor = '#bb9af7';
       break;
+    case 'Dryexa':
+      barColor = '#f7768e';
+      break;
   }
 
   return (

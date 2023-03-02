@@ -12,7 +12,6 @@ export const useSpells = () => {
     unitPosition,
     setUnitPosition,
     unitsInBoard,
-    turn,
     setTurn,
   } = useContext(BattleContext);
 
@@ -20,10 +19,10 @@ export const useSpells = () => {
 
   const attackUnit = (attackingUnit: UnitStats, attackedUnit: UnitStats) =>
     new Promise<UnitStats>(async (resolve) => {
-      const isCursed = attackingUnit.cursed;
-
       const calculatedDamage =
         Math.ceil(attackingUnit.updatedDamage) * (1 - attackedUnit.armor / 10);
+
+      const isCursed = attackingUnit.cursed;
 
       const damage = isCursed == true ? 0 : calculatedDamage;
 
@@ -263,7 +262,7 @@ export const useSpells = () => {
         return 0;
       }
       if (unitsKilled > 1) return pos - 1;
-      if(unitsKilled == 0 || unitsKilled == 1) return pos + 1;
+      if (unitsKilled == 0 || unitsKilled == 1) return pos + 1;
       return pos;
     });
   };
@@ -330,9 +329,9 @@ export const useSpells = () => {
 
   const removeCurse = (
     castingUnit: UnitStats,
-    setCastingUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
+    setCursedUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
   ) => {
-    setCastingUnitArmy((prev) =>
+    setCursedUnitArmy((prev) =>
       prev.map((unit) => {
         if (unit.id == castingUnit.id) {
           return {
