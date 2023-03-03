@@ -26,14 +26,29 @@
     color: #bb9af7;
     font-weight: bold;
     font-size: 0.9rem;
+
     span {
       min-height: 30px;
     }
+
     img {
       margin: 20px 0px;
       height: 90px;
       width: 90px;
       border: none;
+    }
+
+    .damage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100px;
+      font-size: 1.5rem;
+      padding: 5px;
+      background-color: #8f2439;
+      color: #e0af68;
+      height: 40px;
+      width: 40px;
     }
   }
 }

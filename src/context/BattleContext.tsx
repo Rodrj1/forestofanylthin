@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
-import { skill, UnitStats } from "../types";
+import { createContext, useState } from 'react';
+import { skill, UnitStats } from '../types';
 
 interface ProviderProps {
   children: JSX.Element;
@@ -40,13 +40,17 @@ interface BattleContextProps {
   setAddedDryexaRanger: React.Dispatch<React.SetStateAction<boolean>>;
   addedSkeletons: boolean;
   setAddedSkeletons: React.Dispatch<React.SetStateAction<boolean>>;
+  isDamaging: boolean;
+  setIsDamaging: React.Dispatch<React.SetStateAction<boolean>>;
+  magicUsedInTurn: number;
+  setMagicUsedInTurn: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const BattleContext = createContext({} as BattleContextProps);
 
 export const BattleContextProvider = ({ children }: ProviderProps) => {
   const [heroStats, setHeroStats] = useState<UnitStats>({} as UnitStats);
-  const [playerRace, setPlayerRace] = useState("");
+  const [playerRace, setPlayerRace] = useState('');
 
   const [playerArmy, setPlayerArmy] = useState<UnitStats[]>([]);
   const [enemyArmy, setEnemyArmy] = useState<UnitStats[]>([]);
@@ -55,14 +59,17 @@ export const BattleContextProvider = ({ children }: ProviderProps) => {
   const [addedSkeletons, setAddedSkeletons] = useState(false);
 
   const [isInFight, setIsInFight] = useState<boolean>(false);
-  const [action, setAction] = useState("");
-  const [turn, setTurn] = useState("");
+  const [action, setAction] = useState('');
+  const [turn, setTurn] = useState('');
   const [playingUnit, setPlayingUnit] = useState<UnitStats>({} as UnitStats);
   const [targetUnit, setTargetUnit] = useState<UnitStats>({} as UnitStats);
   const [deadUnit, setDeadUnit] = useState<UnitStats>({} as UnitStats);
+
   const [actionImage, setActionImage] = useState<skill>({} as skill);
-  const [battleMessageText, setBattleMessageText] = useState("");
+  const [battleMessageText, setBattleMessageText] = useState('');
   const [showBattleMessage, setShowBattleMessage] = useState(false);
+  const [isDamaging, setIsDamaging] = useState(false);
+  const [magicUsedInTurn, setMagicUsedInTurn] = useState(0);
 
   const [unitsInBoard, setUnitsInBoard] = useState<UnitStats[]>([]);
   const [unitPosition, setUnitPosition] = useState(0);
@@ -104,6 +111,10 @@ export const BattleContextProvider = ({ children }: ProviderProps) => {
         setAddedDryexaRanger,
         addedSkeletons,
         setAddedSkeletons,
+        isDamaging,
+        setIsDamaging,
+        magicUsedInTurn,
+        setMagicUsedInTurn,
       }}
     >
       {children}

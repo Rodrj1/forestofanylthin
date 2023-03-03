@@ -13,6 +13,7 @@ export const useSpells = () => {
     setUnitPosition,
     unitsInBoard,
     setTurn,
+    setIsDamaging
   } = useContext(BattleContext);
 
   // * Combat Skills

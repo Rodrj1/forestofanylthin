@@ -14,6 +14,7 @@ export const lostGlade = [
     updatedHealth: skeleton.health * 60,
     updatedDamage: skeleton.damage * 60,
     maxStack: 60,
+    maxHealth: skeleton.health * 60,
   },
 ];
 
@@ -26,6 +27,7 @@ export const cemetery = [
     updatedHealth: skeleton.health * 25,
     updatedDamage: skeleton.damage * 25,
     maxStack: 25,
+    maxHealth: skeleton.health * 25,
   },
   {
     ...lich,
@@ -47,6 +49,7 @@ export const gloomyForest = [
     updatedHealth: skeleton.health * 25,
     updatedDamage: skeleton.damage * 25,
     maxStack: 25,
+    maxHealth: skeleton.health * 25,
   },
   {
     ...skeleton,
@@ -56,6 +59,7 @@ export const gloomyForest = [
     updatedHealth: skeleton.health * 14,
     updatedDamage: skeleton.damage * 14,
     maxStack: 14,
+    maxHealth: skeleton.health * 14,
   },
   {
     ...undeadWarlock,
@@ -65,6 +69,7 @@ export const gloomyForest = [
     updatedHealth: undeadWarlock.health * 4,
     updatedDamage: undeadWarlock.damage * 4,
     maxStack: 4,
+    maxHealth: undeadWarlock.health * 4,
   },
 ];
 
@@ -84,6 +89,7 @@ export const forgottenCrypt = [
     updatedHealth: skeleton.health * 51,
     updatedDamage: skeleton.damage * 51,
     maxStack: 51,
+    maxHealth: skeleton.health * 51,
   },
   {
     ...undeadWarlock,
@@ -93,6 +99,7 @@ export const forgottenCrypt = [
     updatedHealth: undeadWarlock.health * 13,
     updatedDamage: undeadWarlock.damage * 13,
     maxStack: 13,
+    maxHealth: undeadWarlock.health * 13,
   },
   {
     ...lich,
@@ -102,6 +109,7 @@ export const forgottenCrypt = [
     updatedHealth: lich.health * 5,
     updatedDamage: lich.damage * 5,
     maxStack: 5,
+    maxHealth: lich.health * 5,
   },
   {
     ...skeleton,
@@ -111,5 +119,6 @@ export const forgottenCrypt = [
     updatedHealth: skeleton.health * 38,
     updatedDamage: skeleton.damage * 38,
     maxStack: 38,
+    maxHealth: skeleton.health * 38,
   },
 ];

@@ -32,6 +32,8 @@ export const useBattle = () => {
     playerArmy,
     setPlayerArmy,
     setDeadUnit,
+    setIsDamaging,
+    setMagicUsedInTurn,
   } = useContext(BattleContext);
 
   const { spellSounds } = useActionSound();
@@ -56,12 +58,12 @@ export const useBattle = () => {
       if (playingUnit.skills[enemyAction].name == 'Dark Magic: Curse') {
         if (playingUnit.magic < 4) {
           enemyAction = 1;
-        }
+        } else setMagicUsedInTurn(4);
       }
       if (playingUnit.skills[enemyAction].name == 'Dark Magic: Weakness') {
         if (playingUnit.magic < 2) {
           enemyAction = 1;
-        }
+        } else setMagicUsedInTurn(2);
       }
       getAction(playingUnit.skills[enemyAction].name, selectedUnit, enemyArmy);
     }
@@ -167,9 +169,13 @@ export const useBattle = () => {
       setBattleMessageText(message);
       setShowBattleMessage(true);
 
+      const isDamagingAbility = action == 'attack' || action == 'rain of fire';
+      setIsDamaging(isDamagingAbility);
+
       await waitTimer(1900);
 
       fn(playingUnit, targetUnit).then(async (updatedTargetUnit) => {
+        setMagicUsedInTurn(0);
         const isTargetUnitDead = updatedTargetUnit.updatedHealth < 0;
 
         if (isTargetUnitDead) {
@@ -178,6 +184,8 @@ export const useBattle = () => {
           setDeadUnit(updatedTargetUnit);
 
           setShowBattleMessage(false);
+
+          setIsDamaging(false);
 
           await waitTimer(1300);
 
@@ -205,6 +213,7 @@ export const useBattle = () => {
         } else if (!isTargetUnitDead) {
           checkNextTurn(undefined, undefined, undefined, abilityIsAoe);
           setShowBattleMessage(false);
+          setIsDamaging(false);
         }
       });
     });
@@ -218,7 +227,7 @@ export const useBattle = () => {
           let attackMessage = '';
           if (unitsInBoard[unitPosition].cursed) {
             attackMessage = `${unitsInBoard[unitPosition].name}
-            attacks ${targetUnit.name} but MISSES.`;
+            attacks ${targetUnit.name} but is Cursed.`;
           } else {
             attackMessage = `${unitsInBoard[unitPosition].name}
           attacks ${targetUnit.name}`;

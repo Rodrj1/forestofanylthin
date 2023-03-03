@@ -3,7 +3,7 @@ import { useChangeVisibility } from '../../hooks';
 import { UnitStats } from '../../types';
 import { BattleContext } from '../../context/BattleContext';
 import { useBattle } from '../../features/components/BattleUI';
-import Bar from '../Bar/Bar';
+import { Bar } from '../Bar';
 import './style.scss';
 
 interface Props {
@@ -15,29 +15,33 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
   const { isVisible, handleVisibility } = useChangeVisibility();
 
   const { selectUnit } = useBattle();
-  const { action, turn, unitsInBoard, unitPosition } =
+  const { action, turn, unitsInBoard, unitPosition, setMagicUsedInTurn } =
     useContext(BattleContext);
 
   const checkActionRequirement = () => {
     switch (action) {
       case 'Dark Magic: Curse':
         if (unitsInBoard[unitPosition].magic >= 4) {
+          setMagicUsedInTurn(4);
           selectUnit(unit);
         }
         break;
       case 'Dark Magic: Weakness':
         if (unitsInBoard[unitPosition].magic >= 2) {
           selectUnit(unit);
+          setMagicUsedInTurn(2);
         }
         break;
       case 'Dark Magic: Shatter Armor':
         if (unitsInBoard[unitPosition].magic >= 3) {
           selectUnit(unit);
+          setMagicUsedInTurn(3);
         }
         break;
       case 'Destruction: Rain of Fire':
         if (unitsInBoard[unitPosition].magic >= 10) {
           selectUnit(unit);
+          setMagicUsedInTurn(10);
         }
         break;
       default:
@@ -54,6 +58,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
       )
         if (unitsInBoard[unitPosition].magic >= 6) {
           selectUnit(unit);
+          setMagicUsedInTurn(6);
         }
     }
     if (
@@ -68,6 +73,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
       handleVisibility();
     }
   };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className="unitCard" onClick={handleSelectUnit}>
@@ -111,9 +117,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           </span>
           <span>
             {unit.weaknessDamage < 1 &&
-              `WEAKENED: Deals ${(1 - unit.weaknessDamage).toFixed(
-                1
-              )}% damage`}
+              `WEAKENED: Deals ${(1 - unit.weaknessDamage).toFixed(1)}% damage`}
           </span>
           <span>
             {unit.armor < unit.initialArmor &&
