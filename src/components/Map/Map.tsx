@@ -33,6 +33,7 @@ const Map = ({
       <div className="levelsContainer">
         {!isCemeteryCompleted && (
           <div className="level">
+            <h5>CEMETERY</h5>
             <div
               className="levelBtn"
               onClick={() => handleInFight(cemetery, "cemetery")}
@@ -50,11 +51,12 @@ const Map = ({
 
         {!isLostGladeCompleted && (
           <div className="level">
+            <h5>LOST GLADE</h5>
             <div
               className="levelBtn"
               onClick={() => handleInFight(lostGlade, "lostGlade")}
             >
-              <img src={lvlgloomyforest} />
+              <img src={lvlLostGlade} />
             </div>
             <button
               className="scoutlvl"
@@ -67,11 +69,12 @@ const Map = ({
 
         {!isGloomyForestCompleted && (
           <div className="level">
+            <h5>GLOOMY FOREST</h5>
             <div
               className="levelBtn"
               onClick={() => handleInFight(gloomyForest, "gloomyForest")}
             >
-              <img src={lvlLostGlade} />
+              <img src={lvlgloomyforest} />
             </div>
             <button
               className="scoutlvl"
@@ -84,6 +87,7 @@ const Map = ({
 
         {!isSacreCompleted && (
           <div className="level">
+            <h5>SACRELTHAR</h5>
             <div
               className="levelBtn"
               onClick={() => handleInFight(forgottenCrypt, "sacre")}
@@ -94,7 +98,7 @@ const Map = ({
               className="scoutlvl"
               onClick={() => handlePreviewLevel(forgottenCrypt)}
             >
-              [Scout Sacre]
+              [Scout Sacrelthar]
             </button>
           </div>
         )}

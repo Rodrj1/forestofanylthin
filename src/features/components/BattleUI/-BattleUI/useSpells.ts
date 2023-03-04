@@ -13,7 +13,7 @@ export const useSpells = () => {
     setUnitPosition,
     unitsInBoard,
     setTurn,
-    setIsDamaging
+    setIsDamaging,
   } = useContext(BattleContext);
 
   // * Combat Skills
@@ -206,7 +206,7 @@ export const useSpells = () => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
-        power = 30 + 5 * castingUnit.spellpower;
+        power = 80 + 5 * castingUnit.spellpower;
       } else if (castingUnit.type != 'Hero' && castingUnit.level) {
         power = 10 + 3 * castingUnit.stack + castingUnit.level * 3;
       }
@@ -228,7 +228,15 @@ export const useSpells = () => {
     setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>,
     power: number
   ) => {
+    let damagedUnitPositions: Array<number> = [];
+    const casterPosition = unitsInBoard.indexOf(unitsInBoard[unitPosition]);
+
+    console.log(casterPosition);
+
     const updateUnitsInArmy = targetArmy.map((unit) => {
+      if (unit.updatedHealth - power <= 0) {
+        damagedUnitPositions.push(unitsInBoard.indexOf(unit));
+      }
       const unitStackInitialDamage = unit.updatedDamage;
       const unitStackLost = Math.floor(power / unit.health);
       const unitBaseDamage = unit.damage;
@@ -247,6 +255,8 @@ export const useSpells = () => {
       };
     });
 
+    console.log(damagedUnitPositions);
+
     setTargetArmy(updateUnitsInArmy.filter((units) => units.updatedHealth > 0));
 
     let unitsKilled = 0;
@@ -258,12 +268,31 @@ export const useSpells = () => {
     });
 
     setUnitPosition((pos) => {
+      let killedUnitsWithMoreInitiative = 0;
+      let killedUnitsWithLessInitiative = 0;
+      damagedUnitPositions.map((unitPos) => {
+        if (casterPosition > unitPos) {
+          +killedUnitsWithMoreInitiative++;
+        }
+        if (casterPosition < unitPos) {
+          +killedUnitsWithLessInitiative++;
+        }
+      });
+
+      console.log(killedUnitsWithMoreInitiative);
+
+      console.log(killedUnitsWithLessInitiative);
+
+      const calculateNewPosition = 2;
+
       if (unitsInBoard[unitPosition + unitsKilled + 1] == undefined) {
         if (unitsInBoard[0].belongsTo == 'player') setTurn('player');
         return 0;
       }
-      if (unitsKilled > 1) return pos - 1;
-      if (unitsKilled == 0 || unitsKilled == 1) return pos + 1;
+      if (unitsKilled == 0 || unitsKilled == 1) {
+        console.log('HERE, JUST ONE');
+        return pos;
+      }
       return pos;
     });
   };

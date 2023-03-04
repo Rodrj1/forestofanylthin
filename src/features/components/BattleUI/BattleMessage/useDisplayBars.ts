@@ -16,14 +16,14 @@ export const useDisplayBars = () => {
 
   let attackerDamage = playingUnit.updatedDamage * (1 - targetUnit.armor / 10);
   const attackerIsCursed = playingUnit.cursed;
+  const isMagicUsed = magicUsedInTurn != 0;
 
   if (targetHealth - attackerDamage < 0) attackerDamage = targetHealth;
+  if (isMagicUsed && isDamaging) attackerDamage = 56;
 
   const [updateHealth, setUpdateHealth] = useState(targetHealth);
 
   const [updateMagic, setUpdateMagic] = useState(playingUnit.magic);
-
-  const isMagicUsed = magicUsedInTurn != 0;
 
   const barInterval = useRef<any>(null);
   const msUpdate = 25;
@@ -76,6 +76,6 @@ export const useDisplayBars = () => {
     attackerIsCursed,
     updateHealth,
     targetMaxHealth,
-    attackerDamage
+    attackerDamage,
   };
 };
