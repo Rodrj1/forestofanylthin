@@ -86,8 +86,24 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
               {(Math.round(Math.ceil(unit.updatedHealth) * 10) / 10).toFixed(1)}
             </span>
             <span>Magic: {unit.magic}</span>
-            <span>Damage: {Math.ceil(unit.updatedDamage)}</span>
-            <span>Armor: {unit.armor.toFixed(1)}</span>
+            <span>
+              Damage:{' '}
+              {unit.weaknessDamage < 1 ? (
+                <span className="affected">
+                  {Math.ceil(unit.updatedDamage)}
+                </span>
+              ) : (
+                Math.ceil(unit.updatedDamage)
+              )}
+            </span>
+            <span>
+              Armor:{' '}
+              {unit.armor < unit.initialArmor ? (
+                <span className="affected">{unit.armor.toFixed(1)}</span>
+              ) : (
+                unit.armor.toFixed(1)
+              )}
+            </span>
             <span>Initiative: {unit.initiative}</span>
             <span>Spiritual power: {unit.magic}</span>
           </div>
@@ -117,7 +133,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           </span>
           <span>
             {unit.weaknessDamage < 1 &&
-              `WEAKENED: Deals ${(1 - unit.weaknessDamage).toFixed(1)}% damage`}
+              `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
           </span>
           <span>
             {unit.armor < unit.initialArmor &&

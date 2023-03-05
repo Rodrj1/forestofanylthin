@@ -51,7 +51,7 @@ export const useBattle = () => {
   const selectUnit = async (selectedUnit: UnitStats) => {
     const playingUnit = unitsInBoard[unitPosition];
     if (playingUnit.belongsTo == 'player') {
-      getAction(action, selectedUnit, playerArmy);
+      getAction(action, selectedUnit);
     } else {
       let enemyAction = Math.floor(Math.random() * playingUnit.skills.length);
       if (enemyAction == 0) enemyAction = 1;
@@ -65,15 +65,11 @@ export const useBattle = () => {
           enemyAction = 1;
         } else setMagicUsedInTurn(2);
       }
-      getAction(playingUnit.skills[enemyAction].name, selectedUnit, enemyArmy);
+      getAction(playingUnit.skills[enemyAction].name, selectedUnit);
     }
   };
 
-  const getAction = (
-    action: string,
-    selectedUnit: UnitStats,
-    targetUnitArmy: UnitStats[]
-  ) => {
+  const getAction = (action: string, selectedUnit: UnitStats) => {
     switch (action) {
       case 'Combat: Attack':
         handleAction('attack', attack, selectedUnit, attackUnit, undefined);
@@ -84,7 +80,6 @@ export const useBattle = () => {
           weakness,
           selectedUnit,
           castWeakness,
-          undefined,
           spellSounds.weakness
         );
         break;
@@ -94,7 +89,6 @@ export const useBattle = () => {
           shatterArmor,
           selectedUnit,
           castShatterArmor,
-          undefined,
           spellSounds.shatterArmor
         );
         break;
@@ -104,7 +98,6 @@ export const useBattle = () => {
           curse,
           selectedUnit,
           castCurse,
-          undefined,
           spellSounds.curse
         );
         break;
@@ -114,7 +107,6 @@ export const useBattle = () => {
           reanimate,
           selectedUnit,
           castReanimate,
-          undefined,
           spellSounds.reanimate
         );
         break;
@@ -124,7 +116,6 @@ export const useBattle = () => {
           vampiricLust,
           selectedUnit,
           castVampiricLust,
-          undefined,
           spellSounds.vampiricLust
         );
         break;
@@ -134,7 +125,6 @@ export const useBattle = () => {
           rainOfFire,
           selectedUnit,
           castRainOfFire,
-          targetUnitArmy,
           spellSounds.rainOfFire
         );
         break;
@@ -149,10 +139,8 @@ export const useBattle = () => {
       attackingUnit: UnitStats,
       attackedUnit: UnitStats
     ) => Promise<UnitStats>,
-    targetUnitArmy?: UnitStats[],
     actionSound?: () => void
   ) => {
-    const abilityIsAoe = targetUnitArmy != undefined;
     handleMessage(action, targetUnit).then(async (message) => {
       const playingUnit = unitsInBoard[unitPosition];
 
@@ -175,8 +163,10 @@ export const useBattle = () => {
       await waitTimer(1900);
 
       fn(playingUnit, targetUnit).then(async (updatedTargetUnit) => {
-        setMagicUsedInTurn(0);
+        await waitTimer(100);
+        const abilityIsAoe = updatedTargetUnit == unitsInBoard[unitPosition];
         const isTargetUnitDead = updatedTargetUnit.updatedHealth < 0;
+        setMagicUsedInTurn(0);
 
         if (isTargetUnitDead) {
           updatedTargetUnit.soundDeath();
@@ -198,20 +188,22 @@ export const useBattle = () => {
               updatedTargetUnit,
               enemyArmy,
               setEnemyArmy
-            ).then((data) => {
-              checkNextTurn(data[0], data[1], data[2], abilityIsAoe);
+            ).then((updatedBoard) => {
+              checkNextTurn(updatedBoard);
             });
           } else {
             removeFromTargetArmy(
               updatedTargetUnit,
               playerArmy,
               setPlayerArmy
-            ).then((data) => {
-              checkNextTurn(data[0], data[1], data[2], abilityIsAoe);
+            ).then((updatedBoard) => {
+              checkNextTurn(updatedBoard);
             });
           }
         } else if (!isTargetUnitDead) {
-          checkNextTurn(undefined, undefined, undefined, abilityIsAoe);
+          if (abilityIsAoe) checkNextTurn(undefined, abilityIsAoe);
+          else checkNextTurn();
+
           setShowBattleMessage(false);
           setIsDamaging(false);
         }
@@ -268,20 +260,13 @@ export const useBattle = () => {
     });
 
   type updatedBoard = UnitStats[];
-  type attackerPosition = number;
-  type targetPosition = number;
 
   const removeFromTargetArmy = async (
     targetUnit: UnitStats,
     targetArmy: UnitStats[],
     setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
   ) =>
-    new Promise<[updatedBoard, attackerPosition, targetPosition]>((resolve) => {
-      const attackerPosition = unitPosition;
-      const targetPosition = unitsInBoard.findIndex(
-        (unit) => unit.id == targetUnit.id
-      );
-
+    new Promise<updatedBoard>((resolve) => {
       const updateUnitsInTargetArmy = targetArmy.filter(
         (units) => units.id != targetUnit.id
       );
@@ -292,45 +277,32 @@ export const useBattle = () => {
       );
       setUnitsInBoard(updateUnitsInBoard);
 
-      resolve([updateUnitsInBoard, attackerPosition, targetPosition]);
+      resolve(updateUnitsInBoard);
     });
 
-  const checkNextTurn = (
-    updatedBoard?: UnitStats[],
-    attackerPosition?: number,
-    targetPosition?: number,
-    isAOE?: boolean
-  ) => {
-    const isAtBoardEnd = unitPosition == unitsInBoard.length - 1;
+  const checkNextTurn = (updatedBoard?: UnitStats[], isAOE?: boolean) => {
+    if (updatedBoard) {
+      handleBoardPosition(updatedBoard);
+    } else {
+      if (isAOE) handleBoardPosition(unitsInBoard, isAOE);
+      handleBoardPosition(unitsInBoard);
+    }
+  };
 
-    if (!isAOE) {
-      if (isAtBoardEnd) {
-        resetBoardPositionToZero();
-      } else {
-        const someUnitDied =
-          updatedBoard != undefined &&
-          attackerPosition != undefined &&
-          targetPosition != undefined;
+  const handleBoardPosition = (board: UnitStats[], isAOE?: boolean) => {
+    console.log(board);
 
-        if (someUnitDied) {
-          if (attackerPosition < targetPosition) {
-            handleNextTurn(updatedBoard, true);
-          } else if (attackerPosition > targetPosition) {
-            handleNextTurn(updatedBoard, false);
-          }
+    const enemyTurn = `enemy${Math.floor(Math.random() * 5888891055)}`;
+    const calculateNewPosition = board.indexOf(unitsInBoard[unitPosition]) + 1;
+    const nextUnit = board[calculateNewPosition];
 
-          const nextUnitIsNotUndefined =
-            updatedBoard[unitPosition + 1] == undefined;
-          const currentUnitBelongsToPlayer =
-            updatedBoard[unitPosition].belongsTo == 'player';
-
-          if (nextUnitIsNotUndefined && currentUnitBelongsToPlayer) {
-            resetBoardPositionToZero();
-          }
-        } else if (someUnitDied == false) {
-          handleNextTurn(unitsInBoard, true);
-        }
-      }
+    if (nextUnit?.belongsTo == undefined) {
+      resetBoardPositionToZero();
+    } else {
+      const nextTurnBelongsTo =
+        nextUnit?.belongsTo == 'player' ? 'player' : enemyTurn;
+      setTurn(nextTurnBelongsTo);
+      setUnitPosition(calculateNewPosition);
     }
   };
 
@@ -338,27 +310,6 @@ export const useBattle = () => {
     if (unitsInBoard[0].belongsTo == 'player') setTurn('player');
     else setTurn('enemy');
     setUnitPosition(0);
-  };
-
-  const handleNextTurn = (board: UnitStats[], checkNextPos: boolean) => {
-    // Why 'enemyTurn' variable? AI acts whenever the global variable 'Turn' (string) stored in BattleContext changes to 'enemy'. If two enemy units play in a row, 'Turn' will only change its value once, making the AI get stuck at the second unit. 'enemyTurn' variable fixes this by always giving a different value for 'Turn' containing the word enemy so the AI can play in a row as many times needed.
-    const enemyTurn = `enemy${Math.floor(Math.random() * 5888891055)}`;
-
-    let nextTurnBelongsTo = '';
-
-    if (checkNextPos == true) {
-      nextTurnBelongsTo =
-        board[unitPosition + 1]?.belongsTo == 'player' ? 'player' : enemyTurn;
-
-      setUnitPosition((pos) => pos + 1);
-    } else {
-      nextTurnBelongsTo =
-        board[unitPosition]?.belongsTo == 'player' ? 'player' : enemyTurn;
-
-      setUnitPosition((pos) => pos);
-    }
-
-    setTurn(nextTurnBelongsTo);
   };
 
   return {

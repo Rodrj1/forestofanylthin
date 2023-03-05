@@ -16,7 +16,9 @@ export const weakness = {
   name: 'Dark Magic: Weakness',
   formattedName: 'Weakness',
   description:
-    'Halvens 50% of the selected unit damage. It is affected by the size of the stack, or, if it is a hero, by the spellpower.' +
+    'Reduces damage permanently.' +
+    '\n\nReduced damage if casted by a hero is 30% + (7% * spellpower)' +
+    '\n\nReduced damage if casted by a normal unit is 20% + (3% * stack) + (5% * level)' +
     '\n\nCost: 2 spiritual power.',
   image: dmweakness,
   type: 'Dark Magic',

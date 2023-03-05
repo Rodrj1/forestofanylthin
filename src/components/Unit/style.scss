@@ -29,10 +29,17 @@
     text-align: center;
 
     span {
+      display: flex;
       font-size: .8rem;
+      justify-content: center;
       &:first-child {
         font-size: 1.2rem;
         color: rgb(154, 160, 104);
+      }
+      .affected {
+        margin-left: 3px;
+        font-size: .8rem;
+        color: #fc0303;
       }
     }
 
