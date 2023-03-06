@@ -1,18 +1,18 @@
-import { UnitStats } from "../../types";
-import { useChangeVisibility } from "../../hooks";
-import { useUnitPreview } from "../../features/UnitPreview";
-import { useContext } from "react";
-import { BattleContext } from "../../context/BattleContext";
-import { DarkBackgroundWrapper } from "../DarkBackgroundWrapper";
-import { UnitPreview } from "./UnitPreview";
-import { DialogueBox } from "./DialogueBox";
-import ydris from "../../assets/images/portraits/dryexa/ydris.jpg";
-import dryexarangerFace from "../../assets/images/portraits/dryexa/dryexarangerface.jpg";
-import skeletonFace from "../../assets/images/portraits/undead/skeletonface.jpg";
-import PlayerUICSS from "./css.module.scss";
+import { Army } from '../../types';
+import { useChangeVisibility } from '../../hooks';
+import { useUnitPreview } from '../../features/UnitPreview';
+import { useContext } from 'react';
+import { BattleContext } from '../../context/BattleContext';
+import { DarkBackgroundWrapper } from '../DarkBackgroundWrapper';
+import { UnitPreview } from './UnitPreview';
+import { DialogueBox } from './DialogueBox';
+import ydris from '../../assets/images/portraits/dryexa/ydris.jpg';
+import dryexarangerFace from '../../assets/images/portraits/dryexa/dryexarangerface.jpg';
+import skeletonFace from '../../assets/images/portraits/undead/skeletonface.jpg';
+import PlayerUICSS from './css.module.scss';
 
 interface Props {
-  playerArmy: UnitStats[];
+  playerArmy: Army;
   race: string;
 }
 
@@ -20,7 +20,7 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
   const { isVisible, handleVisibility } = useChangeVisibility();
   const { handleUnitPreview, handleExitUnitPreview, previewUnit } =
     useUnitPreview();
-    
+
   const {
     addedDryexaRanger,
     setAddedDryexaRanger,
@@ -40,19 +40,18 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
       )}
 
       <div className={PlayerUICSS.faction}>
-        <img src={ydris} alt="Yghalris" onClick={handleVisibility} />
+        <img src={ydris} alt="Photo of Ydris" onClick={handleVisibility} />
       </div>
 
       <div className={PlayerUICSS.army}>
         {playerArmy.map((unit) => (
           <div className={PlayerUICSS.unit} key={unit.id}>
-            <h2>{unit.name}</h2>
             <img
               src={unit.face}
               alt={unit.id}
               onClick={() => handleUnitPreview(unit)}
             />
-            <p>{unit.type != "Hero" && Math.ceil(unit.stack)}</p>
+            {unit.type != 'Hero' && <p>{Math.ceil(unit.stack)}</p>}
           </div>
         ))}
       </div>

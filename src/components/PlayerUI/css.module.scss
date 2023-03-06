@@ -54,8 +54,8 @@
     width: 160px;
     border: 5px solid transparent;
     transition: 0.2s ease-in-out;
-    opacity: .9;
-    
+    opacity: 0.9;
+
     &:hover {
       border: 5px solid #646cff;
     }
@@ -72,7 +72,7 @@
     }
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       z-index: -2;
       left: -50%;
@@ -89,7 +89,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       z-index: -1;
       left: 6px;
@@ -154,7 +154,62 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media (min-width: 280px) and (max-width: 767px) {
+  .container {
+    .faction {
+      margin: 0;
+      height: 100px;
+      width: 100px;
+
+      &:hover {
+        border: none;
+      }
+
+      img {
+        height: 90px;
+        width: 90px;
+      }
+    }
+    .army {
+      margin: 10px;
+
+      .unit {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100px;
+        width: 80px;
+
+        h2 {
+          display: none;
+          margin: 0;
+          text-align: center;
+          font-weight: 200;
+          font-size: 0.7rem;
+        }
+
+        img {
+          height: 70px;
+          width: 70px;
+        }
+        p {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 15px;
+          height: 15px;
+          font-size: 0.7rem;
+        }
+      }
+    }
+    .dialogue {
+      width: 95%;
+    }
+  }
+}
+
+@media (max-width: 767px) and (max-width: 1024px) {
   .container {
     width: 80%;
     flex-wrap: wrap;
@@ -169,10 +224,50 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media (min-width: 1025px) and (max-width: 1280px) {
   .container {
-    .dialogue {
-      width: 95%;
+    .faction {
+      margin: 0;
+      height: 130px;
+      width: 130px;
+
+      img {
+        height: 120px;
+        width: 120px;
+      }
+    }
+    .army {
+      margin: 10px;
+
+      .unit {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 120px;
+        width: 100px;
+
+        h2 {
+          display: none;
+          margin: 0;
+          text-align: center;
+          font-weight: 200;
+          font-size: 0.7rem;
+        }
+
+        img {
+          height: 90px;
+          width: 90px;
+        }
+        p {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 25px;
+          height: 25px;
+          font-size: 0.8rem;
+        }
+      }
     }
   }
 }

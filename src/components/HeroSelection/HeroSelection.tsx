@@ -3,7 +3,7 @@ import { playerDryeldar } from '../../data/playerInitialStack/dryeldarStart';
 import { Unit } from '../Unit/Unit';
 import { useContext } from 'react';
 import { BattleContext } from '../../context/BattleContext';
-import { UnitStats } from '../../types';
+import { Army } from '../../types';
 import { useUnitPreview } from '../../features/UnitPreview/useUnitPreview';
 import { DarkBackgroundWrapper } from '../DarkBackgroundWrapper';
 import { UnitPreview } from '../PlayerUI/UnitPreview';
@@ -17,7 +17,7 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
   const { handleUnitPreview, handleExitUnitPreview, previewUnit } =
     useUnitPreview();
 
-  const setPlayerInitialArmy = (army: UnitStats[], race: string) => {
+  const setPlayerInitialArmy = (army: Army, race: string) => {
     setIsPlaying(true);
     setPlayerArmy(army);
     setPlayerRace(race);

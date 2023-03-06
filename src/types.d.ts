@@ -19,6 +19,7 @@ export interface UnitStats {
   damage: number;
   initialArmor: number;
   armor: number;
+  magicResistance: number,
   magic: number;
   maxMagic: number;
   initiative: string;
@@ -36,3 +37,6 @@ export interface UnitStats {
   spellpower?: number;
   level?: number;
 }
+
+export type Army = UnitStats[];
+export type Unit = UnitStats;

@@ -1,4 +1,4 @@
-import { UnitStats } from "../../types";
+import { Army } from "../../types";
 import lvlsacre from "../../assets/images/map/sacre.jpg";
 import lvlcemetery from "../../assets/images/map/cemetery.jpg";
 import lvlgloomyforest from "../../assets/images/map/gloomyforest.jpg";
@@ -11,8 +11,8 @@ import {
 } from "../../data/enemyStacks";
 
 interface Props {
-  handleInFight: (enemiesToAdd: UnitStats[], level?: string) => Promise<void>;
-  handlePreviewLevel: (enemies: UnitStats[]) => void;
+  handleInFight: (enemiesToAdd: Army, level?: string) => Promise<void>;
+  handlePreviewLevel: (enemies: Army) => void;
   isCemeteryCompleted: boolean;
   isGloomyForestCompleted: boolean;
   isLostGladeCompleted: boolean;
@@ -44,7 +44,7 @@ const Map = ({
               className="scoutlvl"
               onClick={() => handlePreviewLevel(cemetery)}
             >
-              [Scout Cemetery]
+              [Scout]
             </button>
           </div>
         )}
@@ -62,7 +62,7 @@ const Map = ({
               className="scoutlvl"
               onClick={() => handlePreviewLevel(lostGlade)}
             >
-              [Scout Lost Glade]
+              [Scout]
             </button>
           </div>
         )}
@@ -80,7 +80,7 @@ const Map = ({
               className="scoutlvl"
               onClick={() => handlePreviewLevel(gloomyForest)}
             >
-              [Scout Gloomy Forest]
+              [Scout]
             </button>
           </div>
         )}
@@ -98,7 +98,7 @@ const Map = ({
               className="scoutlvl"
               onClick={() => handlePreviewLevel(forgottenCrypt)}
             >
-              [Scout Sacrelthar]
+              [Scout]
             </button>
           </div>
         )}

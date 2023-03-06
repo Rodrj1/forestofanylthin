@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { BattleContext } from '../../../context/BattleContext';
 import { dryexaRanger } from '../../../data/unitstats/dryexa/dryexa';
 import { skeleton } from '../../../data/unitstats/undead/undead';
-import { UnitStats } from '../../../types';
+import { Army } from '../../../types';
 
 export const useBattleHandler = () => {
   const {
@@ -31,7 +31,7 @@ export const useBattleHandler = () => {
   const [isLostGladeCompleted, setIsLostGladeCompleted] = useState(false);
   const [isSacreCompleted, setIsSacreCompleted] = useState(false);
 
-  const handleInFight = async (enemiesToAdd: UnitStats[], level?: string) => {
+  const handleInFight = async (enemiesToAdd: Army, level?: string) => {
     switch (level) {
       case 'cemetery':
         setIsInCemetery(true);
@@ -56,7 +56,7 @@ export const useBattleHandler = () => {
   };
 
   const restoreArmyAfterFightIsEnded = () =>
-    new Promise<UnitStats[]>((resolve) => {
+    new Promise<Army>((resolve) => {
       const updateArmy = playerArmy.map((unit) => {
         return {
           ...unit,
@@ -91,11 +91,11 @@ export const useBattleHandler = () => {
         if (playerRace == 'undead') {
           restoreArmyAfterFightIsEnded().then((healedArmy) => {
             const areSkeletonsInArmy = healedArmy.find(
-              (unit) => unit.id == 'Skeleton'
+              (unit) => unit.id == 'nicolaiSkeleton'
             );
             if (areSkeletonsInArmy) {
               const addToArmy = healedArmy.map((unit) => {
-                if (unit.id == 'Skeleton') {
+                if (unit.id == 'nicolaiSkeleton') {
                   return {
                     ...unit,
                     stack: unit.stack + 50,

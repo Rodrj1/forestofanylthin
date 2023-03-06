@@ -51,8 +51,22 @@
   }
 }
 
-@media screen and (max-width: 510px) {
-  .skillPreview{
+@media (min-width: 280px) and (max-width: 767px) {
+  .skillPreview {
     width: 90%;
+    min-height: 300px;
+    font-size: 0.9rem;
+
+    .skillDesc {
+      font-size: 0.8rem;
+    }
+
+    img {
+      height: 80px;
+      width: 70px;
+    }
+    button {
+      height: 50px;
+    }
   }
 }

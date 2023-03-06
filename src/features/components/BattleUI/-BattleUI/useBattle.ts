@@ -1,14 +1,15 @@
 import { useContext } from 'react';
 import { BattleContext } from '../../../../context/BattleContext';
-import { skill, UnitStats } from '../../../../types';
+import { skill, Army, Unit } from '../../../../types';
 import { useSpells } from './useSpells';
 import {
+  breachResistances,
   curse,
   shatterArmor,
   weakness,
 } from '../../../../data/Skills/DarkMagic';
 import { attack } from '../../../../data/Skills/Combat';
-import { rainOfFire } from '../../../../data/Skills/Destruction';
+import { iceSpear, rainOfFire } from '../../../../data/Skills/Destruction';
 import { reanimate, vampiricLust } from '../../../../data/Skills/Necromancy';
 import { useActionSound } from '../../../../hooks/useActionSound';
 import { waitTimer } from '../../../../helpers/functions';
@@ -43,12 +44,14 @@ export const useBattle = () => {
     castShatterArmor,
     castWeakness,
     castCurse,
+    castBreachResistances,
     castRainOfFire,
+    castIceSpear,
     castReanimate,
     castVampiricLust,
   } = useSpells();
 
-  const selectUnit = async (selectedUnit: UnitStats) => {
+  const selectUnit = async (selectedUnit: Unit) => {
     const playingUnit = unitsInBoard[unitPosition];
     if (playingUnit.belongsTo == 'player') {
       getAction(action, selectedUnit);
@@ -69,7 +72,7 @@ export const useBattle = () => {
     }
   };
 
-  const getAction = (action: string, selectedUnit: UnitStats) => {
+  const getAction = (action: string, selectedUnit: Unit) => {
     switch (action) {
       case 'Combat: Attack':
         handleAction('attack', attack, selectedUnit, attackUnit, undefined);
@@ -101,6 +104,15 @@ export const useBattle = () => {
           spellSounds.curse
         );
         break;
+      case 'Dark Magic: Breach Resistances':
+        handleAction(
+          'breach resistances',
+          breachResistances,
+          selectedUnit,
+          castBreachResistances,
+          spellSounds.curse
+        );
+        break;
       case 'Necromancy: Reanimate':
         handleAction(
           'reanimate',
@@ -128,17 +140,23 @@ export const useBattle = () => {
           spellSounds.rainOfFire
         );
         break;
+      case 'Destruction: Ice Spear':
+        handleAction(
+          'ice spear',
+          iceSpear,
+          selectedUnit,
+          castIceSpear,
+          spellSounds.weakness
+        );
+        break;
     }
   };
 
   const handleAction = (
     action: string,
     skillDescription: skill,
-    targetUnit: UnitStats,
-    fn: (
-      attackingUnit: UnitStats,
-      attackedUnit: UnitStats
-    ) => Promise<UnitStats>,
+    targetUnit: Unit,
+    fn: (attackingUnit: Unit, attackedUnit: Unit) => Promise<Unit>,
     actionSound?: () => void
   ) => {
     handleMessage(action, targetUnit).then(async (message) => {
@@ -157,14 +175,14 @@ export const useBattle = () => {
       setBattleMessageText(message);
       setShowBattleMessage(true);
 
-      const isDamagingAbility = action == 'attack' || action == 'rain of fire';
-      setIsDamaging(isDamagingAbility);
+      const abilityCauseDamage =
+        action == 'attack' || action == 'rain of fire' || action == 'ice spear';
+      setIsDamaging(abilityCauseDamage);
 
       await waitTimer(1900);
 
       fn(playingUnit, targetUnit).then(async (updatedTargetUnit) => {
         await waitTimer(100);
-        const abilityIsAoe = updatedTargetUnit == unitsInBoard[unitPosition];
         const isTargetUnitDead = updatedTargetUnit.updatedHealth < 0;
         setMagicUsedInTurn(0);
 
@@ -179,7 +197,7 @@ export const useBattle = () => {
 
           await waitTimer(1300);
 
-          setDeadUnit({} as UnitStats);
+          setDeadUnit({} as Unit);
 
           const attackerBelongsToPlayer = playingUnit.belongsTo == 'player';
 
@@ -201,8 +219,7 @@ export const useBattle = () => {
             });
           }
         } else if (!isTargetUnitDead) {
-          if (abilityIsAoe) checkNextTurn(undefined, abilityIsAoe);
-          else checkNextTurn();
+          checkNextTurn();
 
           setShowBattleMessage(false);
           setIsDamaging(false);
@@ -212,59 +229,69 @@ export const useBattle = () => {
     setAction('');
   };
 
-  const handleMessage = (action: string, targetUnit: UnitStats) =>
+  const handleMessage = (action: string, targetUnit: Unit) =>
     new Promise<string>((resolve) => {
+      const playingUnit = unitsInBoard[unitPosition];
       switch (action) {
         case 'attack':
           let attackMessage = '';
-          if (unitsInBoard[unitPosition].cursed) {
-            attackMessage = `${unitsInBoard[unitPosition].name}
+          if (playingUnit.cursed) {
+            attackMessage = `${playingUnit.name}
             attacks ${targetUnit.name} but is Cursed.`;
           } else {
-            attackMessage = `${unitsInBoard[unitPosition].name}
+            attackMessage = `${playingUnit.name}
           attacks ${targetUnit.name}`;
           }
           resolve(attackMessage);
           break;
 
         case 'weakness':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
           casts Weakness on ${targetUnit.name}`);
           break;
 
         case 'shatter armor':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
           casts Shatter Armor on ${targetUnit.name}`);
           break;
 
         case 'curse':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
           casts Curse on ${targetUnit.name}`);
           break;
 
+        case 'breach resistances':
+          resolve(`${playingUnit.name}
+            casts Breach Resistances on ${targetUnit.name}`);
+          break;
+
         case 'reanimate':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
             casts Reanimate on ${targetUnit.name}`);
           break;
 
         case 'vampiric lust':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
             casts Vampiric Lust on ${targetUnit.name}`);
           break;
 
         case 'rain of fire':
-          resolve(`${unitsInBoard[unitPosition].name}
+          resolve(`${playingUnit.name}
           casts Rain of Fire`);
+          break;
+        case 'ice spear':
+          resolve(`${playingUnit.name}
+          casts Ice Spear on ${targetUnit.name}`);
           break;
       }
     });
 
-  type updatedBoard = UnitStats[];
+  type updatedBoard = Army;
 
   const removeFromTargetArmy = async (
-    targetUnit: UnitStats,
-    targetArmy: UnitStats[],
-    setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
+    targetUnit: Unit,
+    targetArmy: Army,
+    setTargetArmy: React.Dispatch<React.SetStateAction<Army>>
   ) =>
     new Promise<updatedBoard>((resolve) => {
       const updateUnitsInTargetArmy = targetArmy.filter(
@@ -280,21 +307,19 @@ export const useBattle = () => {
       resolve(updateUnitsInBoard);
     });
 
-  const checkNextTurn = (updatedBoard?: UnitStats[], isAOE?: boolean) => {
+  const checkNextTurn = (updatedBoard?: Army) => {
     if (updatedBoard) {
       handleBoardPosition(updatedBoard);
     } else {
-      if (isAOE) handleBoardPosition(unitsInBoard, isAOE);
       handleBoardPosition(unitsInBoard);
     }
   };
 
-  const handleBoardPosition = (board: UnitStats[], isAOE?: boolean) => {
-    console.log(board);
-
+  const handleBoardPosition = (board: Army) => {
     const enemyTurn = `enemy${Math.floor(Math.random() * 5888891055)}`;
-    const calculateNewPosition = board.indexOf(unitsInBoard[unitPosition]) + 1;
-    const nextUnit = board[calculateNewPosition];
+    const playingUnit = unitsInBoard[unitPosition];
+    const nextPosition = board.indexOf(playingUnit) + 1;
+    const nextUnit = board[nextPosition];
 
     if (nextUnit?.belongsTo == undefined) {
       resetBoardPositionToZero();
@@ -302,7 +327,7 @@ export const useBattle = () => {
       const nextTurnBelongsTo =
         nextUnit?.belongsTo == 'player' ? 'player' : enemyTurn;
       setTurn(nextTurnBelongsTo);
-      setUnitPosition(calculateNewPosition);
+      setUnitPosition(nextPosition);
     }
   };
 

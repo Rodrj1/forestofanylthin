@@ -21,6 +21,7 @@ export const playerUndead = [
     updatedDamage: skeleton.damage * 12,
     maxStack: 12,
     maxHealth: skeleton.health * 12,
+    id: "nicolaiSkeleton"
   },
   {
     ...undeadWarlock,
@@ -30,6 +31,7 @@ export const playerUndead = [
     updatedDamage: undeadWarlock.damage * 4,
     maxStack: 4,
     maxHealth: undeadWarlock.health * 4,
+    id: "nicolaiWarlock"
   },
   {
     ...lich,
@@ -39,5 +41,6 @@ export const playerUndead = [
     updatedDamage: lich.damage * 2,
     maxStack: 2,
     maxHealth: lich.health * 2,
+    id: "nicolaiLich"
   },
 ];

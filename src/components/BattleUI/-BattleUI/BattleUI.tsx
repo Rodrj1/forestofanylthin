@@ -6,7 +6,10 @@ import { PlayerStack } from '../PlayerStack';
 import { EnemyStack } from '../EnemyStack';
 import { BattleMessage } from '../BattleMessage';
 import { DeadUnit } from '../DeadUnit';
-import { useGetPlayingUnit, useHandleUnitsInBoard } from '../../../features/components/BattleUI';
+import {
+  useGetPlayingUnit,
+  useHandleUnitsInBoard,
+} from '../../../features/components/BattleUI';
 import BattleCSS from './style.module.scss';
 
 const BattleUI = () => {
@@ -25,23 +28,19 @@ const BattleUI = () => {
         <br />
 
         {isInFight && (
-          <div className={BattleCSS.units}>
-            <div className={BattleCSS.playerStack}>
-              <PlayerStack
-                key={playerKey}
-                playerKey={playerKey}
-                setPlayerKey={setPlayerKey}
-                BattleCSS={BattleCSS}
-              />
-            </div>
-            <div className={BattleCSS.enemyStack}>
-              <EnemyStack
-                key={enemyKey}
-                enemyKey={enemyKey}
-                setEnemyKey={setEnemyKey}
-                BattleCSS={BattleCSS}
-              />
-            </div>
+          <div className={BattleCSS.battle}>
+            <PlayerStack
+              key={playerKey}
+              playerKey={playerKey}
+              setPlayerKey={setPlayerKey}
+              BattleCSS={BattleCSS}
+            />
+            <EnemyStack
+              key={enemyKey}
+              enemyKey={enemyKey}
+              setEnemyKey={setEnemyKey}
+              BattleCSS={BattleCSS}
+            />
           </div>
         )}
       </div>

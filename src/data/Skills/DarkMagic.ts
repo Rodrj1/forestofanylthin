@@ -1,6 +1,7 @@
 import dmcurse from '../../assets/images/skills/dmcurse.png';
 import dmweakness from '../../assets/images/skills/dmweakness.png';
 import dmshatterarmor from '../../assets/images/skills/dmshatterarmor.png';
+import dmbreachresistances from '../../assets/images/skills/dmbreachresistances.png';
 
 export const curse = {
   name: 'Dark Magic: Curse',
@@ -33,5 +34,15 @@ export const shatterArmor = {
     '\n\nReduced armor if casted by a normal unit is  1 + (0.7 * stack) + (level / 2).' +
     '\n\nCost: 3 spiritual power.',
   image: dmshatterarmor,
+  type: 'Dark Magic',
+};
+
+export const breachResistances = {
+  name: 'Dark Magic: Breach Resistances',
+  formattedName: 'Breach Resistances',
+  description:
+    'Makes an enemy suffer 40% extra magic damage.' +
+    '\n\nCost: 3 spiritual power.',
+  image: dmbreachresistances,
   type: 'Dark Magic',
 };

@@ -19,7 +19,13 @@ export const useDisplayBars = () => {
   const isMagicUsed = magicUsedInTurn != 0;
 
   if (targetHealth - attackerDamage < 0) attackerDamage = targetHealth;
-  if (isMagicUsed && isDamaging) attackerDamage = 56;
+  if (attackerIsCursed) {
+    attackerDamage = 0;
+  }
+  if (isMagicUsed && isDamaging) {
+    if (magicUsedInTurn == 10) attackerDamage = 56;
+    else attackerDamage = 95 * (1 - targetUnit.magicResistance / 10);
+  }
 
   const [updateHealth, setUpdateHealth] = useState(targetHealth);
 

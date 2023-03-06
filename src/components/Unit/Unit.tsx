@@ -19,29 +19,42 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
     useContext(BattleContext);
 
   const checkActionRequirement = () => {
+    const playingUnit = unitsInBoard[unitPosition];
     switch (action) {
       case 'Dark Magic: Curse':
-        if (unitsInBoard[unitPosition].magic >= 4) {
+        if (playingUnit.magic >= 4) {
           setMagicUsedInTurn(4);
           selectUnit(unit);
         }
         break;
       case 'Dark Magic: Weakness':
-        if (unitsInBoard[unitPosition].magic >= 2) {
+        if (playingUnit.magic >= 2) {
           selectUnit(unit);
           setMagicUsedInTurn(2);
         }
         break;
       case 'Dark Magic: Shatter Armor':
-        if (unitsInBoard[unitPosition].magic >= 3) {
+        if (playingUnit.magic >= 3) {
+          selectUnit(unit);
+          setMagicUsedInTurn(3);
+        }
+        break;
+      case 'Dark Magic: Breach Resistances':
+        if (playingUnit.magic >= 3) {
           selectUnit(unit);
           setMagicUsedInTurn(3);
         }
         break;
       case 'Destruction: Rain of Fire':
-        if (unitsInBoard[unitPosition].magic >= 10) {
+        if (playingUnit.magic >= 10) {
           selectUnit(unit);
           setMagicUsedInTurn(10);
+        }
+        break;
+      case 'Destruction: Ice Spear':
+        if (playingUnit.magic >= 7) {
+          selectUnit(unit);
+          setMagicUsedInTurn(7);
         }
         break;
       default:
@@ -75,7 +88,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className='unitContainer'>
       <div className="unitCard" onClick={handleSelectUnit}>
         <img src={unit.portrait} />
         {isVisible && (
@@ -125,23 +138,28 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           type="mana"
           race={unit.type}
         />
-
-        <div className="affected">
-          <span>{unit.cursed && 'CURSED: Will miss next attack'}</span>
-          <span className="benefical">
-            {unit.vampiricHeal && 'VAMPIRIC: This unit heals with every hit'}
-          </span>
-          <span>
-            {unit.weaknessDamage < 1 &&
-              `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
-          </span>
-          <span>
-            {unit.armor < unit.initialArmor &&
-              `VULNERABLE: Lost ${(unit.initialArmor - unit.armor).toFixed(
-                1
-              )} of its armor`}
-          </span>
-        </div>
+      </div>
+      <div className="affectedContainer">
+        <span>{unit.cursed && 'CURSED: Will miss next attack'}</span>
+        <span className="benefical">
+          {unit.vampiricHeal && 'VAMPIRIC: Heals with every hit'}
+        </span>
+        <span>
+          {unit.weaknessDamage < 1 &&
+            `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
+        </span>
+        <span>
+          {unit.armor < unit.initialArmor &&
+            `VULNERABLE: Lost ${(unit.initialArmor - unit.armor).toFixed(
+              1
+            )} armor`}
+        </span>
+        <span>
+          {unit.magicResistance < 0 &&
+            `BREACHED: ${
+              unit.magicResistance * 10
+            }% against magic`}
+        </span>
       </div>
     </div>
   );

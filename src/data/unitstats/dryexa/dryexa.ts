@@ -25,6 +25,7 @@ export const dryexaRanger = {
   damage: 12,
   initialArmor: 0,
   armor: 0,
+  magicResistance: 0,
   health: 13,
   maxHealth: 13,
   magic: 0,

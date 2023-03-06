@@ -50,14 +50,19 @@ const PlayerStack = ({ playerKey, setPlayerKey, BattleCSS }: Props) => {
       <div className={BattleCSS.playerSkills}>
         {actionImage != '' && (
           <div className={BattleCSS.action}>
-            <h3>Action:</h3>
+            <h3>Action</h3>
             <img src={actionImage} />
           </div>
         )}
 
         {unitsInBoard[unitPosition]?.skills.map((skill) => (
           <div className={BattleCSS.skill} key={skill.name}>
-            <SkillIcon skill={skill} handleSkillPreview={handleSkillPreview} />
+            <div className={BattleCSS.skillIcon}>
+              <SkillIcon
+                skill={skill}
+                handleSkillPreview={handleSkillPreview}
+              />
+            </div>
             <button
               key={skill.name}
               onClick={() => handleAction(skill.name, skill.image)}

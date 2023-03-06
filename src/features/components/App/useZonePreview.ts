@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useActionSound, useChangeVisibility } from '../../../hooks';
-import { UnitStats } from '../../../types';
+import { Army } from '../../../types';
 
 export const useZonePreview = () => {
-  const [previewLevelInfo, setPreviewLevelInfo] = useState<UnitStats[]>();
+  const [previewLevelInfo, setPreviewLevelInfo] = useState<Army>();
 
   const { isVisible, handleVisibility } = useChangeVisibility();
   const { playPreviewSound } = useActionSound();
 
-  const handlePreviewLevel = (enemies: UnitStats[]) => {
+  const handlePreviewLevel = (enemies: Army) => {
     playPreviewSound();
     handleVisibility();
     setPreviewLevelInfo(enemies);

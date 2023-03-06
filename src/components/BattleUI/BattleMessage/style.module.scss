@@ -1,7 +1,7 @@
 .message {
   display: flex;
   min-height: 200px;
-  width: 900px;
+  max-width: 900px;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -51,4 +51,42 @@
       width: 40px;
     }
   }
+}
+
+@media (min-width: 280px) and (max-width: 767px) {
+  .message {
+    width: 100%;
+    border: 3px double #343b58;
+  
+    img {
+      height: 100px;
+      width: 100px;
+      border: 1px solid #343b58;
+    }
+  
+    .text {
+      margin: 0px 25px;
+      color: #bb9af7;
+      font-weight: bold;
+      font-size: .53rem;
+  
+      span {
+        min-height: 30px;
+      }
+  
+      img {
+        margin: 20px 0px;
+        height: 50px;
+        width: 50px;
+        border: none;
+      }
+  
+      .damage {
+        font-size: 1rem;
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+  
 }

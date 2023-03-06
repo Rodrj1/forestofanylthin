@@ -1,6 +1,6 @@
 import { attack, clear } from "../../Skills/Combat";
-import { curse, shatterArmor, weakness } from "../../Skills/DarkMagic";
-import { rainOfFire } from "../../Skills/Destruction";
+import { breachResistances, curse, shatterArmor, weakness } from "../../Skills/DarkMagic";
+import { iceSpear, rainOfFire } from "../../Skills/Destruction";
 import elisithPortrait from "../../../assets/images/portraits/dryeldar/elisith.jpg";
 import elisithFace from "../../../assets/images/portraits/dryeldar/elisithface.jpg";
 import darkMatronPortrait from "../../../assets/images/portraits/dryeldar/darkmatron2.jpg";
@@ -72,18 +72,19 @@ export const elisith = {
   damage: 56,
   initialArmor: 5,
   armor: 5,
+  magicResistance: 0,
   health: 145,
   maxHealth: 145,
   magic: 18,
   maxMagic: 18,
-  initiative: "5",
+  initiative: "9",
   spellpower: 5,
   portrait: elisithPortrait,
   face: elisithFace,
   stack: 1,
   maxStack: 1,
   belongsTo: "",
-  skills: [clear, attack, curse, rainOfFire],
+  skills: [clear, attack, curse, rainOfFire, iceSpear],
   weaknessDamage: 1,
   cursed: false,
   soundAttack: attackElisith,
@@ -99,6 +100,7 @@ export const enslavedRoynis = {
   damage: 7,
   initialArmor: 1,
   armor: 1,
+  magicResistance: 0,
   health: 8,
   maxHealth: 8,
   magic: 0,
@@ -125,6 +127,7 @@ export const twistedJin = {
   damage: 21,
   initialArmor: 2,
   armor: 2,
+  magicResistance: 0,
   health: 25,
   maxHealth: 25,
   magic: 4,
@@ -151,6 +154,7 @@ export const darkMatron = {
   damage: 29,
   initialArmor: 5,
   armor: 5,
+  magicResistance: 0,
   health: 50,
   maxHealth: 50,
   magic: 6,
@@ -161,7 +165,7 @@ export const darkMatron = {
   stack: 1,
   maxStack: 1,
   belongsTo: "",
-  skills: [clear, attack, shatterArmor],
+  skills: [clear, attack, shatterArmor, breachResistances],
   weaknessDamage: 1,
   cursed: false,
   soundAttack: attackDarkMatron,

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BattleContext } from '../../../../context/BattleContext';
 import { waitTimer } from '../../../../helpers/functions';
-import { UnitStats } from '../../../../types';
+import { Unit } from '../../../../types';
 
 export const useSpells = () => {
   const { setEnemyArmy, setPlayerArmy, setAction, enemyArmy } =
@@ -9,8 +9,8 @@ export const useSpells = () => {
 
   // * Combat Skills
 
-  const attackUnit = (attackingUnit: UnitStats, attackedUnit: UnitStats) =>
-    new Promise<UnitStats>((resolve) => {
+  const attackUnit = (attackingUnit: Unit, attackedUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
       const calculatedDamage =
         Math.ceil(attackingUnit.updatedDamage) * (1 - attackedUnit.armor / 10);
 
@@ -32,11 +32,11 @@ export const useSpells = () => {
     });
 
   const attackDamage = (
-    attackedUnit: UnitStats,
-    attackingUnit: UnitStats,
+    attackedUnit: Unit,
+    attackingUnit: Unit,
     damage: number
   ) =>
-    new Promise<UnitStats>((resolve) => {
+    new Promise<Unit>((resolve) => {
       const isVampiric = attackingUnit.vampiricHeal;
 
       if (isVampiric) {
@@ -68,9 +68,9 @@ export const useSpells = () => {
     });
 
   const vampiricHeal = (
-    unit: UnitStats,
+    unit: Unit,
     vampiricHeal: number,
-    setUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
+    setUnitArmy: React.Dispatch<React.SetStateAction<Unit[]>>
   ) => {
     let newUnitHealth = unit.updatedHealth + vampiricHeal;
 
@@ -89,8 +89,8 @@ export const useSpells = () => {
 
   // * Dark Magic Skills
 
-  const castShatterArmor = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>((resolve) => {
+  const castShatterArmor = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
@@ -113,8 +113,26 @@ export const useSpells = () => {
       );
     });
 
-  const castWeakness = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>((resolve) => {
+  const castBreachResistances = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
+      const power = 4;
+
+      setAction('');
+
+      const updateBreachedUnit = {
+        ...targetUnit,
+        magicResistance: targetUnit.magicResistance - power,
+      };
+
+      updateUnitsInvolvedInSpell(castingUnit, updateBreachedUnit, 3).then(
+        (updatedUnit) => {
+          resolve(updatedUnit);
+        }
+      );
+    });
+
+  const castWeakness = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
@@ -138,8 +156,8 @@ export const useSpells = () => {
       );
     });
 
-  const castCurse = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>((resolve) => {
+  const castCurse = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
       const updateCursedUnit = { ...targetUnit, cursed: true };
 
       updateUnitsInvolvedInSpell(castingUnit, updateCursedUnit, 4).then(
@@ -151,8 +169,8 @@ export const useSpells = () => {
 
   // * Necromancy Skills
 
-  const castReanimate = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>(async (resolve) => {
+  const castReanimate = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>(async (resolve) => {
       setAction('');
 
       const getMaxHealth = targetUnit.maxHealth - targetUnit.updatedHealth;
@@ -172,8 +190,8 @@ export const useSpells = () => {
       resolve(updateTargetUnit);
     });
 
-  const castVampiricLust = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>(async (resolve) => {
+  const castVampiricLust = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>(async (resolve) => {
       setAction('');
 
       const updateTargetUnit = {
@@ -192,8 +210,8 @@ export const useSpells = () => {
 
   // * Destruction Skills
 
-  const castRainOfFire = (castingUnit: UnitStats, targetUnit: UnitStats) =>
-    new Promise<UnitStats>(async (resolve) => {
+  const castRainOfFire = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>(async (resolve) => {
       let power = 0;
 
       if (castingUnit.type == 'Hero' && castingUnit.spellpower) {
@@ -214,9 +232,35 @@ export const useSpells = () => {
       resolve(targetUnit);
     });
 
+  const castIceSpear = (castingUnit: Unit, targetUnit: Unit) =>
+    new Promise<Unit>((resolve) => {
+      const damage = 95 * (1 - targetUnit.magicResistance / 10);
+
+      const stackLost = Math.floor(damage / targetUnit.health);
+
+      let attackedUnitNewDamage =
+        targetUnit.updatedDamage -
+        targetUnit.damage * stackLost * targetUnit.weaknessDamage;
+
+      if (attackedUnitNewDamage < 1) attackedUnitNewDamage = 1;
+
+      const unitToUpdate = {
+        ...targetUnit,
+        updatedHealth: targetUnit.updatedHealth - damage,
+        updatedDamage: Math.ceil(attackedUnitNewDamage),
+        stack: targetUnit.stack - damage / targetUnit.health,
+      };
+
+      updateUnitsInvolvedInSpell(castingUnit, unitToUpdate, 7).then(
+        (updatedUnit) => {
+          resolve(updatedUnit);
+        }
+      );
+    });
+
   const updateArmy = async (
-    targetArmy: UnitStats[],
-    setTargetArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>,
+    targetArmy: Unit[],
+    setTargetArmy: React.Dispatch<React.SetStateAction<Unit[]>>,
     power: number
   ) => {
     const updateUnitsInArmy = targetArmy.map((unit) => {
@@ -242,9 +286,9 @@ export const useSpells = () => {
   };
 
   const updateUnitBenefical = (
-    castingUnit: UnitStats,
-    updatedTargetUnit: UnitStats,
-    setCastingUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>,
+    castingUnit: Unit,
+    updatedTargetUnit: Unit,
+    setCastingUnitArmy: React.Dispatch<React.SetStateAction<Unit[]>>,
     magicCost: number
   ) => {
     setCastingUnitArmy((prev) =>
@@ -271,11 +315,11 @@ export const useSpells = () => {
   };
 
   const updateUnitsInvolvedInSpell = (
-    castingUnit: UnitStats,
-    updatedTargetUnit: UnitStats,
+    castingUnit: Unit,
+    updatedTargetUnit: Unit,
     magicCost?: number
   ) =>
-    new Promise<UnitStats>(async (resolve) => {
+    new Promise<Unit>(async (resolve) => {
       if (castingUnit.belongsTo == 'player') {
         if (magicCost) updateUnitInArmy(castingUnit, setPlayerArmy, magicCost);
         updateUnitInArmy(updatedTargetUnit, setEnemyArmy, 0);
@@ -287,8 +331,8 @@ export const useSpells = () => {
     });
 
   const updateUnitInArmy = (
-    updatedUnit: UnitStats,
-    setUpdatedArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>,
+    updatedUnit: Unit,
+    setUpdatedArmy: React.Dispatch<React.SetStateAction<Unit[]>>,
     magicCost: number
   ) => {
     setUpdatedArmy((prev) =>
@@ -302,8 +346,8 @@ export const useSpells = () => {
   };
 
   const removeCurse = (
-    castingUnit: UnitStats,
-    setCursedUnitArmy: React.Dispatch<React.SetStateAction<UnitStats[]>>
+    castingUnit: Unit,
+    setCursedUnitArmy: React.Dispatch<React.SetStateAction<Unit[]>>
   ) => {
     setCursedUnitArmy((prev) =>
       prev.map((unit) => {
@@ -323,7 +367,9 @@ export const useSpells = () => {
     castShatterArmor,
     castWeakness,
     castCurse,
+    castBreachResistances,
     castRainOfFire,
+    castIceSpear,
     castReanimate,
     castVampiricLust,
   };

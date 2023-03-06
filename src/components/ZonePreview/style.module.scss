@@ -53,8 +53,47 @@
   }
 }
 
-@media screen and (max-width: 558px) {
+@media (min-width: 280px) and (max-width: 767px) {
   .level {
+    min-height: 300px;
     width: 80%;
+
+    .levelUnits {
+      border-top: 3px dotted #343b58;
+      border-bottom: 3px dotted #343b58;
+  
+      .unit {
+        width: 50px;
+        height: auto;
+        margin: 20px;
+        h3,
+        p {
+          margin: 0;
+          text-align: center;
+        }
+
+        img {
+          height: 50px;
+          width: 50px;
+          border: 2px solid #343b58;
+          object-fit: cover;
+          cursor: pointer;
+        }
+
+        h3 {
+          font-size: .8rem;
+        }
+
+        p {
+          font-size: .8rem;
+          font-weight: bold;
+          background: rgb(147, 76, 161);
+          width: 20px;
+          height: 20px;
+          margin: auto;
+          color: #fff;
+        }
+      }
+    }
   }
 }
