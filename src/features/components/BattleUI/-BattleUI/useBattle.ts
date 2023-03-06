@@ -110,7 +110,7 @@ export const useBattle = () => {
           breachResistances,
           selectedUnit,
           castBreachResistances,
-          spellSounds.curse
+          spellSounds.breachResistances
         );
         break;
       case 'Necromancy: Reanimate':
@@ -146,7 +146,7 @@ export const useBattle = () => {
           iceSpear,
           selectedUnit,
           castIceSpear,
-          spellSounds.weakness
+          spellSounds.iceSpear
         );
         break;
     }
