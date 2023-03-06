@@ -34,7 +34,7 @@ export const useDialogHandler = ({ race }: Props) => {
   };
   const showDialogOptions = dialogOptions.map((dialogue) => (
     <button key={dialogue} onClick={() => handleDialogOptions(dialogue)}>
-      {dialogue}
+      {dialogue.toUpperCase()}
     </button>
   ));
 

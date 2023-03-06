@@ -13,12 +13,6 @@
 
     .unit {
       width: auto;
-      h2 {
-        margin: 0;
-        text-align: center;
-        font-weight: 200;
-        font-size: 1.1rem;
-      }
 
       img {
         margin: 0px 10px;
@@ -34,7 +28,7 @@
       }
 
       p {
-        font-size: 1.2rem;
+        font-size: var(--font-large);
         font-weight: bold;
         background: rgb(147, 76, 161);
         width: 40px;
@@ -124,7 +118,7 @@
       padding: 10px;
       word-spacing: 1.4px;
       line-height: 1.4;
-      font-size: 1.1rem;
+      font-size: var(--font-large);
       width: 90%;
       color: #d5d6db;
       overflow-x: hidden;
@@ -186,7 +180,7 @@
           margin: 0;
           text-align: center;
           font-weight: 200;
-          font-size: 0.7rem;
+          font-size: var(--font-small);
         }
 
         img {
@@ -199,12 +193,34 @@
           align-items: center;
           width: 15px;
           height: 15px;
-          font-size: 0.7rem;
+          font-size: var(--font-small);
         }
       }
     }
     .dialogue {
       width: 95%;
+      color: #d5d6db;
+
+      p {
+        font-size: var(--font-small);
+      }
+
+      img {
+        margin: 10px 0px;
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        border: 3px solid #bb9af7;
+      }
+
+      button {
+        height: 40px;
+        font-size: var(--font-small);
+
+        &:focus {
+          border: 1px solid #fff;
+        }
+      }
     }
   }
 }
@@ -247,14 +263,6 @@
         height: 120px;
         width: 100px;
 
-        h2 {
-          display: none;
-          margin: 0;
-          text-align: center;
-          font-weight: 200;
-          font-size: 0.7rem;
-        }
-
         img {
           height: 90px;
           width: 90px;
@@ -265,7 +273,7 @@
           align-items: center;
           width: 25px;
           height: 25px;
-          font-size: 0.8rem;
+          font-size: var(--font-large);
         }
       }
     }

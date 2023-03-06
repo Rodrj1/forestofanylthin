@@ -124,7 +124,7 @@
         width: 130px;
 
         h5 {
-          font-size: 0.7rem;
+          font-size: var(--font-small);
         }
 
         .levelBtn {
@@ -145,7 +145,7 @@
           align-items: center;
           height: 35px;
           width: 100px;
-          font-size: 0.7rem;
+          font-size: var(--font-small);
           font-weight: bold;
         }
       }
@@ -169,7 +169,7 @@
         width: 180px;
 
         h5 {
-          font-size: 0.9rem;
+          font-size: var(--font-medium);
         }
 
         .levelBtn {
@@ -190,7 +190,7 @@
           align-items: center;
           height: 40px;
           width: 150px;
-          font-size: 0.7rem;
+          font-size: var(--font-medium);
           font-weight: bold;
         }
       }
@@ -231,7 +231,7 @@
           align-items: center;
           height: 40px;
           width: 150px;
-          font-size: 0.7rem;
+          font-size: var(--font-medium);
           font-weight: bold;
         }
       }

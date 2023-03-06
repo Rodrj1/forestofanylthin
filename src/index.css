@@ -3,6 +3,11 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+
+  --font-small: .78rem;
+  --font-medium: .9rem;
+  --font-large: 1.33rem;
+
   color-scheme: light dark;
   color: #d5d6db;
   background-color: #242424;
@@ -30,7 +35,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 button {

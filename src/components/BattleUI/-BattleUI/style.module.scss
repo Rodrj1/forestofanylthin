@@ -13,7 +13,7 @@
   text-align: center;
 
   h3 {
-    font-size: 1.1rem;
+    font-size: var(--font-large);
   }
 
   img {
@@ -60,7 +60,7 @@
         height: 50px;
         width: auto;
         border: 2px solid transparent;
-        font-size: 0.9rem;
+        font-size: var(--font-medium);
         &:hover {
           border: 2px double #d5d6db;
         }
@@ -178,7 +178,7 @@
         button {
           height: 50px;
           width: 75px;
-          font-size: 0.7rem;
+          font-size: var(--font-small);
           font-weight: bold;
         }
       }
