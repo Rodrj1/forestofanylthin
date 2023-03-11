@@ -1,7 +1,6 @@
 # React Minigame
 
-Very short game in which you have to win four battles.
-Link: https://reactanilthyn.netlify.app/
+Play: https://reactanilthyn.netlify.app/
 
 ## Hero Selection
 
