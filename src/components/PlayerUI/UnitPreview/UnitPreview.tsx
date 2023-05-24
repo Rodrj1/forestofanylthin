@@ -17,8 +17,6 @@ const UnitPreview = ({ previewUnit, handleExitUnitPreview }: Props) => {
   const { previewSkill, handleSkillPreview, handleExitSkillPreview } =
     useSkillPreview();
 
-  const statStyle = 'h-[27px] w-[27px]';
-
   return (
     <div
       className="flex flex-col items-center justify-center h-auto w-[95%] sm:w-max bg-zinc-900/80
@@ -40,23 +38,23 @@ const UnitPreview = ({ previewUnit, handleExitUnitPreview }: Props) => {
 
       <div className="flex flex-wrap gap-3 items-center">
         <div className="flex flex-col justify-center items-center">
-          <img src={health} alt="health" className={statStyle} />
-          <p>Health: {previewUnit.health}</p>
+          <img src={health} alt="health" className={"statStyle"} />
+          <span>Health: {previewUnit.health}</span>
         </div>
 
         <div className="flex flex-col justify-center items-center">
-          <img src={hourglass} alt="initiative" className={statStyle} />
-          <p>Initiative: {previewUnit.initiative}</p>
+          <img src={hourglass} alt="initiative" className={"statStyle"} />
+          <span>Initiative: {previewUnit.initiative}</span>
         </div>
 
         <div className="flex flex-col justify-center items-center">
-          <img src={damage} alt="attack" className={statStyle} />
-          <p>Attack: {previewUnit.damage}</p>
+          <img src={damage} alt="attack" className={"statStyle"} />
+          <span>Attack: {previewUnit.damage}</span>
         </div>
 
         <div className="flex flex-col justify-center items-center">
-          <img src={armor} alt="armor" className={statStyle} />
-          <p>Armor: {previewUnit.armor}</p>
+          <img src={armor} alt="armor" className={"statStyle"} />
+          <span>Armor: {previewUnit.armor}</span>
         </div>
       </div>
 

@@ -16,7 +16,7 @@ const EnemyStack = ({ enemyKey, setEnemyKey }: Props) => {
     setKey: setEnemyKey,
   });
 
-  return <div className="flex gap-1 overflow-auto w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">{showArmy}</div>;
+  return <div className="flex gap-10 overflow-auto w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">{showArmy}</div>;
 };
 
 export default EnemyStack;

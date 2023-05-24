@@ -8,6 +8,17 @@
   }
 }
 
+@layer components {
+
+  .statStyle {
+    @apply h-[27px] w-[27px]
+  }
+
+  .statStyleSmaller {
+    @apply h-[19px] w-[19px]
+  }
+}
+
 :root {
   font-family: 'Times New Roman', Times, serif;
   font-size: 16px;

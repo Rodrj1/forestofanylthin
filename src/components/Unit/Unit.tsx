@@ -3,6 +3,9 @@ import { UnitStats } from '../../types';
 import { BattleContext } from '../../context/BattleContext';
 import { useBattle } from '../../features/components/BattleUI';
 import { Bar } from '../Bar';
+import damage from '../../assets/images/stats/damage.png';
+import armor from '../../assets/images/stats/armor.png';
+import hourglass from '../../assets/images/stats/hourglass.png';
 
 interface Props {
   unit: UnitStats;
@@ -66,7 +69,7 @@ export const Unit = ({ unit }: Props) => {
   const [hoverEffect, setHoverEffect] = useState(false);
 
   return (
-    <article className="min-w-[200px]">
+    <article className="min-w-[200px] relative">
       <div
         className="h-[220px] w-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] relative"
         onClick={handleSelectUnit}
@@ -116,21 +119,43 @@ export const Unit = ({ unit }: Props) => {
         </span>
 
         <span className="text-red-600">
-          {unit.weaknessDamage < 1 &&
-            `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
-        </span>
-
-        <span className="text-red-600">
-          {unit.armor < unit.initialArmor &&
-            `VULNERABLE: Lost ${(unit.initialArmor - unit.armor).toFixed(
-              1
-            )} armor`}
-        </span>
-
-        <span className="text-red-600">
           {unit.magicResistance < 0 &&
             `BREACHED: ${unit.magicResistance * 10}% against magic`}
         </span>
+      </div>
+
+      <div className="flex flex-col gap-3 items-center absolute top-2 -right-7">
+        <div className="flex flex-col justify-center items-center">
+          <img src={damage} alt="attack" className={'statStyleSmaller'} />
+
+          <span
+            className={`text-sm ${unit.weaknessDamage < 1 && 'text-red-600'}`}
+          >
+            {unit.updatedDamage.toFixed(0)}
+          </span>
+        </div>
+
+        <div className="flex flex-col justify-center items-center">
+          <img src={armor} alt="armor" className={'statStyleSmaller'} />
+
+          <span
+            className={`text-sm ${
+              unit.armor < unit.initialArmor && 'text-red-600'
+            }`}
+          >
+            {unit.armor.toFixed(0)}
+          </span>
+        </div>
+
+        <div className="flex flex-col justify-center items-center">
+          <img
+            src={hourglass}
+            alt="initiative"
+            className={'statStyleSmaller'}
+          />
+
+          <span className="text-sm">{unit.initiative}</span>
+        </div>
       </div>
     </article>
   );

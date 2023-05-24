@@ -6,6 +6,7 @@ import { useSkillPreview } from '../../../features/SkillPreview';
 import { SkillIcon } from '../../SkillPreview/SkillIcon';
 import { DarkBackgroundWrapper } from '../../DarkBackgroundWrapper';
 import { SkillPreview } from '../../SkillPreview';
+import { ActionName } from '../../../types';
 
 interface Props {
   playerKey: number;
@@ -29,13 +30,13 @@ const PlayerStack = ({ playerKey, setPlayerKey }: Props) => {
 
   const [actionImage, setActionImage] = useState<string>();
 
-  const handleAction = (playerAction: string, skillImage: string) => {
+  const handleAction = (playerAction: ActionName, skillImage: string) => {
     setActionImage(skillImage);
     playPreviewSound();
     if (playerAction != 'Combat: Clear Action') {
       if (unitsInBoard[unitPosition].belongsTo == 'player')
         setAction(playerAction);
-    } else setAction('');
+    } else setAction('Combat: Clear Action');
   };
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const PlayerStack = ({ playerKey, setPlayerKey }: Props) => {
 
   return (
     <>
-      <div className="flex gap-1 w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">
+      <div className="flex gap-10 w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">
         {showArmy}
       </div>
 

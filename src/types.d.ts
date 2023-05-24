@@ -1,5 +1,5 @@
 interface skill {
-  name: string;
+  name: ActionName;
   formattedName: string;
   description: string;
   image: string;
@@ -30,10 +30,10 @@ export interface UnitStats {
   skills: skill[];
   weaknessDamage: number;
   cursed: boolean;
-  vampiricHeal?: boolean;
   soundAttack: () => void;
   soundHitted: () => void;
   soundDeath: () => void;
+  vampiricHeal?: boolean;
   spellpower?: number;
   level?: number;
 }
