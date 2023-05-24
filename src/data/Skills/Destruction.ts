@@ -1,8 +1,9 @@
 import destructionrainoffire from '../../assets/images/skills/destructionfirerain.png';
 
 import destructionicespear from '../../assets/images/skills/destructionicespear.png';
+import { Skill } from '../../types';
 
-export const rainOfFire = {
+export const rainOfFire: Skill = {
   name: 'Destruction: Rain of Fire',
   formattedName: 'Rain of Fire',
   description:
@@ -12,7 +13,7 @@ export const rainOfFire = {
   type: 'Destruction',
 };
 
-export const iceSpear = {
+export const iceSpear: Skill = {
   name: 'Destruction: Ice Spear',
   formattedName: 'Ice Spear',
   description: 'Deals 95 unblockable damage.' + '\n\nCost: 7 spiritual power.',

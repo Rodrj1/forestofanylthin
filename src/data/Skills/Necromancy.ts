@@ -1,7 +1,8 @@
 import ngvampiriclust from "../../assets/images/skills/ngvampirism.png";
 import ngreanimate from "../../assets/images/skills/ngreanimate.png";
+import { Skill } from "../../types";
 
-export const vampiricLust = {
+export const vampiricLust: Skill = {
   name: "Necromancy: Vampiric Lust",
   formattedName: "Vampiric Lust",
   description:
@@ -11,7 +12,7 @@ export const vampiricLust = {
   type: "Necromancy",
 };
 
-export const reanimate = {
+export const reanimate: Skill = {
   name: "Necromancy: Reanimate",
   formattedName: "Reanimate",
   description:

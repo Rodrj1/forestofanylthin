@@ -2,8 +2,9 @@ import dmcurse from '../../assets/images/skills/dmcurse.png';
 import dmweakness from '../../assets/images/skills/dmweakness.png';
 import dmshatterarmor from '../../assets/images/skills/dmshatterarmor.png';
 import dmbreachresistances from '../../assets/images/skills/dmbreachresistances.png';
+import { Skill } from '../../types';
 
-export const curse = {
+export const curse: Skill = {
   name: 'Dark Magic: Curse',
   formattedName: 'Curse',
   description:
@@ -13,7 +14,7 @@ export const curse = {
   type: 'Dark Magic',
 };
 
-export const weakness = {
+export const weakness: Skill = {
   name: 'Dark Magic: Weakness',
   formattedName: 'Weakness',
   description:
@@ -25,7 +26,7 @@ export const weakness = {
   type: 'Dark Magic',
 };
 
-export const shatterArmor = {
+export const shatterArmor: Skill = {
   name: 'Dark Magic: Shatter Armor',
   formattedName: 'Shatter Armor',
   description:
@@ -37,7 +38,7 @@ export const shatterArmor = {
   type: 'Dark Magic',
 };
 
-export const breachResistances = {
+export const breachResistances: Skill = {
   name: 'Dark Magic: Breach Resistances',
   formattedName: 'Breach Resistances',
   description:

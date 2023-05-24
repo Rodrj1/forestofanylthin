@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { skill, Unit, Army, ActionName } from '../types';
+import { Skill, Unit, Army, ActionName } from '../types';
 
 interface ProviderProps {
   children: JSX.Element;
@@ -34,8 +34,8 @@ interface BattleContextProps {
   setShowBattleMessage: React.Dispatch<React.SetStateAction<boolean>>;
   battleMessageText: string;
   setBattleMessageText: React.Dispatch<React.SetStateAction<string>>;
-  actionImage: skill["image"];
-  setActionImage: React.Dispatch<React.SetStateAction<skill["image"]>>;
+  actionImage: Skill["image"];
+  setActionImage: React.Dispatch<React.SetStateAction<Skill["image"]>>;
   addedDryexaRanger: boolean;
   setAddedDryexaRanger: React.Dispatch<React.SetStateAction<boolean>>;
   addedSkeletons: boolean;
@@ -65,7 +65,7 @@ export const BattleContextProvider = ({ children }: ProviderProps) => {
   const [targetUnit, setTargetUnit] = useState<Unit>({} as Unit);
   const [deadUnit, setDeadUnit] = useState<Unit>({} as Unit);
 
-  const [actionImage, setActionImage] = useState<skill["image"]>("");
+  const [actionImage, setActionImage] = useState<Skill["image"]>("");
   const [battleMessageText, setBattleMessageText] = useState('');
   const [showBattleMessage, setShowBattleMessage] = useState(false);
   const [isDamaging, setIsDamaging] = useState(false);

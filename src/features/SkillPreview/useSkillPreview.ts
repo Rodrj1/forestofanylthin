@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { skill } from "../../types";
+import { Skill } from "../../types";
 
 export const useSkillPreview = () => {
-  const [previewSkill, setPreviewSkill] = useState<skill | "">("");
+  const [previewSkill, setPreviewSkill] = useState<Skill | "">("");
 
-  const handleSkillPreview = (skill: skill) => {
+  const handleSkillPreview = (skill: Skill) => {
     setPreviewSkill(skill);
   };
 

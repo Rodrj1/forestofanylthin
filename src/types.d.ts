@@ -11,7 +11,7 @@ export type ActionName =
   | 'Necromancy: Vampiric Lust';
 
 interface Skill {
-  name: string;
+  name: ActionName;
   formattedName: string;
   description: string;
   image: string;
