@@ -33,19 +33,19 @@ export const useBattleHandler = () => {
 
   const handleInFight = async (enemiesToAdd: Army, level?: string) => {
     switch (level) {
-      case 'cemetery':
+      case 'Cemetery':
         setIsInCemetery(true);
         setIsCemeteryCompleted(true);
         break;
-      case 'gloomyForest':
+      case 'Gloomy Forest':
         setIsInGloomyForest(true);
         setIsGloomyForestCompleted(true);
         break;
-      case 'lostGlade':
+      case 'Lost Glade':
         setIsInLostGlade(true);
         setIsLostGladeCompleted(true);
         break;
-      case 'sacre':
+      case 'Sacre':
         setIsInSacre(true);
         setIsSacreCompleted(true);
         break;

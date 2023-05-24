@@ -5,10 +5,9 @@ import { useArmyUpdater } from '../../../hooks/useArmyUpdater';
 interface Props {
   enemyKey: number;
   setEnemyKey: React.Dispatch<React.SetStateAction<number>>;
-  BattleCSS: CSSModuleClasses;
 }
 
-const EnemyStack = ({ enemyKey, setEnemyKey, BattleCSS }: Props) => {
+const EnemyStack = ({ enemyKey, setEnemyKey }: Props) => {
   const { enemyArmy } = useContext(BattleContext);
 
   const { showArmy } = useArmyUpdater({
@@ -17,7 +16,7 @@ const EnemyStack = ({ enemyKey, setEnemyKey, BattleCSS }: Props) => {
     setKey: setEnemyKey,
   });
 
-  return <div className={BattleCSS.army}>{showArmy}</div>;
+  return <div className="flex gap-1 overflow-auto w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">{showArmy}</div>;
 };
 
 export default EnemyStack;

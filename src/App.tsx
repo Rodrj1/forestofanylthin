@@ -28,11 +28,9 @@ function App() {
     useZonePreview();
 
   return (
-    <div className="App">
+    <div className="bg-gradient-radial from-zinc-900 via-gray-800/20 to-zinc-900 w-screen min-h-screen">
       {playerArmy.length < 1 && !isPlaying && (
-        <div className="heroSelection">
           <HeroSelection setIsPlaying={setIsPlaying} />
-        </div>
       )}
 
       {playerArmy.length == 0 && isPlaying && (

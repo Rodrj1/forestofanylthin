@@ -24,10 +24,10 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
   };
 
   return (
-    <>
-      <h1>Hero Selection</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen gap-10 py-5 px-1">
+      <h1 className="text-2xl mb-10 text-slate-300">Select a faction</h1>
 
-      <div className="heroStack">
+      <div className="flex flex-wrap justify-center gap-2">
         {playerDryeldar?.map((dryeldar) => (
           <div key={dryeldar.id} onClick={() => handleUnitPreview(dryeldar)}>
             <Unit isInHeroSelection={true} unit={dryeldar} />
@@ -35,15 +35,11 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
         ))}
       </div>
 
-      <br />
-
       <button onClick={() => setPlayerInitialArmy(playerDryeldar, 'dryeldar')}>
-        Start as dryeldar
+        Dryeldar
       </button>
 
-      <br />
-
-      <div className="heroStack">
+      <div className="flex flex-wrap justify-center gap-2">
         {playerUndead?.map((undead) => (
           <div key={undead.id} onClick={() => handleUnitPreview(undead)}>
             <Unit isInHeroSelection={true} unit={undead} />
@@ -51,10 +47,8 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
         ))}
       </div>
 
-      <br />
-
       <button onClick={() => setPlayerInitialArmy(playerUndead, 'undead')}>
-        Start as undead
+        Undead
       </button>
 
       {previewUnit != undefined && (
@@ -65,7 +59,7 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
           />
         </DarkBackgroundWrapper>
       )}
-    </>
+    </div>
   );
 };
 

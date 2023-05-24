@@ -2,13 +2,12 @@ import { useBoardDisplay } from '../../../features/components/BattleUI';
 import { DarkBackgroundWrapper } from '../../DarkBackgroundWrapper';
 import { UnitPreview } from '../../PlayerUI/UnitPreview';
 import { useUnitPreview } from '../../../features/UnitPreview';
-import BoardCSS from './style.module.scss';
 
 const BattleBoard = () => {
   const { handleUnitPreview, handleExitUnitPreview, previewUnit } =
     useUnitPreview();
 
-  const { mapUnitsInBoard } = useBoardDisplay({ handleUnitPreview, BoardCSS });
+  const { mapUnitsInBoard } = useBoardDisplay({ handleUnitPreview });
 
   return (
     <>
@@ -21,7 +20,7 @@ const BattleBoard = () => {
         </DarkBackgroundWrapper>
       )}
 
-      <div className={BoardCSS.container}>{mapUnitsInBoard}</div>
+      <div className="flex items-center justify-start sm:justify-center w-full md:w-max min-h-[70px] gap-2 overflow-x-auto shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ">{mapUnitsInBoard}</div>
     </>
   );
 };

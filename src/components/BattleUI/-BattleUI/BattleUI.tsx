@@ -10,7 +10,6 @@ import {
   useGetPlayingUnit,
   useHandleUnitsInBoard,
 } from '../../../features/components/BattleUI';
-import BattleCSS from './style.module.scss';
 
 const BattleUI = () => {
   const { isInFight, showBattleMessage, deadUnit } = useContext(BattleContext);
@@ -22,26 +21,23 @@ const BattleUI = () => {
 
   return (
     <>
-      <div className={BattleCSS.container}>
+      <div className="flex flex-col justify-center items-center gap-10 min-h-screen m-auto">
         <BattleBoard />
 
-        <br />
+        {isInFight && (
+          <PlayerStack
+            key={playerKey}
+            playerKey={playerKey}
+            setPlayerKey={setPlayerKey}
+          />
+        )}
 
         {isInFight && (
-          <div className={BattleCSS.battle}>
-            <PlayerStack
-              key={playerKey}
-              playerKey={playerKey}
-              setPlayerKey={setPlayerKey}
-              BattleCSS={BattleCSS}
-            />
-            <EnemyStack
-              key={enemyKey}
-              enemyKey={enemyKey}
-              setEnemyKey={setEnemyKey}
-              BattleCSS={BattleCSS}
-            />
-          </div>
+          <EnemyStack
+            key={enemyKey}
+            enemyKey={enemyKey}
+            setEnemyKey={setEnemyKey}
+          />
         )}
       </div>
 

@@ -1,10 +1,8 @@
-import { useContext } from 'react';
-import { useChangeVisibility } from '../../hooks';
+import { useContext, useState } from 'react';
 import { UnitStats } from '../../types';
 import { BattleContext } from '../../context/BattleContext';
 import { useBattle } from '../../features/components/BattleUI';
 import { Bar } from '../Bar';
-import './style.scss';
 
 interface Props {
   unit: UnitStats;
@@ -12,8 +10,6 @@ interface Props {
 }
 
 export const Unit = ({ unit, isInHeroSelection }: Props) => {
-  const { isVisible, handleVisibility } = useChangeVisibility();
-
   const { selectUnit } = useBattle();
   const { action, turn, unitsInBoard, unitPosition, setMagicUsedInTurn } =
     useContext(BattleContext);
@@ -82,50 +78,38 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
       unit.belongsTo == 'enemy'
     ) {
       checkActionRequirement();
-    } else if (isInHeroSelection == undefined && action == '') {
-      handleVisibility();
     }
   };
 
+  const [hoverEffect, setHoverEffect] = useState(false);
+
   return (
-    <div className='unitContainer'>
-      <div className="unitCard" onClick={handleSelectUnit}>
-        <img src={unit.portrait} />
-        {isVisible && (
-          <div className="stats">
-            <span>{unit.name}</span>
-            <span>
-              Health:{' '}
-              {(Math.round(Math.ceil(unit.updatedHealth) * 10) / 10).toFixed(1)}
-            </span>
-            <span>Magic: {unit.magic}</span>
-            <span>
-              Damage:{' '}
-              {unit.weaknessDamage < 1 ? (
-                <span className="affected">
-                  {Math.ceil(unit.updatedDamage)}
-                </span>
-              ) : (
-                Math.ceil(unit.updatedDamage)
-              )}
-            </span>
-            <span>
-              Armor:{' '}
-              {unit.armor < unit.initialArmor ? (
-                <span className="affected">{unit.armor.toFixed(1)}</span>
-              ) : (
-                unit.armor.toFixed(1)
-              )}
-            </span>
-            <span>Initiative: {unit.initiative}</span>
-            <span>Spiritual power: {unit.magic}</span>
-          </div>
+    <article className="min-w-[200px]">
+      <div
+        className="h-[220px] w-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] relative"
+        onClick={handleSelectUnit}
+        onMouseEnter={() => setHoverEffect(true)}
+        onMouseLeave={() => setHoverEffect(false)}
+      >
+        <img
+          className={`object-cover h-full w-full object-top border border-zinc-700 p-1 cursor-pointer rounded-full`}
+          src={unit.portrait}
+        />
+
+        {unit.type != 'Hero' && (
+          <span className="absolute top-0 border border-white w-8 h-8 bg-purple-700 text-center p-1 m-1">
+            {Math.ceil(unit.stack)}
+          </span>
         )}
-        {unit.type != 'Hero' && !isVisible && (
-          <span className="stack">{Math.ceil(unit.stack)}</span>
-        )}
+
+        <div
+          className={`absolute h-[100%] w-full pointer-events-none transition-opacity bg-gradient-to-t from-purple-700 from-1% to-transparent to-90% rounded-full top-0
+        ${hoverEffect === true ? 'opacity-100' : 'opacity-0'}
+        `}
+        ></div>
       </div>
-      <div className="unitBars">
+
+      <div className="flex flex-col gap-1 mt-1">
         <Bar
           value={unit.updatedHealth}
           maxValue={unit.health * unit.maxStack}
@@ -139,28 +123,33 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           race={unit.type}
         />
       </div>
-      <div className="affectedContainer">
-        <span>{unit.cursed && 'CURSED: Will miss next attack'}</span>
-        <span className="benefical">
+
+      <div className="flex flex-col text-sm w-full">
+        <span className="text-red-600">
+          {unit.cursed && 'CURSED: Will miss next attack'}
+        </span>
+
+        <span className="text-green-400">
           {unit.vampiricHeal && 'VAMPIRIC: Heals with every hit'}
         </span>
-        <span>
+
+        <span className="text-red-600">
           {unit.weaknessDamage < 1 &&
             `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
         </span>
+
         <span>
           {unit.armor < unit.initialArmor &&
             `VULNERABLE: Lost ${(unit.initialArmor - unit.armor).toFixed(
               1
             )} armor`}
         </span>
-        <span>
+
+        <span className="text-red-600">
           {unit.magicResistance < 0 &&
-            `BREACHED: ${
-              unit.magicResistance * 10
-            }% against magic`}
+            `BREACHED: ${unit.magicResistance * 10}% against magic`}
         </span>
       </div>
-    </div>
+    </article>
   );
 };

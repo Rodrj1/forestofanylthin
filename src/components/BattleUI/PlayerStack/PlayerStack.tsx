@@ -10,10 +10,9 @@ import { SkillPreview } from '../../SkillPreview';
 interface Props {
   playerKey: number;
   setPlayerKey: React.Dispatch<React.SetStateAction<number>>;
-  BattleCSS: CSSModuleClasses;
 }
 
-const PlayerStack = ({ playerKey, setPlayerKey, BattleCSS }: Props) => {
+const PlayerStack = ({ playerKey, setPlayerKey }: Props) => {
   const { previewSkill, handleSkillPreview, handleExitSkillPreview } =
     useSkillPreview();
 
@@ -45,26 +44,39 @@ const PlayerStack = ({ playerKey, setPlayerKey, BattleCSS }: Props) => {
 
   return (
     <>
-      <div className={BattleCSS.army}>{showArmy}</div>
+      <div className="flex gap-1 w-full overflow-x-auto overflow-y-hidden justify-start md:justify-center">
+        {showArmy}
+      </div>
 
-      <div className={BattleCSS.playerSkills}>
-        {actionImage != '' && (
-          <div className={BattleCSS.action}>
-            <h3>Action</h3>
-            <img src={actionImage} />
-          </div>
-        )}
+      <div className="flex gap-7 items-center justify-start md:justify-center w-full overflow-x-auto">
+        {actionImage != '' && <img className="w-12 h-12" src={actionImage} />}
 
         {unitsInBoard[unitPosition]?.skills.map((skill) => (
-          <div className={BattleCSS.skill} key={skill.name}>
-            <div className={BattleCSS.skillIcon}>
-              <SkillIcon
-                skill={skill}
-                handleSkillPreview={handleSkillPreview}
-              />
-            </div>
+          <div
+            className="flex flex-col items-center justify-center gap-2 text-sm "
+            key={skill.name}
+          >
+            <SkillIcon skill={skill} handleSkillPreview={handleSkillPreview} />
+
             <button
-              key={skill.name}
+              className={`w-max bg-transparent border-transparent border-t-2 focus:border-emerald-300 focus:border-t hover:border
+              ${
+                skill.type === 'Destruction' &&
+                'text-orange-600 hover:border-orange-600'
+              }
+              ${skill.type === 'Combat' && 'text-red-100 hover:border-red-600'}
+              ${
+                skill.type === 'Dark Magic' &&
+                'text-purple-500 hover:border-purple-500'
+              }
+              ${
+                skill.type === 'Necromancy' &&
+                'text-yellow-300 hover:border-yellow-300'
+              }
+              ${
+                skill.formattedName === 'Ice Spear' &&
+                'text-sky-500 hover:border-sky-500'
+              }`}
               onClick={() => handleAction(skill.name, skill.image)}
             >
               {skill.formattedName}
