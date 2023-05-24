@@ -1,4 +1,4 @@
-import dryexaranger from "../../../assets/images/portraits/dryexa/dryexaranger.jpg";
+import dryexaranger from "../../../assets/images/portraits/dryexa/dryexaranger.webp";
 import dryexarangerFace from "../../../assets/images/portraits/dryexa/dryexarangerface.jpg";
 import attackranger from "../../../assets/sounds/attackranger.mp3";
 import hittedranger from "../../../assets/sounds/hittedranger.mp3";

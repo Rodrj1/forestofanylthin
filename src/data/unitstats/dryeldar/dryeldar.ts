@@ -6,13 +6,13 @@ import {
   weakness,
 } from '../../Skills/DarkMagic';
 import { iceSpear, rainOfFire } from '../../Skills/Destruction';
-import elisithPortrait from '../../../assets/images/portraits/dryeldar/elisith.jpg';
+import elisithPortrait from '../../../assets/images/portraits/dryeldar/elisith.webp';
 import elisithFace from '../../../assets/images/portraits/dryeldar/elisithface.jpg';
-import darkMatronPortrait from '../../../assets/images/portraits/dryeldar/darkmatron2.jpg';
+import darkMatronPortrait from '../../../assets/images/portraits/dryeldar/darkmatron2.webp';
 import darkMatronFace from '../../../assets/images/portraits/dryeldar/darkmatron2face.jpg';
-import twistedJinPortrait from '../../../assets/images/portraits/dryeldar/twistedjin.jpg';
+import twistedJinPortrait from '../../../assets/images/portraits/dryeldar/twistedjin.webp';
 import twistedJinFace from '../../../assets/images/portraits/dryeldar/twistedjinface.jpg';
-import enslavedroynisPortrait from '../../../assets/images/portraits/dryeldar/enslavedroynis.jpg';
+import enslavedroynisPortrait from '../../../assets/images/portraits/dryeldar/enslavedroynis.webp';
 import enslavedroynisFace from '../../../assets/images/portraits/dryeldar/enslavedroynisface.jpg';
 import attacksword from '../../../assets/sounds/attackroynis.mp3';
 import attacktwistedjin from '../../../assets/sounds/attacktwistedjin.mp3';

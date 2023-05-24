@@ -79,6 +79,7 @@ export const Unit = ({ unit }: Props) => {
         <img
           className={`object-cover h-full w-full object-top border border-zinc-700 p-1 cursor-pointer rounded-full`}
           src={unit.portrait}
+          alt={unit.name}
         />
 
         {unit.type != 'Hero' && (
