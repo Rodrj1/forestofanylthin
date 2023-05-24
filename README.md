@@ -1,55 +1,54 @@
 # React Minigame
 
-Very short game in which you have to win four battles.
-Link: https://reactanilthyn.netlify.app/
+Play: https://reactanilthyn.netlify.app/
 
 ## Hero Selection
 
-You can choose between undead or dryeldar.
+You can choose between two races: undead and dryeldar.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881593-d428d474-28a4-484f-a442-e06ba976d789.png)
+![her](https://user-images.githubusercontent.com/97490087/223304761-f0c4928a-5cd2-4a61-b785-d85575ce7ff7.png)
 
 ## Map
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881658-596b8e59-016d-4fd7-8634-7b9fcede6bb8.png)
+![map](https://user-images.githubusercontent.com/97490087/223305005-5733fbb8-faa2-4987-adae-d27e2248e4ce.png)
 
 Units can be previewed by clicking on their portrait both in the scouting zone and in battle afterwards.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881676-5d99b2fb-ed4a-4d17-aac5-c2679e70b536.png)
+![uprev](https://user-images.githubusercontent.com/97490087/223305282-c9fcc84f-fd3d-46a8-9eda-2e7e85fbdbd6.png)
 
 Levels can also be previewed by clicking on the Scout X button.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881699-934dd44b-3e95-4ff7-93bb-e7c81d7bee36.png)
+![zprev](https://user-images.githubusercontent.com/97490087/223305303-7c60511c-f12e-4b05-8168-ad3f472f33aa.png)
 
 There is a unit with an animated border. It merely provides a small background to the situation and has a bit of helpful information for increasing your armies.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881743-f5563e39-b1c7-4fb3-82db-b99fc38c5c33.png)
+![ydris](https://user-images.githubusercontent.com/97490087/223305490-6a87a5d5-a485-43d5-aa24-1fb21fa28037.png)
 
 ## Battle
 
-The player army is always on top and the enemy army at bottom. Turns of both player and enemies are displayed in the board above with a white border. In this case it's a unit called Twisted Jin. Just below the player army are shown the actions that this unit can take. This abilities will change to the ones each unit of the turn has (except enemies).
+The player army is always over the enemy army. Turns of both player and enemies are displayed in the board above with a white border. Just below the player army are shown the actions that this unit can take. This abilities will change to the ones each unit of the turn has (except enemies).
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881846-24247aca-6daf-4f1d-b49d-8e61d4d979c3.png)
+![anylthin](https://user-images.githubusercontent.com/97490087/223304539-4895ccc9-d7e0-4e5f-b561-8c5891e042c1.png)
 
-Skills can also be previewed by clicking on their icon.
+Current actions available:
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206881956-f131a454-1d06-4ee0-a47d-53d1cf117a04.png)
+![actions](https://user-images.githubusercontent.com/97490087/223306517-2b0af273-6246-4b4a-bc85-224dae011044.png)
 
-After selecting an ability by clicking on the button with its respecting name, an extra "Action Icon" will be displayed at the left of the abilities.
+Actions can also be previewed by clicking on their icon.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206882000-cd08828b-c306-43c5-9249-137f178e8c49.png)
+![spell](https://user-images.githubusercontent.com/97490087/223306351-0f7c78af-fff4-45c7-aa3f-a467b0c11233.png)
 
-With an ability or attack selected you can now choose between the enemy stack, or the player stack if it is a benefical ability, and cast the spell or attack.
+With an ability or attack selected you can now choose between the enemy stack, or the player stack if it is a benefical ability, and launch the action.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206882041-b444d297-9083-4efc-9836-6b0680c71f5e.png)
+![castspell](https://user-images.githubusercontent.com/97490087/223306921-c6084343-fbd0-41ed-b4ca-e04c4dac5b6e.png)
 
 The ability "Clear Action" is available to all units. This is to clear the selected action allowing you to preview the cards of the enemy stack which can contain useful information of the stack such as total damage. You CAN'T do this if you have any other action active, you will launch that action instead.
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206882113-e6e6d3ed-e102-4460-80e2-f3224700eb90.png)
+![unselected](https://user-images.githubusercontent.com/97490087/223307119-93c03228-69c0-4f4d-bc63-b04e33fe44c5.png)
 
-![Sin título](https://user-images.githubusercontent.com/97490087/206882103-63637372-a485-45a9-9336-96b9e9de3ec2.png)
+![selected](https://user-images.githubusercontent.com/97490087/223307138-356361d0-5e65-4363-bf36-f3923a6a4033.png)
 
-Given the size of the stack they both have different damage values. Unit preview by portrait only shows what an individual unit does and not the stack stats combined.
+Given the size of the stack they both have different damage values. Unit preview by portrait only shows individual unit stats, not the power of the stack.
 
 ## Endgame
 
