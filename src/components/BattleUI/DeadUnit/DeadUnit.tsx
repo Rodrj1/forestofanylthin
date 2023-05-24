@@ -14,7 +14,7 @@ const DeadUnit = ({ deadUnit }: Props) => {
       <h2 className="text-xl text-red-500">{deadUnit.name} died!</h2>
 
       <img
-        className="w-[200px] h-[200px] object-cover rounded-full p-1 border border-violet-900/70"
+        className="w-[200px] h-[200px] object-cover rounded-full p-1 border border-violet-900/70 object-top"
         src={deadUnit.portrait}
         alt={deadUnit.name}
       />

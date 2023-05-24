@@ -45,7 +45,7 @@ export const useBattleHandler = () => {
         setIsInLostGlade(true);
         setIsLostGladeCompleted(true);
         break;
-      case 'Sacre':
+      case 'Sacrelthar':
         setIsInSacre(true);
         setIsSacreCompleted(true);
         break;
@@ -88,6 +88,7 @@ export const useBattleHandler = () => {
       setUnitPosition(0);
       if (isInCemetery) {
         setLevelsCompleted((current) => current + 1);
+
         if (playerRace == 'undead') {
           restoreArmyAfterFightIsEnded().then((healedArmy) => {
             const areSkeletonsInArmy = healedArmy.find(
