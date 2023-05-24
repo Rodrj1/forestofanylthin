@@ -36,7 +36,7 @@ const UnitPreview = ({ previewUnit, handleExitUnitPreview }: Props) => {
         </h2>
       </div>
 
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-3 items-center justify-center">
         <div className="flex flex-col justify-center items-center">
           <img src={health} alt="health" className={"statStyle"} />
           <span>Health: {previewUnit.health}</span>

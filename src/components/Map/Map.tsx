@@ -33,27 +33,24 @@ const Map = ({
   const [currentLevel, setCurrentLevel] = useState('');
   const [enemiesInLevel, setEnemiesInLevel] = useState<Army>([]);
 
-  const handleAskIfLevel = (level: string) => {
+  const enemiesIn = {
+    Cemetery: cemetery,
+    'Lost Glade': lostGlade,
+    'Gloomy Forest': gloomyForest,
+    Sacrelthar: forgottenCrypt,
+  };
+
+  type Level = 'Cemetery' | 'Lost Glade' | 'Gloomy Forest' | 'Sacrelthar';
+
+  const handleAskIfLevel = (level: Level) => {
     setOpenLevelModal(true);
     setCurrentLevel(level);
 
-    switch (level) {
-      case 'Cemetery':
-        setEnemiesInLevel(cemetery);
-        break;
+    window.scrollTo(0, 0);
 
-      case 'Lost Glade':
-        setEnemiesInLevel(lostGlade);
-        break;
+    const enemiesForLevel = enemiesIn[level];
 
-      case 'Gloomy Forest':
-        setEnemiesInLevel(gloomyForest);
-        break;
-
-      case 'Sacrelthar':
-        setEnemiesInLevel(forgottenCrypt);
-        break;
-    }
+    setEnemiesInLevel(enemiesForLevel);
   };
 
   return (
