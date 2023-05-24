@@ -1,9 +1,9 @@
 import { useActionSound } from '../../../hooks';
-import { skill } from '../../../types';
+import { Skill } from '../../../types';
 
 interface Props {
-  skill: skill;
-  handleSkillPreview?: (skill: skill) => void;
+  skill: Skill;
+  handleSkillPreview?: (skill: Skill) => void;
 }
 
 const SkillIcon = ({ skill, handleSkillPreview }: Props) => {

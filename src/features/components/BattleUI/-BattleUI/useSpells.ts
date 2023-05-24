@@ -24,7 +24,7 @@ export const useSpells = () => {
         else removeCurse(attackingUnit, setEnemyArmy);
       }
 
-      setAction('');
+      setAction('Combat: Clear Action');
 
       attackDamage(attackedUnit, attackingUnit, damage).then(async (unit) => {
         resolve(unit);
@@ -99,7 +99,7 @@ export const useSpells = () => {
         power = 1 + 0.7 * castingUnit.stack + castingUnit.level / 2;
       }
 
-      setAction('');
+      setAction('Combat: Clear Action');
 
       const updateVulneredUnit = {
         ...targetUnit,
@@ -117,7 +117,7 @@ export const useSpells = () => {
     new Promise<Unit>((resolve) => {
       const power = 4;
 
-      setAction('');
+      setAction('Combat: Clear Action');
 
       const updateBreachedUnit = {
         ...targetUnit,
@@ -141,7 +141,7 @@ export const useSpells = () => {
         power = 0.8 - 0.03 * castingUnit.stack - castingUnit.level * 0.05;
       }
 
-      setAction('');
+      setAction('Combat: Clear Action');
 
       const updateTargetUnit = {
         ...targetUnit,
@@ -171,7 +171,7 @@ export const useSpells = () => {
 
   const castReanimate = (castingUnit: Unit, targetUnit: Unit) =>
     new Promise<Unit>(async (resolve) => {
-      setAction('');
+      setAction('Combat: Clear Action');
 
       const getMaxHealth = targetUnit.maxHealth - targetUnit.updatedHealth;
       const getNewDamage = Math.ceil(getMaxHealth / targetUnit.damage);
@@ -192,7 +192,7 @@ export const useSpells = () => {
 
   const castVampiricLust = (castingUnit: Unit, targetUnit: Unit) =>
     new Promise<Unit>(async (resolve) => {
-      setAction('');
+      setAction('Combat: Clear Action');
 
       const updateTargetUnit = {
         ...targetUnit,
@@ -220,7 +220,7 @@ export const useSpells = () => {
         power = 10 + 3 * castingUnit.stack + castingUnit.level * 3;
       }
 
-      setAction('');
+      setAction('Combat: Clear Action');
 
       if (castingUnit.belongsTo == 'player') {
         updateUnitInArmy(castingUnit, setPlayerArmy, 10);

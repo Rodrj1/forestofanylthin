@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { BattleContext } from '../../../../context/BattleContext';
-import { skill, Army, Unit } from '../../../../types';
+import { Skill, Army, Unit } from '../../../../types';
 import { useSpells } from './useSpells';
 import {
   breachResistances,
@@ -169,8 +169,8 @@ export const useBattle = () => {
 
   const handleAction = (
     action: string,
-    skillDescription: skill['description'],
-    skillImage: skill["image"],
+    skillDescription: Skill['description'],
+    skillImage: Skill["image"],
     targetUnit: Unit,
     fn: (attackingUnit: Unit, attackedUnit: Unit) => Promise<Unit>,
     actionSound?: () => void

@@ -1,8 +1,8 @@
-import { skill } from '../../types';
+import { Skill } from '../../types';
 import SkillIcon from './SkillIcon/SkillIcon';
 
 interface Props {
-  previewSkill: skill;
+  previewSkill: Skill;
   handleExitSkillPreview: () => void;
 }
 

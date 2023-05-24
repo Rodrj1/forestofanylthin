@@ -4,6 +4,7 @@ import attackranger from "../../../assets/sounds/attackranger.mp3";
 import hittedranger from "../../../assets/sounds/hittedranger.mp3";
 import deathranger from "../../../assets/sounds/deathranger.mp3";
 import { attack, clear } from "../../Skills/Combat";
+import { UnitStats } from "../../../types";
 
 const attackRanger = () => {
   new Audio(attackranger).play();
@@ -17,7 +18,7 @@ const deathRanger = () => {
   new Audio(deathranger).play();
 };
 
-export const dryexaRanger = {
+export const dryexaRanger: UnitStats = {
   name: "Dryexa Ranger",
   id: "Dryexa Ranger",
   type: "Dryexa",
@@ -42,4 +43,6 @@ export const dryexaRanger = {
   soundAttack: attackRanger,
   soundHitted: hittedRanger,
   soundDeath: deathRanger,
+  updatedDamage: 12,
+  updatedHealth: 13,
 };
