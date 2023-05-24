@@ -6,61 +6,42 @@ import { Bar } from '../Bar';
 
 interface Props {
   unit: UnitStats;
-  isInHeroSelection?: boolean;
 }
 
-export const Unit = ({ unit, isInHeroSelection }: Props) => {
+const spellsCost = {
+  'Combat: Attack': 0,
+  'Combat: Clear Action': 0,
+  'Dark Magic: Curse': 4,
+  'Dark Magic: Weakness': 2,
+  'Dark Magic: Shatter Armor': 3,
+  'Dark Magic: Breach Resistances': 3,
+  'Destruction: Rain of Fire': 10,
+  'Destruction: Ice Spear': 7,
+  'Necromancy: Reanimate': 6,
+  'Necromancy: Vampiric Lust': 6,
+};
+
+export const Unit = ({ unit }: Props) => {
   const { selectUnit } = useBattle();
   const { action, turn, unitsInBoard, unitPosition, setMagicUsedInTurn } =
     useContext(BattleContext);
 
-  const checkActionRequirement = () => {
-    const playingUnit = unitsInBoard[unitPosition];
-    switch (action) {
-      case 'Dark Magic: Curse':
-        if (playingUnit.magic >= 4) {
-          setMagicUsedInTurn(4);
-          selectUnit(unit);
-        }
-        break;
-      case 'Dark Magic: Weakness':
-        if (playingUnit.magic >= 2) {
-          selectUnit(unit);
-          setMagicUsedInTurn(2);
-        }
-        break;
-      case 'Dark Magic: Shatter Armor':
-        if (playingUnit.magic >= 3) {
-          selectUnit(unit);
-          setMagicUsedInTurn(3);
-        }
-        break;
-      case 'Dark Magic: Breach Resistances':
-        if (playingUnit.magic >= 3) {
-          selectUnit(unit);
-          setMagicUsedInTurn(3);
-        }
-        break;
-      case 'Destruction: Rain of Fire':
-        if (playingUnit.magic >= 10) {
-          selectUnit(unit);
-          setMagicUsedInTurn(10);
-        }
-        break;
-      case 'Destruction: Ice Spear':
-        if (playingUnit.magic >= 7) {
-          selectUnit(unit);
-          setMagicUsedInTurn(7);
-        }
-        break;
-      default:
-        selectUnit(unit);
-        break;
+  const handleActionRequirement = () => {
+    const playingUnitMagic = unitsInBoard[unitPosition].magic;
+
+    const cost = spellsCost[action];
+
+    if (playingUnitMagic >= cost) {
+      setMagicUsedInTurn(cost);
+
+      selectUnit(unit);
     }
   };
 
   const handleSelectUnit = () => {
-    if (turn == 'player' && unit.belongsTo == 'player') {
+    const targetUnitBenefical = unit.belongsTo == 'player';
+
+    if (turn == 'player' && targetUnitBenefical) {
       if (
         action == 'Necromancy: Reanimate' ||
         action == 'Necromancy: Vampiric Lust'
@@ -70,14 +51,15 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
           setMagicUsedInTurn(6);
         }
     }
+
     if (
-      action != '' &&
+      action != 'Combat: Clear Action' &&
       action != 'Necromancy: Reanimate' &&
       action != 'Necromancy: Vampiric Lust' &&
       turn == 'player' &&
       unit.belongsTo == 'enemy'
     ) {
-      checkActionRequirement();
+      handleActionRequirement();
     }
   };
 
@@ -138,7 +120,7 @@ export const Unit = ({ unit, isInHeroSelection }: Props) => {
             `WEAKENED: Deals ${unit.weaknessDamage.toFixed(1)}% damage`}
         </span>
 
-        <span>
+        <span className="text-red-600">
           {unit.armor < unit.initialArmor &&
             `VULNERABLE: Lost ${(unit.initialArmor - unit.armor).toFixed(
               1

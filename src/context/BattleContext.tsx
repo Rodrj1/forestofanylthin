@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { skill, Unit, Army } from '../types';
+import { skill, Unit, Army, ActionName } from '../types';
 
 interface ProviderProps {
   children: JSX.Element;
@@ -12,8 +12,8 @@ interface BattleContextProps {
   setPlayerRace: React.Dispatch<React.SetStateAction<string>>;
   turn: string;
   setTurn: React.Dispatch<React.SetStateAction<string>>;
-  action: string;
-  setAction: React.Dispatch<React.SetStateAction<string>>;
+  action: ActionName;
+  setAction: React.Dispatch<React.SetStateAction<ActionName>>;
   playerArmy: Army;
   setPlayerArmy: React.Dispatch<React.SetStateAction<Army>>;
   enemyArmy: Army;
@@ -59,7 +59,7 @@ export const BattleContextProvider = ({ children }: ProviderProps) => {
   const [addedSkeletons, setAddedSkeletons] = useState(false);
 
   const [isInFight, setIsInFight] = useState<boolean>(false);
-  const [action, setAction] = useState('');
+  const [action, setAction] = useState<ActionName>('Combat: Clear Action');
   const [turn, setTurn] = useState('');
   const [playingUnit, setPlayingUnit] = useState<Unit>({} as Unit);
   const [targetUnit, setTargetUnit] = useState<Unit>({} as Unit);

@@ -65,18 +65,21 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
 
       {isVisible && (
         <DarkBackgroundWrapper>
-            <DialogueBox
-              race={race}
-              image={ydris}
-              handleVisibility={handleVisibility}
-            />
+          <DialogueBox
+            race={race}
+            image={ydris}
+            handleVisibility={handleVisibility}
+          />
         </DarkBackgroundWrapper>
       )}
 
       {addedDryexaRanger && (
         <DarkBackgroundWrapper>
-          <div className="PlayerUICSS.dialogue}">
-            <img src={dryexarangerFace} />
+          <div className="flex flex-col p-3 w-[95%] sm:w-[350px] gap-2 items-center justify-center bg-zinc-900/80 border-[6px] border-double border-violet-900/70">
+            <img
+              className="object-cover h-[140px] w-[140px] rounded-full border border-zinc-600 p-1"
+              src={dryexarangerFace}
+            />
             <h3>You gained 14 dryexa rangers.</h3>
             <button onClick={() => setAddedDryexaRanger(false)}>CLOSE</button>
           </div>
@@ -85,8 +88,11 @@ const PlayerUI = ({ playerArmy, race }: Props) => {
 
       {addedSkeletons && (
         <DarkBackgroundWrapper>
-          <div className="{PlayerUICSS.dialogue}">
-            <img src={skeletonFace} />
+          <div className="flex flex-col p-3 w-[95%] sm:w-[350px] gap-2 items-center justify-center bg-zinc-900/80 border-[6px] border-double border-violet-900/70">
+            <img
+              className="object-cover h-[140px] w-[140px] rounded-full border border-zinc-600 p-1"
+              src={skeletonFace}
+            />
             <h3>You gained 40 skeletons.</h3>
             <button onClick={() => setAddedSkeletons(false)}>CLOSE</button>
           </div>

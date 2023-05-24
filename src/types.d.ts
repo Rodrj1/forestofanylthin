@@ -19,7 +19,7 @@ export interface UnitStats {
   damage: number;
   initialArmor: number;
   armor: number;
-  magicResistance: number,
+  magicResistance: number;
   magic: number;
   maxMagic: number;
   initiative: string;
@@ -37,6 +37,18 @@ export interface UnitStats {
   spellpower?: number;
   level?: number;
 }
+
+export type ActionName =
+  | 'Combat: Clear Action'
+  | 'Combat: Attack'
+  | 'Dark Magic: Curse'
+  | 'Dark Magic: Weakness'
+  | 'Dark Magic: Shatter Armor'
+  | 'Dark Magic: Breach Resistances'
+  | 'Destruction: Rain of Fire'
+  | 'Destruction: Ice Spear'
+  | 'Necromancy: Reanimate'
+  | 'Necromancy: Vampiric Lust';
 
 export type Army = UnitStats[];
 export type Unit = UnitStats;

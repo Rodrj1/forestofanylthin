@@ -4,7 +4,7 @@
 
 @layer base {
   button {
-    @apply bg-gray-800/50 transition-colors border border-transparent border-t-4 border-t-violet-700 px-10 h-[40px] hover:border-white hover:border hover:border-t-4;
+    @apply bg-gray-800/50 transition-colors border border-transparent border-t-4 border-t-violet-700 px-10 h-[40px] hover:border-white hover:border hover:border-t-4 focus:border-gray-400;
   }
 }
 
@@ -18,7 +18,6 @@
   --font-medium: .9rem;
   --font-large: 1.33rem;
 
-  color-scheme: light dark;
   color: #d5d6db;
   background-color: #1a1b26;
   font-synthesis: none;
@@ -46,25 +45,4 @@ body {
   place-items: center;
   min-height: 100%;
   min-width: 280px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 767px) {
-  button {
-    height: 50px;
-  }
 }

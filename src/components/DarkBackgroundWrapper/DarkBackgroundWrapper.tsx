@@ -1,4 +1,4 @@
-import BGCSS from "./style.module.scss";
+import BGCSS from "./style.module.css";
 
 interface Props {
   children: JSX.Element;

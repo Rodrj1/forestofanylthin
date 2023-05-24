@@ -30,7 +30,7 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
       <div className="flex flex-wrap justify-center gap-2">
         {playerDryeldar?.map((dryeldar) => (
           <div key={dryeldar.id} onClick={() => handleUnitPreview(dryeldar)}>
-            <Unit isInHeroSelection={true} unit={dryeldar} />
+            <Unit unit={dryeldar} />
           </div>
         ))}
       </div>
@@ -42,7 +42,7 @@ const HeroSelection = ({ setIsPlaying }: Props) => {
       <div className="flex flex-wrap justify-center gap-2">
         {playerUndead?.map((undead) => (
           <div key={undead.id} onClick={() => handleUnitPreview(undead)}>
-            <Unit isInHeroSelection={true} unit={undead} />
+            <Unit unit={undead} />
           </div>
         ))}
       </div>

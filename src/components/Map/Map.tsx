@@ -63,7 +63,7 @@ const Map = ({
           <h2 className="text-red-500">CEMETERY</h2>
 
           <img
-            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1"
+            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1 hover:p-0 transition-all"
             src={lvlcemetery}
             onClick={() => handleAskIfLevel('Cemetery')}
           />
@@ -82,7 +82,7 @@ const Map = ({
           <h2 className="text-red-500">LOST GLADE</h2>
 
           <img
-            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1"
+            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1 hover:p-0 transition-all"
             src={lvlLostGlade}
             onClick={() => handleAskIfLevel('Lost Glade')}
           />
@@ -101,7 +101,7 @@ const Map = ({
           <h2 className="text-red-500">GLOOMY FOREST</h2>
 
           <img
-            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1"
+            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1 hover:p-0 transition-all"
             src={lvlgloomyforest}
             onClick={() => handleAskIfLevel('Gloomy Forest')}
           />
@@ -120,7 +120,7 @@ const Map = ({
           <h2 className="text-red-500">SACRELTHAR</h2>
 
           <img
-            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1"
+            className="h-[200px] w-[200px] object-cover cursor-pointer border border-zinc-600 p-1 hover:p-0 transition-all"
             src={lvlsacre}
             onClick={() => handleAskIfLevel('Sacrelthar')}
           />
