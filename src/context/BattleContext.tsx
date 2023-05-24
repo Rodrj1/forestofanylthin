@@ -34,8 +34,8 @@ interface BattleContextProps {
   setShowBattleMessage: React.Dispatch<React.SetStateAction<boolean>>;
   battleMessageText: string;
   setBattleMessageText: React.Dispatch<React.SetStateAction<string>>;
-  actionImage: skill;
-  setActionImage: React.Dispatch<React.SetStateAction<skill>>;
+  actionImage: skill["image"];
+  setActionImage: React.Dispatch<React.SetStateAction<skill["image"]>>;
   addedDryexaRanger: boolean;
   setAddedDryexaRanger: React.Dispatch<React.SetStateAction<boolean>>;
   addedSkeletons: boolean;
@@ -65,7 +65,7 @@ export const BattleContextProvider = ({ children }: ProviderProps) => {
   const [targetUnit, setTargetUnit] = useState<Unit>({} as Unit);
   const [deadUnit, setDeadUnit] = useState<Unit>({} as Unit);
 
-  const [actionImage, setActionImage] = useState<skill>({} as skill);
+  const [actionImage, setActionImage] = useState<skill["image"]>("");
   const [battleMessageText, setBattleMessageText] = useState('');
   const [showBattleMessage, setShowBattleMessage] = useState(false);
   const [isDamaging, setIsDamaging] = useState(false);

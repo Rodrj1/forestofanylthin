@@ -8,7 +8,7 @@ import { HeroSelection } from './components/HeroSelection';
 import { WinOrDefeat } from './components/WinOrDefeat';
 import { ZonePreview } from './components/ZonePreview';
 import { Map } from './components/Map';
-import './App.scss';
+import './App.css';
 
 function App() {
   const { playerRace, isInFight, playerArmy } = useContext(BattleContext);

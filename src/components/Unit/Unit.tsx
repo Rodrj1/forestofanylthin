@@ -11,25 +11,25 @@ interface Props {
   unit: UnitStats;
 }
 
-const spellsCost = {
-  'Combat: Attack': 0,
-  'Combat: Clear Action': 0,
-  'Dark Magic: Curse': 4,
-  'Dark Magic: Weakness': 2,
-  'Dark Magic: Shatter Armor': 3,
-  'Dark Magic: Breach Resistances': 3,
-  'Destruction: Rain of Fire': 10,
-  'Destruction: Ice Spear': 7,
-  'Necromancy: Reanimate': 6,
-  'Necromancy: Vampiric Lust': 6,
-};
-
 export const Unit = ({ unit }: Props) => {
   const { selectUnit } = useBattle();
   const { action, turn, unitsInBoard, unitPosition, setMagicUsedInTurn } =
     useContext(BattleContext);
 
   const handleActionRequirement = () => {
+    const spellsCost = {
+      'Combat: Attack': 0,
+      'Combat: Clear Action': 0,
+      'Dark Magic: Curse': 4,
+      'Dark Magic: Weakness': 2,
+      'Dark Magic: Shatter Armor': 3,
+      'Dark Magic: Breach Resistances': 3,
+      'Destruction: Rain of Fire': 10,
+      'Destruction: Ice Spear': 7,
+      'Necromancy: Reanimate': 6,
+      'Necromancy: Vampiric Lust': 6,
+    };
+
     const playingUnitMagic = unitsInBoard[unitPosition].magic;
 
     const cost = spellsCost[action];
