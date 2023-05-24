@@ -77,8 +77,7 @@ export const useBattle = () => {
       case 'Combat: Attack':
         handleAction(
           'attack',
-          attack.description,
-          attack.image,
+          attack,
           selectedUnit,
           attackUnit,
           undefined
@@ -87,8 +86,7 @@ export const useBattle = () => {
       case 'Dark Magic: Weakness':
         handleAction(
           'weakness',
-          weakness.description,
-          weakness.image,
+          weakness,
           selectedUnit,
           castWeakness,
           spellSounds.weakness
@@ -97,8 +95,7 @@ export const useBattle = () => {
       case 'Dark Magic: Shatter Armor':
         handleAction(
           'shatter armor',
-          shatterArmor.description,
-          shatterArmor.image,
+          shatterArmor,
           selectedUnit,
           castShatterArmor,
           spellSounds.shatterArmor
@@ -107,8 +104,7 @@ export const useBattle = () => {
       case 'Dark Magic: Curse':
         handleAction(
           'curse',
-          curse.description,
-          curse.image,
+          curse,
           selectedUnit,
           castCurse,
           spellSounds.curse
@@ -117,8 +113,7 @@ export const useBattle = () => {
       case 'Dark Magic: Breach Resistances':
         handleAction(
           'breach resistances',
-          breachResistances.description,
-          breachResistances.image,
+          breachResistances,
           selectedUnit,
           castBreachResistances,
           spellSounds.breachResistances
@@ -127,8 +122,7 @@ export const useBattle = () => {
       case 'Necromancy: Reanimate':
         handleAction(
           'reanimate',
-          reanimate.description,
-          reanimate.image,
+          reanimate,
           selectedUnit,
           castReanimate,
           spellSounds.reanimate
@@ -137,8 +131,7 @@ export const useBattle = () => {
       case 'Necromancy: Vampiric Lust':
         handleAction(
           'vampiric lust',
-          vampiricLust.description,
-          vampiricLust.image,
+          vampiricLust,
           selectedUnit,
           castVampiricLust,
           spellSounds.vampiricLust
@@ -147,8 +140,7 @@ export const useBattle = () => {
       case 'Destruction: Rain of Fire':
         handleAction(
           'rain of fire',
-          rainOfFire.description,
-          rainOfFire.image,
+          rainOfFire,
           selectedUnit,
           castRainOfFire,
           spellSounds.rainOfFire
@@ -157,8 +149,7 @@ export const useBattle = () => {
       case 'Destruction: Ice Spear':
         handleAction(
           'ice spear',
-          iceSpear.description,
-          iceSpear.image,
+          iceSpear,
           selectedUnit,
           castIceSpear,
           spellSounds.iceSpear
@@ -169,8 +160,7 @@ export const useBattle = () => {
 
   const handleAction = (
     action: string,
-    skillDescription: Skill['description'],
-    skillImage: Skill["image"],
+    skillDescription: Skill,
     targetUnit: Unit,
     fn: (attackingUnit: Unit, attackedUnit: Unit) => Promise<Unit>,
     actionSound?: () => void
@@ -187,7 +177,7 @@ export const useBattle = () => {
 
       setPlayingUnit(playingUnit);
       setTargetUnit(targetUnit);
-      setActionImage(skillImage);
+      setActionImage(skillDescription);
       setBattleMessageText(message);
       setShowBattleMessage(true);
 
